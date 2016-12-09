@@ -9,6 +9,11 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
+struct circuitPieces {
+	p2DynArray<PhysBody3D*>		PhysBodies;
+	p2DynArray<Cube>			PrimBodies;
+};
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -22,14 +27,6 @@ public:
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
 public:
-	/*
-	PhysBody3D* pb_snake[MAX_SNAKE];
-	Sphere s_snake[MAX_SNAKE];
-
-	PhysBody3D* pb_snake2[MAX_SNAKE];
-	Sphere s_snake2[MAX_SNAKE];
-	*/
-
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
 
@@ -41,4 +38,9 @@ public:
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
+
+	// Circuit Creation Functions
+	void CreateCircuitLine(const vec3 init, const vec3 last, int interval = 1);
+public:
+	circuitPieces pieces;
 };

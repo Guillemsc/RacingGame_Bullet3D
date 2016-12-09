@@ -220,7 +220,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
 
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, Module* listener, bool sensor)
 {
 	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x*0.5f, cube.size.y*0.5f, cube.size.z*0.5f));
 	shapes.add(colShape);
@@ -229,7 +229,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 	startTransform.setFromOpenGLMatrix(&cube.transform);
 
 	btVector3 localInertia(0, 0, 0);
-	if(mass != 0.f)
+	if (mass != 0.f)
 		colShape->calculateLocalInertia(mass, localInertia);
 
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
@@ -239,6 +239,12 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
 
+	pbody->IsSensor = sensor;
+	if (pbody->IsSensor == true)
+		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	else
+		body->setCollisionFlags(body->getCollisionFlags() &~btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	pbody->collision_listeners.add(listener);
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.add(pbody);

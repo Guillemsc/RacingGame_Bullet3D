@@ -21,7 +21,7 @@ public:
 
 private:
 	btRigidBody* body = nullptr;
-
+	bool IsSensor;
 public:
 	p2List<Module*> collision_listeners;
 };
