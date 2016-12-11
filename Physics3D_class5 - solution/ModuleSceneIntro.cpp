@@ -17,12 +17,13 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(20.0f, 30.0f, 5.0f));
+	App->camera->Move(vec3(0, 70, 0));
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	// Circuit
 	CreateCircuitLine({ 0, 0, 0 }, { 0, 0, 30 }, 50);
-
+	CreateCircuitCorner({ -15, 0, 50}, {7.5f, 0, 50 }, 15);
+	CreateCircuitLine({ 7.5f, 0, 57.5f }, { 50, 0, 57.5f }, 20);
 	return ret;
 }
 
@@ -67,12 +68,11 @@ void ModuleSceneIntro::CreateCircuitLine(const vec3 init, const vec3 last, int i
 	vec3 pos;
 	vec3 dim(1, 3, 1);
 
-	Cube c;
+	Cube c(dim.x, dim.y, dim.z);
 	c.color = Black;
-	c.size = { dim.x, dim.y, dim.z };
 
 	for (uint i = 0; i < interval; ++i) {
-		c.color = i % 2 ? Orange : Black;
+		c.color = i % 2 ? White : Black;
 		pos = (init + (direction * i)) + ((15.0f / 2) * perpendicular);
 		c.SetPos(pos.x, pos.y + 1, pos.z);
 		pieces.PrimBodies.PushBack(c);
@@ -83,6 +83,39 @@ void ModuleSceneIntro::CreateCircuitLine(const vec3 init, const vec3 last, int i
 		pieces.PrimBodies.PushBack(c);
 		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
 	}
-
-
 }
+
+void ModuleSceneIntro::CreateCircuitCorner(const vec3 init, const vec3 last, int interval)
+{
+	float distance = sqrt(pow(last.x - init.x, 2) + pow(last.y - init.y, 2) + pow(last.z - init.z, 2));
+
+	vec3 direction = last - init;
+	float direction_module = sqrt(pow(direction.x, 2) + pow(direction.y, 2) + pow(direction.z, 2));
+	direction /= direction_module;
+
+	vec3 perpendicular = { -direction.z, 0, direction.x };
+	float prependicular_module = sqrt(pow(perpendicular.x, 2) + pow(perpendicular.y, 2) + pow(perpendicular.z, 2));
+	perpendicular /= prependicular_module;
+
+	vec3 pos;
+	vec3 dim(1, 3, 1);
+
+	Cube c(dim.x, dim.y, dim.z);
+	c.color = Black;
+
+	for (uint i = 0; i < interval; ++i) {
+		c.color = i % 2 ? Green : Orange;
+		pos = (init + (direction * i)) + ((15.0f / 2) * perpendicular);
+		c.SetPos(pos.x + interval/2 + .5f, pos.y + 1, pos.z + interval/2 + .5f);
+		pieces.PrimBodies.PushBack(c);
+		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
+
+
+		pos = (init + (perpendicular * i)) + ((15.0f / 2) * direction);
+		c.SetPos(pos.x, 1, pos.z);
+		pieces.PrimBodies.PushBack(c);
+		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
+	}
+}
+
+

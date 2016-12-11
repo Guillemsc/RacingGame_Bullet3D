@@ -41,6 +41,7 @@ public:
 
 	// Circuit Creation Functions
 	void CreateCircuitLine(const vec3 init, const vec3 last, int interval = 1);
+	void CreateCircuitCorner(const vec3 init, const vec3 last, int interval = 1);
 public:
 	circuitPieces pieces;
 };
