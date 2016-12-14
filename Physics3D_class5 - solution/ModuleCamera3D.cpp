@@ -42,7 +42,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	// Follow code
-	if (following != nullptr)
+	if (following != nullptr && !App->physics->debug)
 	{
 		mat4x4 m;
 		following->GetTransform(&m);
@@ -63,12 +63,10 @@ update_status ModuleCamera3D::Update(float dt)
 		if (dist < min_following_dist)
 		{
 			smooth = 0.15*(min_following_dist - dist) / dist;
-			LOG("min");
 		}
 		else if (dist > max_following_dist)
 		{
 			smooth = 0.15*(max_following_dist - dist) / dist;
-			LOG("max");
 		}
 
 		Position -= smooth * cam_to_target;
