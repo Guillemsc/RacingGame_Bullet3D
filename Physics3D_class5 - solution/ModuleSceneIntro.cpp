@@ -49,8 +49,21 @@ bool ModuleSceneIntro::Start()
 	}
 	// Recta
 	{
-		CreateCircuitPoint({30, 1, 63 }, 10, -0);
+		CreateCircuitPoint({35, 1, 63 }, 10, -0);
 	}
+	// Rampa
+	{
+		CreateCircuitPoint({ 40, 4, 63 }, 10, 0);
+		CreateCircuitPoint({ 45, 5, 63 }, 10, 0);
+		CreateCircuitPoint({ 48, 7, 63 }, 10, 0);
+		CreateCircuitPoint({ 53, 9, 63 }, 10, 0);
+		CreateCircuitPoint({ 63, 11, 63 }, 10, 0);
+		CreateElevation({ 40, 1, 58 }, 10, 10, 20);
+		CreateElevation({ 48, 4.5f, 58 }, 10, 10, 30);
+		CreateElevation({ 57, 7.7f, 58 }, 10, 10, 10);
+	}
+	// Elevacio
+	CreateElevation({ 87, 8.5f, 58 }, 50, 50, 0);
 
 
 	JoinCircuitPoints();
@@ -186,8 +199,22 @@ void ModuleSceneIntro::CreateCircuitPoint(const vec3 init, int distance_between,
 
 }
 
-void ModuleSceneIntro::CreateElevation(const vec3 init, int distance_between, float angle)
+void ModuleSceneIntro::CreateElevation(const vec3 init, int size_x, int size_y, float angle, bool which_side)
 {
+	vec3 pos = init;
+
+	Cube c(size_x, 1, size_y);
+	c.color = Orange;
+
+	c.SetPos(pos.x, pos.y, pos.z);
+
+	if(which_side)
+		c.SetRotation(angle, vec3(1, 0, 0));
+	else
+		c.SetRotation(angle, vec3(0, 0, 1));
+
+	pieces.PrimBodies.PushBack(c);
+	pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
 }
 
 void ModuleSceneIntro::JoinCircuitPoints()

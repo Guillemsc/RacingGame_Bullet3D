@@ -50,7 +50,8 @@ update_status ModuleCamera3D::Update(float dt)
 		LookAt(m.translation());
 
 		// Height
-		Position.y = (following_height);
+		float* matrix;
+		Position.y = following_height + m.translation().y;
 
 		// Distance from camera to target vct3
 		vec3 cam_to_target = m.translation() - Position;

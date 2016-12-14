@@ -53,8 +53,9 @@ public:
 	void CreateCircuitLine(const vec3 init, const vec3 last, int interval = 1);
 	void CreateCircuitCorner(const vec3 init, const vec3 last, int interval = 1);
 
+	// Circuit Creation Functions 2
 	void CreateCircuitPoint(const vec3 init, int distance_between, float angle, float platform_y = 0, float platform_x = 10);
-	void CreateElevation(const vec3 init, int distance_between, float angle);
+	void CreateElevation(const vec3 init, int size_x, int size_y, float angle, bool which_side = false);
 	void JoinCircuitPoints();
 
 	p2List2<circuitPoints> circuit_points;
