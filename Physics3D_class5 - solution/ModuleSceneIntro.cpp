@@ -27,7 +27,7 @@ bool ModuleSceneIntro::Start()
 	CreateCircuitLine({ 7.5f, 0, 57.5f }, { 50, 0, 57.5f }, 45);
 
 	CreateCircuitPoint({ 50, 1, 1 }, 10, 60);
-	CreateCircuitPoint({ 30, 1, 20 }, 10, 100);
+	CreateCircuitPoint({ 30, 1, 20 }, 15, 100);
 	CreateCircuitPoint({ 50, 1, 30 }, 10, 160);
 
 	JoinCircuitPoints();
