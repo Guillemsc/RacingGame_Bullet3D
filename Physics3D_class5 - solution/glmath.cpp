@@ -617,16 +617,16 @@ mat4x4& mat4x4::rotate(float angle, const vec3 &u)
 
 	float c = 1.0f - cos(angle), s = sin(angle);
 
-	M[0] = 1.0f + c * (v.x * v.x - 1.0f);
-	M[1] = c * v.x * v.y + v.z * s;
-	M[2] = c * v.x * v.z - v.y * s;
-	M[4] = c * v.x * v.y - v.z * s;
-	M[5] = 1.0f + c * (v.y * v.y - 1.0f);
-	M[6] = c * v.y * v.z + v.x * s;
-	M[8] = c * v.x * v.z + v.y * s;
-	M[9] = c * v.y * v.z - v.x * s;
-	M[10] = 1.0f + c * (v.z * v.z - 1.0f);
-
+		M[0] = 1.0f + c * (v.x * v.x - 1.0f);
+		M[1] = c * v.x * v.y + v.z * s;
+		M[2] = c * v.x * v.z - v.y * s;
+		M[4] = c * v.x * v.y - v.z * s;
+		M[5] = 1.0f + c * (v.y * v.y - 1.0f);
+		M[6] = c * v.y * v.z + v.x * s;
+		M[8] = c * v.x * v.z + v.y * s;
+		M[9] = c * v.y * v.z - v.x * s;
+		M[10] = 1.0f + c * (v.z * v.z - 1.0f);
+	
 	return *this;
 }
 

@@ -20,7 +20,8 @@ struct circuitPoints
 {
 	vec3 first;
 	vec3 second;
-	float angle;
+	float platform_x;
+	float platform_y;
 };
 
 class ModuleSceneIntro : public Module
@@ -52,7 +53,8 @@ public:
 	void CreateCircuitLine(const vec3 init, const vec3 last, int interval = 1);
 	void CreateCircuitCorner(const vec3 init, const vec3 last, int interval = 1);
 
-	void CreateCircuitPoint(const vec3 init, int distance_between, float angle);
+	void CreateCircuitPoint(const vec3 init, int distance_between, float angle, float platform_y = 0, float platform_x = 10);
+	void CreateElevation(const vec3 init, int distance_between, float angle);
 	void JoinCircuitPoints();
 
 	p2List2<circuitPoints> circuit_points;
