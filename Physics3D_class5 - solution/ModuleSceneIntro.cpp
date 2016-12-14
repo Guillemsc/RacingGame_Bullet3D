@@ -63,7 +63,45 @@ bool ModuleSceneIntro::Start()
 		CreateElevation({ 57, 7.7f, 58 }, 10, 10, 10);
 	}
 	// Elevacio
-	CreateElevation({ 87, 8.5f, 58 }, 50, 50, 0);
+	{
+		CreateCircuitPoint({ 115, 11, 63 }, 10, 0);
+		CreateElevation({ 87, 8.5f, 58 }, 50, 30, 0);
+	}
+	// Baixada
+	{
+		CreateCircuitPoint({ 120, 8, 63 }, 10, 0);
+		CreateCircuitPoint({ 125, 7.3f, 63 }, 10, 0);
+		CreateCircuitPoint({ 130, 5, 63 }, 10, 0);
+		CreateCircuitPoint({ 135, 4, 63 }, 10, 0);
+		CreateCircuitPoint({ 140, 2, 63 }, 10, 0);
+		CreateCircuitPoint({ 160, 1, 63 }, 13, 0);
+		CreateElevation({ 117, 7.7f, 58 }, 10, 10, -10);
+		CreateElevation({ 126.5f, 5.1f, 58 }, 10, 10, -20);
+		CreateElevation({ 135.7f, 1.7f, 58 }, 10, 10, -20);
+		CreateElevation({ 144.7f, -0.3f, 58 }, 10, 10, -5);
+	}
+	// Gir Esquerra
+	{
+		CreateCircuitPoint({ 167, 1, 60 }, 13, 5);
+		CreateCircuitPoint({ 174, 1, 56 }, 15, 15);
+		CreateCircuitPoint({ 180, 1, 53 }, 18, 30);
+		CreateCircuitPoint({ 185, 1, 48 }, 18, 50);
+		CreateCircuitPoint({ 190, 1, 35 }, 20, 60);
+		CreateCircuitPoint({ 190, 1, 25 }, 16, 65);
+		CreateCircuitPoint({ 189, 1, 20 }, 15, 70);
+		CreateCircuitPoint({ 185, 1, 10 }, 15, 90);
+		CreateCircuitPoint({ 180, 1, 5 }, 15, 100);
+		CreateCircuitPoint({ 170, 1, 0 }, 15, 120);
+		CreateCircuitPoint({ 160, 1, 0 }, 17, 130);
+		CreateCircuitPoint({ 155, 1, 0 }, 18, 140);
+		CreateCircuitPoint({ 150, 1, 0 }, 19, 155);
+		CreateCircuitPoint({ 145, 1, 0 }, 17, 155);
+		CreateCircuitPoint({ 140, 1, 0 }, 17, 156);
+		CreateCircuitPoint({ 125, 1, 5 }, 20, 165);
+		CreateCircuitPoint({ 115, 1, 15 }, 18, 190);
+		CreateCircuitPoint({ 105, 1, 35 }, 23, 190);
+		CreateCircuitPoint({ 90, 1, 45 }, 50, 160);
+	}
 
 
 	JoinCircuitPoints();

@@ -167,12 +167,15 @@ update_status ModulePlayer::Update(float dt)
 float ModulePlayer::GetCarTrunCapability()
 {
 	float turn_change = turn_degrees;
-	turn_change -= (abs(vehicle->GetKmh()) * (0.0001*abs(vehicle->GetKmh())));
+	turn_change -= (abs(vehicle->GetKmh()) * (0.00009*abs(vehicle->GetKmh())));
 
 	LOG("%f", turn_change);
 
 	if (turn_change > turn_degrees)
 		turn_change = turn_degrees;
+
+	if (turn_change <= 0)
+		turn_change = 0.05f;
 
 
 
