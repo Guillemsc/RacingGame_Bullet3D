@@ -123,7 +123,8 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		acceleration = MAX_ACCELERATION;
+		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
+		LOG("%f", MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
 	}
 	else if (vehicle->GetKmh() > 0)
 	{
