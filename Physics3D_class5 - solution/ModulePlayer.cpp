@@ -20,9 +20,11 @@ bool ModulePlayer::Start()
 
 	VehicleInfo car;
 
+	turn_degrees = 30.0f * DEGTORAD;
+
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
-	car.chassis_offset.Set(0, 1.5, 0);
+	car.chassis_size.Set(2, 1, 4);
+	car.chassis_offset.Set(0, 1.0f, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
@@ -33,7 +35,7 @@ bool ModulePlayer::Start()
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
-	float wheel_radius = 0.6f;
+	float wheel_radius = 0.3f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
 
@@ -117,26 +119,35 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
+	float turn_change = GetCarTrunCapability();
+
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
+	else if (vehicle->GetKmh() > 0)
+	{
+		acceleration = -MAX_ACCELERATION * 0.6;
+	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		if(turn < TURN_DEGREES)
-			turn +=  TURN_DEGREES;
+		if(turn < turn_change)
+			turn += turn_change;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		if(turn > -TURN_DEGREES)
-			turn -= TURN_DEGREES;
+		if(turn > -turn_change)
+			turn -= turn_change;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		acceleration = -MAX_ACCELERATION;
+		if (vehicle->GetKmh() > 0)
+			acceleration = -MAX_ACCELERATION * 3;
+		else
+			acceleration = -MAX_ACCELERATION;
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
@@ -150,6 +161,28 @@ update_status ModulePlayer::Update(float dt)
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
+}
+
+float ModulePlayer::GetCarTrunCapability()
+{
+	float turn_change = turn_degrees;
+	turn_change -= (abs(vehicle->GetKmh()) * (0.0001*abs(vehicle->GetKmh())));
+
+	LOG("%f", turn_change);
+
+	if (turn_change > turn_degrees)
+		turn_change = turn_degrees;
+
+
+
+	return turn_change;
+}
+
+float ModulePlayer::abs(float number)
+{
+	if (number < 0)
+		number = -number;
+	return number;
 }
 
 
