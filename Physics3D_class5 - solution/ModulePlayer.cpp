@@ -25,10 +25,10 @@ bool ModulePlayer::Start()
 	moto.chassis_size.Set(0.5f, 1, 2.5f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
 	moto.mass = 500.0f;
-	moto.suspensionStiffness = 15.88f;
-	moto.suspensionCompression = 0.83f;
+	moto.suspensionStiffness = 19.88f;
+	moto.suspensionCompression = 10.0f;
 	moto.suspensionDamping = 0.88f;
-	moto.maxSuspensionTravelCm = 1000.0f;
+	moto.maxSuspensionTravelCm = 80.0f;
 	moto.frictionSlip = 50.5;
 	moto.maxSuspensionForce = 6000.0f;
 
@@ -76,7 +76,7 @@ bool ModulePlayer::Start()
 	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
 	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
 
-	App->camera->Follow(vehicle, 15, 15, 5);
+	App->camera->Follow(vehicle, 15, 15, 10);
 	
 	return true;
 }

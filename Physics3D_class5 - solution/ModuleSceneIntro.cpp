@@ -21,9 +21,72 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(0, 60, 0));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	CreateCircuitPoint({ 0, 50, 0 }, 0);
-	CreateCircuitPoint({ 0, 50, 10 }, 0);
-	CreateCircuitPoint({ 0, 40, 20 }, 0);
+	// Recta Inicial
+	{
+		CreateCircuitPoint({ 0, 50, 0 }, 0);
+		CreateCircuitPoint({ 0, 50, 10 }, 0);
+	}
+	
+	// Baixada
+	{
+		CreateCircuitPoint({ 0, 49.5f, 12 }, 0);
+		CreateCircuitPoint({ 0, 48.5f, 14 }, 0);
+		CreateCircuitPoint({ 0, 47, 16 }, 0);
+		CreateCircuitPoint({ 0, 25, 45 }, 0);
+	}
+	// Pujada
+	{
+		CreateCircuitPoint({ 0, 24, 47 }, 0);
+		CreateCircuitPoint({ 0, 23, 50 }, 0);
+		CreateCircuitPoint({ 0, 23, 53 }, 0);
+		CreateCircuitPoint({ 0, 24, 56 }, 0);
+		CreateCircuitPoint({ 0, 26, 59 }, 0);
+	}
+	// Space
+	JoinCircuitPoints();
+
+	// Reception
+	{
+		CreateCircuitPoint({ 0, 35, 88 }, 0);
+		CreateCircuitPoint({ 0, 34, 92 }, 0);
+		CreateCircuitPoint({ 0, 32, 98 }, 0);
+		CreateCircuitPoint({ 0, 20, 130 }, 0);
+	}
+	// Subida
+	{
+		CreateCircuitPoint({ 0, 19.5f, 132 }, 0);
+		CreateCircuitPoint({ 0, 19.5f, 134 }, 0);
+		CreateCircuitPoint({ 0, 20, 136 }, 0);
+		CreateCircuitPoint({ 0, 20.5f, 138 }, 0);
+		CreateCircuitPoint({ 0, 21, 139 }, 0);
+		CreateCircuitPoint({ 0, 22, 141 }, 0);
+		CreateCircuitPoint({ 0, 23, 143 }, 0);
+		CreateCircuitPoint({ 0, 24.5f, 146 }, 0);
+		CreateCircuitPoint({ 0, 26.5f, 149 }, 0);
+		CreateCircuitPoint({ 0, 28.5f, 152 }, 0);
+		CreateCircuitPoint({ 0, 30.5f, 154 }, 0);
+		CreateCircuitPoint({ 0, 50.5f, 170 }, 0);
+		CreateCircuitPoint({ 0, 80.5f, 190 }, 0);
+		CreateCircuitPoint({ 0, 81.5f, 191 }, 0);
+		CreateCircuitPoint({ 0, 82.0f, 192 }, 0);
+		CreateCircuitPoint({ 0, 82.5f, 193 }, 0);
+		CreateCircuitPoint({ 0, 83.0f, 194 }, 0);
+		CreateCircuitPoint({ 0, 83.0f, 195 }, 0);
+		CreateCircuitPoint({ 0, 83.0f, 215 }, 0);
+	}
+	// Subida
+	{
+		CreateCircuitPoint({ 0, 83.3f, 216 }, 0);
+		CreateCircuitPoint({ 0, 83.9f, 218 }, 0);
+		CreateCircuitPoint({ 0, 84.4f, 219 }, 0);
+		CreateCircuitPoint({ 0, 85.8f, 220 }, 0);
+		CreateCircuitPoint({ 0, 86.5f, 221 }, 0);
+		CreateCircuitPoint({ 0, 86.5f, 222 }, 0);
+		CreateCircuitPoint({ 0, 86, 224 }, 0);
+	}
+	// Cilindres
+	CreateCilinder({ 0, 83, 225 }, 10, 50, 90);
+
 	JoinCircuitPoints();
 	return true;
 }
@@ -54,73 +117,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 }
 
-void ModuleSceneIntro::CreateCircuitLine(const vec3 init, const vec3 last, int interval)
-{
-	float distance = sqrt(pow(last.x - init.x, 2) + pow(last.y - init.y, 2) + pow(last.z - init.z, 2));
-
-	vec3 direction = last - init;
-	float direction_module = sqrt(pow(direction.x, 2) + pow(direction.y, 2) + pow(direction.z, 2));
-	direction /= direction_module;
-
-	vec3 perpendicular = { -direction.z, 0, direction.x };
-	float prependicular_module = sqrt(pow(perpendicular.x, 2) + pow(perpendicular.y, 2) + pow(perpendicular.z, 2));
-	perpendicular /= prependicular_module;
-
-	vec3 pos;
-	vec3 dim(1, 3, 1);
-
-	Cube c(dim.x, dim.y, dim.z);
-	c.color = Black;
-
-	for (uint i = 0; i < interval; ++i) 
-	{
-		c.color = i % 2 ? White : Black;
-		pos = (init + (direction * i)) + ((15.0f / 2) * perpendicular);
-		c.SetPos(pos.x, pos.y + 1, pos.z);
-		pieces.PrimBodies.PushBack(c);
-		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
-
-		pos = (init + (direction * i)) + ((15.0f / 2) * -perpendicular);
-		c.SetPos(pos.x, pos.y + 1, pos.z);
-		pieces.PrimBodies.PushBack(c);
-		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
-	}
-}
-
-void ModuleSceneIntro::CreateCircuitCorner(const vec3 init, const vec3 last, int interval)
-{
-	float distance = sqrt(pow(last.x - init.x, 2) + pow(last.y - init.y, 2) + pow(last.z - init.z, 2));
-
-	vec3 direction = last - init;
-	float direction_module = sqrt(pow(direction.x, 2) + pow(direction.y, 2) + pow(direction.z, 2));
-	direction /= direction_module;
-
-	vec3 perpendicular = { -direction.z, 0, direction.x };
-	float prependicular_module = sqrt(pow(perpendicular.x, 2) + pow(perpendicular.y, 2) + pow(perpendicular.z, 2));
-	perpendicular /= prependicular_module;
-
-	vec3 pos;
-	vec3 dim(1, 3, 1);
-
-	Cube c(dim.x, dim.y, dim.z);
-	c.color = Black;
-
-	for (uint i = 0; i < interval; ++i) 
-	{
-		c.color = i % 2 ? Green : Orange;
-		pos = (init + (direction * i)) + ((15.0f / 2) * perpendicular);
-		c.SetPos(pos.x + interval/2 + .5f, pos.y + 1, pos.z + interval/2 + .5f);
-		pieces.PrimBodies.PushBack(c);
-		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
-
-
-		pos = (init + (perpendicular * i)) + ((15.0f / 2) * direction);
-		c.SetPos(pos.x, 1, pos.z);
-		pieces.PrimBodies.PushBack(c);
-		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
-	}
-}
-
 void ModuleSceneIntro::CreateCircuitPoint(const vec3 init, int distance_between)
 {
 	circuitPoints points;
@@ -134,40 +130,22 @@ void ModuleSceneIntro::CreateCircuitPoint(const vec3 init, int distance_between)
 	points.first = pos;
 	c.SetPos(pos.x, pos.y, pos.z);
 
-	pieces.PrimBodies.PushBack(c);
-	pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
-
-
-	pos.x -= distance_between;
-	pos.z -= distance_between;
-
-	points.second = pos;
-	c.SetPos(pos.x, pos.y, pos.z);
-
-	pieces.PrimBodies.PushBack(c);
+	//pieces.PrimBodies.PushBack(c);
 	pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
 
 	circuit_points.add(points);
 
 }
 
-void ModuleSceneIntro::CreateElevation(const vec3 init, int size_x, int size_y, float angle, bool which_side)
+void ModuleSceneIntro::CreateCilinder(const vec3 init, int radius, int h, int angle)
 {
-	vec3 pos = init;
-
-	Cube c(size_x, 1, size_y);
-	c.color = Orange;
-
-	c.SetPos(pos.x, pos.y, pos.z);
-
-	if(which_side)
-		c.SetRotation(angle, vec3(1, 0, 0));
-	else
-		c.SetRotation(angle, vec3(0, 0, 1));
-
-	pieces.PrimBodies.PushBack(c);
-	pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
+	Cylinder cilinder(radius, h);
+	cilinder.color = Orange;
+	cilinder.SetPos(init.x, init.y, init.z);
+	cilinder.SetRotation(radius, vec3(0, 0, 1));
+	App->physics->AddBody(cilinder, 0.0f);
 }
+
 
 void ModuleSceneIntro::JoinCircuitPoints()
 {
@@ -204,8 +182,9 @@ void ModuleSceneIntro::JoinCircuitPoints()
 		pieces.PrimBodies.PushBack(c);
 		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
 		// -----------
-
 	}
+
+	circuit_points.clear();
 }
 
 

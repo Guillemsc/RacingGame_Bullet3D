@@ -49,13 +49,9 @@ public:
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 
-	// Circuit Creation Functions
-	void CreateCircuitLine(const vec3 init, const vec3 last, int interval = 1);
-	void CreateCircuitCorner(const vec3 init, const vec3 last, int interval = 1);
-
 	// Circuit Creation Functions 2
 	void CreateCircuitPoint(const vec3 init, int distance_between);
-	void CreateElevation(const vec3 init, int size_x, int size_y, float angle, bool which_side = false);
+	void CreateCilinder(const vec3 init, int radius, int h, int angle);
 	void JoinCircuitPoints();
 
 	p2List2<circuitPoints> circuit_points;
