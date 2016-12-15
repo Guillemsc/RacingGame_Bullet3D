@@ -72,7 +72,7 @@ bool ModulePlayer::Start()
 	moto.wheels[1].steering = false;
 
 	vehicle = App->physics->AddVehicle(moto);
-	vehicle->SetPos(0, 12, 10);
+	vehicle->SetPos(0, 60, 2);
 	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
 	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
 
