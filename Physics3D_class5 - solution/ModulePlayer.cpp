@@ -20,7 +20,7 @@ bool ModulePlayer::Start()
 
 	VehicleInfo car;
 
-	turn_degrees = 30.0f * DEGTORAD;
+	turn_degrees = 40.0f * DEGTORAD;
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 1, 4);
@@ -101,7 +101,7 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 12, 10);
 
-	App->camera->Follow(vehicle, 15, 15, 10.f);
+	App->camera->Follow(vehicle, 15, 15, 5);
 	
 	return true;
 }
@@ -123,13 +123,21 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
+		if (vehicle->GetKmh() >= 0) {
+			acceleration = MAX_ACCELERATION;
+			if (vehicle->GetKmh() >= 75) {
+				acceleration = 0;
+			}
+		}
+		else
+			brake = BRAKE_POWER;
+		//acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
 		LOG("%f", MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
 	}
-	else if (vehicle->GetKmh() > 0)
+	/*else if (vehicle->GetKmh() > 0)
 	{
 		acceleration = -MAX_ACCELERATION * 0.6;
-	}
+	}*/
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
@@ -145,10 +153,10 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		if (vehicle->GetKmh() > 0)
-			acceleration = -MAX_ACCELERATION * 3;
-		else
+		if (vehicle->GetKmh() <= 0)
 			acceleration = -MAX_ACCELERATION;
+		else
+			brake = BRAKE_POWER;
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
