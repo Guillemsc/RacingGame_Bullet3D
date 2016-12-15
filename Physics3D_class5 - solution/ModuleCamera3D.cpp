@@ -53,26 +53,9 @@ update_status ModuleCamera3D::Update(float dt)
 		float* matrix;
 		Position.y = following_height + m.translation().y;
 
-		// Distance from camera to target vct3
-		vec3 cam_to_target = m.translation() - Position;
+		Position.x = m.translation().x - 10;
+		Position.z = m.translation().z - 10;
 
-		// Distance from camera to target
-		float dist = length(cam_to_target);
-
-		float smooth = 0.f;
-
-		if (dist < min_following_dist)
-		{
-			smooth = 0.15*(min_following_dist - dist) / dist;
-		}
-		else if (dist > max_following_dist)
-		{
-			smooth = 0.15*(max_following_dist - dist) / dist;
-		}
-
-		Position -= smooth * cam_to_target;
-
-		//LOG("%f %f", correctionFactor, dist);
 	}
 	else
 	{
