@@ -18,10 +18,13 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(0, 200, 0));
+	App->camera->Move(vec3(0, 60, 0));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-
+	CreateCircuitPoint({ 0, 50, 0 }, 0);
+	CreateCircuitPoint({ 0, 50, 10 }, 0);
+	CreateCircuitPoint({ 0, 40, 20 }, 0);
+	JoinCircuitPoints();
 	return true;
 }
 
@@ -118,33 +121,28 @@ void ModuleSceneIntro::CreateCircuitCorner(const vec3 init, const vec3 last, int
 	}
 }
 
-void ModuleSceneIntro::CreateCircuitPoint(const vec3 init, int distance_between, float angle, float platform_y, float platform_x)
+void ModuleSceneIntro::CreateCircuitPoint(const vec3 init, int distance_between)
 {
 	circuitPoints points;
 
-	points.platform_x = platform_x;
-	points.platform_y = platform_y;
-
 	vec3 pos = init;
-	vec3 dim(1, 3, 1);
+	vec3 dim(5, 0.5f, 0.5f);
 
 	Cube c(dim.x, dim.y, dim.z);
 	c.color = Orange;
 
 	points.first = pos;
 	c.SetPos(pos.x, pos.y, pos.z);
-	c.SetRotation(angle, vec3(0, 1, 0));
 
 	pieces.PrimBodies.PushBack(c);
 	pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
 
 
-	pos.x -= distance_between * sin(angle*DEGTORAD);
-	pos.z -= distance_between * cos(angle*DEGTORAD);
+	pos.x -= distance_between;
+	pos.z -= distance_between;
 
 	points.second = pos;
 	c.SetPos(pos.x, pos.y, pos.z);
-	c.SetRotation(angle, vec3(0, 1, 0));
 
 	pieces.PrimBodies.PushBack(c);
 	pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
@@ -196,10 +194,10 @@ void ModuleSceneIntro::JoinCircuitPoints()
 
 		float distance = length(distance_vec);
 
-		Cube c(1, 4, distance);
+		Cube c(5, 0.5f, distance);
 		c.color = Orange;
 
-		c.SetRotation(-angleH, vec3(0, 1, 0));
+		c.SetRotation(-angleH, vec3(0, 0, 1));
 
 		c.SetPos(circuit_points[i].first.x + distance_vec.x/2, circuit_points[i].first.y + distance_vec.y / 2, circuit_points[i].first.z + distance_vec.z/2);
 
@@ -230,10 +228,10 @@ void ModuleSceneIntro::JoinCircuitPoints()
 
 		distance = length(distance_vec);
 
-		Cube c2(1, 4, distance);
+		Cube c2(5, 0.5f, distance);
 		c2.color = Orange;
 
-		c2.SetRotation(-angleH, vec3(0, 1, 0));
+		c2.SetRotation(-angleH, vec3(0, 0, 1));
 
 		c2.SetPos(circuit_points[i].second.x + distance_vec.x / 2, circuit_points[i].second.y + distance_vec.y / 2, circuit_points[i].second.z + distance_vec.z / 2);
 
