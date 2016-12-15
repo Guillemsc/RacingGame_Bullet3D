@@ -173,20 +173,20 @@ void ModuleSceneIntro::JoinCircuitPoints()
 {
 	for (int i = 0; i < circuit_points.count() - 1; i++)
 	{
-		// First
-
-		// Angle Horizontal -----
-		float P1_x = circuit_points[i].first.x;
+		// Angle Vertical -----
 		float P1_z = circuit_points[i].first.z;
+		float P1_y = circuit_points[i].first.y;
 
-		float P2_x = circuit_points[i + 1].first.x;
 		float P2_z = circuit_points[i + 1].first.z;
+		float P2_y = circuit_points[i + 1].first.y;
 
-		float deltaY = P2_z - P1_z;
-		float deltaX = P2_x - P1_x;
+		float deltaY = P2_y - P1_y;
+		float deltaX = P2_z - P1_z;
 
-		float angleH = atan2(deltaY, deltaX) * 180 / 3.141592653589793;
-		angleH -= 90;
+		float angleV = atan2(deltaY, deltaX) * 180 / 3.141592653589793;
+		//angleV -= 90;
+		LOG("%d", angleV);
+
 		// -----------
 
 		// Barriers --
@@ -197,47 +197,13 @@ void ModuleSceneIntro::JoinCircuitPoints()
 		Cube c(5, 0.5f, distance);
 		c.color = Orange;
 
-		c.SetRotation(-angleH, vec3(0, 0, 1));
+		c.SetRotation(-angleV, vec3(1, 0, 0));
 
-		c.SetPos(circuit_points[i].first.x + distance_vec.x/2, circuit_points[i].first.y + distance_vec.y / 2, circuit_points[i].first.z + distance_vec.z/2);
+		c.SetPos((circuit_points[i].first.x + distance_vec.x/2), circuit_points[i].first.y + distance_vec.y / 2, circuit_points[i].first.z + distance_vec.z/2);
 
 		pieces.PrimBodies.PushBack(c);
 		pieces.PhysBodies.PushBack(App->physics->AddBody(c, 0.0f, this));
 		// -----------
-
-		distance_vec = circuit_points[i + 1].first - circuit_points[i].second;
-
-
-		// Second
-
-		// Angle Horizontal -----
-		P1_x = circuit_points[i].second.x;
-		P1_z = circuit_points[i].second.z;
-
-		P2_x = circuit_points[i + 1].second.x;
-		P2_z = circuit_points[i + 1].second.z;
-
-		deltaY = P2_z - P1_z;
-		deltaX = P2_x - P1_x;
-
-		angleH = atan2(deltaY, deltaX) * 180 / 3.141592653589793;
-		angleH -= 90;
-		// -----------
-
-		distance_vec = circuit_points[i + 1].second - circuit_points[i].second;
-
-		distance = length(distance_vec);
-
-		Cube c2(5, 0.5f, distance);
-		c2.color = Orange;
-
-		c2.SetRotation(-angleH, vec3(0, 0, 1));
-
-		c2.SetPos(circuit_points[i].second.x + distance_vec.x / 2, circuit_points[i].second.y + distance_vec.y / 2, circuit_points[i].second.z + distance_vec.z / 2);
-
-		pieces.PrimBodies.PushBack(c2);
-		pieces.PhysBodies.PushBack(App->physics->AddBody(c2, 0.0f, this));
-		
 
 	}
 }
