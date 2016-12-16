@@ -108,12 +108,12 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		App->player->vehicle->body->applyTorque(btVector3(-2000, 0, 0));
+		App->player->vehicle->body->applyTorque(btVector3(-2500, 0, 0));
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		App->player->vehicle->body->applyTorque(btVector3(2000, 0, 0));
+		App->player->vehicle->body->applyTorque(btVector3(2500, 0, 0));
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)

@@ -23,6 +23,7 @@ bool ModuleSceneIntro::Start()
 
 	// Recta Inicial
 	{
+		CreateCircuitPoint({ 0, 51, 0 }, 0);
 		CreateCircuitPoint({ 0, 50, 0 }, 0);
 		CreateCircuitPoint({ 0, 50, 10 }, 0);
 	}
@@ -47,45 +48,45 @@ bool ModuleSceneIntro::Start()
 
 	// Reception
 	{
-		CreateCircuitPoint({ 0, 35, 88 }, 0);
-		CreateCircuitPoint({ 0, 34, 92 }, 0);
-		CreateCircuitPoint({ 0, 32, 98 }, 0);
-		CreateCircuitPoint({ 0, 20, 130 }, 0);
+		CreateCircuitPoint({ 0, 32, 88 }, 0);
+		CreateCircuitPoint({ 0, 31, 92 }, 0);
+		CreateCircuitPoint({ 0, 29, 98 }, 0);
+		CreateCircuitPoint({ 0, 17, 130 }, 0);
 	}
 	// Subida
 	{
-		CreateCircuitPoint({ 0, 19.5f, 132 }, 0);
-		CreateCircuitPoint({ 0, 19.5f, 134 }, 0);
-		CreateCircuitPoint({ 0, 20, 136 }, 0);
-		CreateCircuitPoint({ 0, 20.5f, 138 }, 0);
-		CreateCircuitPoint({ 0, 21, 139 }, 0);
-		CreateCircuitPoint({ 0, 22, 141 }, 0);
-		CreateCircuitPoint({ 0, 23, 143 }, 0);
-		CreateCircuitPoint({ 0, 24.5f, 146 }, 0);
-		CreateCircuitPoint({ 0, 26.5f, 149 }, 0);
-		CreateCircuitPoint({ 0, 28.5f, 152 }, 0);
-		CreateCircuitPoint({ 0, 30.5f, 154 }, 0);
-		CreateCircuitPoint({ 0, 50.5f, 170 }, 0);
-		CreateCircuitPoint({ 0, 80.5f, 190 }, 0);
-		CreateCircuitPoint({ 0, 81.5f, 191 }, 0);
-		CreateCircuitPoint({ 0, 82.0f, 192 }, 0);
-		CreateCircuitPoint({ 0, 82.5f, 193 }, 0);
-		CreateCircuitPoint({ 0, 83.0f, 194 }, 0);
-		CreateCircuitPoint({ 0, 83.0f, 195 }, 0);
-		CreateCircuitPoint({ 0, 83.0f, 215 }, 0);
+		CreateCircuitPoint({ 0, 16.5f, 132 }, 0);
+		CreateCircuitPoint({ 0, 16.5f, 134 }, 0);
+		CreateCircuitPoint({ 0, 16.75f, 136 }, 0);
+		CreateCircuitPoint({ 0, 17.5f, 138 }, 0);
+		CreateCircuitPoint({ 0, 18, 139 }, 0);
+		CreateCircuitPoint({ 0, 19, 141 }, 0);
+		CreateCircuitPoint({ 0, 20, 143 }, 0);
+		CreateCircuitPoint({ 0, 21.5f, 146 }, 0);
+		CreateCircuitPoint({ 0, 23.5f, 149 }, 0);
+		CreateCircuitPoint({ 0, 25.5f, 152 }, 0);
+		CreateCircuitPoint({ 0, 27.5f, 154 }, 0);
+		CreateCircuitPoint({ 0, 47.5f, 170 }, 0);
+		CreateCircuitPoint({ 0, 77.5f, 190 }, 0);
+		CreateCircuitPoint({ 0, 78.5f, 191 }, 0);
+		CreateCircuitPoint({ 0, 79.0f, 192 }, 0);
+		CreateCircuitPoint({ 0, 79.5f, 193 }, 0);
+		CreateCircuitPoint({ 0, 80.0f, 194 }, 0);
+		CreateCircuitPoint({ 0, 80.0f, 195 }, 0);
+		CreateCircuitPoint({ 0, 80.0f, 215 }, 0);
 	}
 	// Subida
 	{
-		CreateCircuitPoint({ 0, 83.3f, 216 }, 0);
-		CreateCircuitPoint({ 0, 83.9f, 218 }, 0);
-		CreateCircuitPoint({ 0, 84.4f, 219 }, 0);
-		CreateCircuitPoint({ 0, 85.8f, 220 }, 0);
-		CreateCircuitPoint({ 0, 86.5f, 221 }, 0);
-		CreateCircuitPoint({ 0, 86.5f, 222 }, 0);
-		CreateCircuitPoint({ 0, 86, 224 }, 0);
+		CreateCircuitPoint({ 0, 80.3f, 216 }, 0);
+		CreateCircuitPoint({ 0, 80.9f, 218 }, 0);
+		CreateCircuitPoint({ 0, 81.4f, 219 }, 0);
+		CreateCircuitPoint({ 0, 82.8f, 220 }, 0);
+		CreateCircuitPoint({ 0, 83.5f, 221 }, 0);
+		CreateCircuitPoint({ 0, 83.5f, 222 }, 0);
+		CreateCircuitPoint({ 0, 83, 224 }, 0);
 	}
 	// Cilindres
-	CreateCilinder({ 0, 83, 235 }, 2, 20, 90);
+	CreateCilinder({ 0, 80, 235 }, 2, 20, 90);
 
 	JoinCircuitPoints();
 	return true;
