@@ -21,21 +21,21 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(60, 60, 0));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	// Recta Inicial
+	// Initial Rect
 	{
 		CreateCircuitPoint({ 0, 51, 0 }, 0);
 		CreateCircuitPoint({ 0, 50, 0 }, 0);
 		CreateCircuitPoint({ 0, 50, 10 }, 0);
 	}
 	
-	// Baixada
+	// Down
 	{
 		CreateCircuitPoint({ 0, 49.5f, 12 }, 0);
 		CreateCircuitPoint({ 0, 48.5f, 14 }, 0);
 		CreateCircuitPoint({ 0, 47, 16 }, 0);
 		CreateCircuitPoint({ 0, 25, 45 }, 0);
 	}
-	// Pujada
+	// Rise
 	{
 		CreateCircuitPoint({ 0, 24, 47 }, 0);
 		CreateCircuitPoint({ 0, 23, 50 }, 0);
@@ -53,7 +53,7 @@ bool ModuleSceneIntro::Start()
 		CreateCircuitPoint({ 0, 29, 98 }, 0);
 		CreateCircuitPoint({ 0, 17, 130 }, 0);
 	}
-	// Subida
+	// Rise 2
 	{
 		CreateCircuitPoint({ 0, 16.5f, 132 }, 0);
 		CreateCircuitPoint({ 0, 16.5f, 134 }, 0);
@@ -67,26 +67,36 @@ bool ModuleSceneIntro::Start()
 		CreateCircuitPoint({ 0, 25.5f, 152 }, 0);
 		CreateCircuitPoint({ 0, 27.5f, 154 }, 0);
 		CreateCircuitPoint({ 0, 47.5f, 170 }, 0);
-		CreateCircuitPoint({ 0, 77.5f, 190 }, 0);
-		CreateCircuitPoint({ 0, 78.5f, 191 }, 0);
-		CreateCircuitPoint({ 0, 79.0f, 192 }, 0);
-		CreateCircuitPoint({ 0, 79.5f, 193 }, 0);
-		CreateCircuitPoint({ 0, 80.0f, 194 }, 0);
-		CreateCircuitPoint({ 0, 80.0f, 195 }, 0);
-		CreateCircuitPoint({ 0, 80.0f, 215 }, 0);
+		CreateCircuitPoint({ 0, 67.5f, 190 }, 0);
+		CreateCircuitPoint({ 0, 68.5f, 191 }, 0);
+		CreateCircuitPoint({ 0, 69.0f, 192 }, 0);
+		CreateCircuitPoint({ 0, 69.5f, 193 }, 0);
+		CreateCircuitPoint({ 0, 70.0f, 194 }, 0);
+		CreateCircuitPoint({ 0, 70.0f, 195 }, 0);
+		CreateCircuitPoint({ 0, 70.0f, 215 }, 0);
 	}
-	// Subida
+	// Rise 3
 	{
-		CreateCircuitPoint({ 0, 80.3f, 216 }, 0);
-		CreateCircuitPoint({ 0, 80.9f, 218 }, 0);
-		CreateCircuitPoint({ 0, 81.4f, 219 }, 0);
-		CreateCircuitPoint({ 0, 82.8f, 220 }, 0);
-		CreateCircuitPoint({ 0, 83.5f, 221 }, 0);
-		CreateCircuitPoint({ 0, 83.5f, 222 }, 0);
-		CreateCircuitPoint({ 0, 83, 224 }, 0);
+		CreateCircuitPoint({ 0, 70.3f, 216 }, 0);
+		CreateCircuitPoint({ 0, 70.9f, 218 }, 0);
+		
+		JoinCircuitPoints();
 	}
-	// Cilindres
-	CreateCilinder({ 0, 80, 235 }, 2, 20, 90);
+	// platforms 1-2
+	{
+		CreateCircuitPoint({ 0, 70, 225 }, 0);
+		CreateCircuitPoint({ 0, 70, 235 }, 0);
+		JoinCircuitPoints();
+		CreateCircuitPoint({ 0, 65, 245 }, 0);
+		CreateCircuitPoint({ 0, 65, 255 }, 0);
+	}
+	// Down 2
+	{
+		CreateCircuitPoint({ 0, 64.5f, 257 }, 0);
+		CreateCircuitPoint({ 0, 64, 259 }, 0);
+		CreateCircuitPoint({ 0, 63.5f, 261 }, 0);
+		CreateCircuitPoint({ 0, 50, 270 }, 0);
+	}
 
 	JoinCircuitPoints();
 	return true;
@@ -146,7 +156,7 @@ void ModuleSceneIntro::CreateCilinder(const vec3 init, int radius, int h, int an
 	cilinder.color = Orange;
 	cilinder.SetPos(init.x, init.y, init.z);
 	cilinder.SetRotation(angle, vec3(0, 1, 0));
-	App->physics->AddBody(cilinder, 0.0f, this);
+
 	pieces.PhysBodies.PushBack(App->physics->AddBody(cilinder, 0.0f, this));
 	cilinders.add(cilinder);
 }

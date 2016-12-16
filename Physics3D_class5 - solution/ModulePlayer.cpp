@@ -72,7 +72,8 @@ bool ModulePlayer::Start()
 	moto.wheels[1].steering = false;
 
 	vehicle = App->physics->AddVehicle(moto);
-	vehicle->SetPos(0, 60, 2);
+	//vehicle->SetPos(0, 51, 270); 
+	vehicle->SetPos(0, 65, 255);
 	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
 	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
 
@@ -98,7 +99,8 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)	vehicle->body->applyCentralImpulse(vehicle->body->getWorldTransform().getBasis().getColumn(2) * 75);
+		else 	acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
 		LOG("%f", MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
 	}
 	else if (vehicle->GetKmh() > 0)
