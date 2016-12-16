@@ -12,6 +12,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModulePlayer.h"
+#include "Circuits.h"
 
 class Application
 {
@@ -24,6 +25,7 @@ public:
 	ModuleCamera3D* camera;
 	ModulePhysics3D* physics;
 	ModulePlayer* player;
+	CircuitsManager* circuits;
 
 private:
 

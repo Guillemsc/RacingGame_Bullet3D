@@ -10,20 +10,6 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
-struct circuitPieces 
-{
-	p2DynArray<PhysBody3D*>		PhysBodies;
-	p2DynArray<Cube>			PrimBodies;
-};
-
-struct circuitPoints
-{
-	vec3 first;
-	vec3 second;
-	float platform_x;
-	float platform_y;
-};
-
 class ModuleSceneIntro : public Module
 {
 public:
@@ -48,18 +34,4 @@ public:
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
-
-	// Circuit Creation Functions 2
-	void CreateCircuitPoint(const vec3 init, int distance_between);
-	void CreateCilinder(const vec3 init, int radius, int h, int angle);
-	void JoinCircuitPoints();
-
-	p2List2<circuitPoints> circuit_points;
-	p2List2<Cylinder> cilinders;
-
-
-public:
-
-	circuitPieces pieces;
-
 };
