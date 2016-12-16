@@ -244,6 +244,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, Module* liste
 		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	else
 		body->setCollisionFlags(body->getCollisionFlags() &~btCollisionObject::CF_NO_CONTACT_RESPONSE);
+
 	pbody->collision_listeners.add(listener);
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
@@ -253,7 +254,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, Module* liste
 }
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass, Module* listener, bool sensor)
 {
 	btCollisionShape* colShape = new btCylinderShapeX(btVector3(cylinder.height*0.5f, cylinder.radius, 0.0f));
 	shapes.add(colShape);
@@ -272,6 +273,13 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
 
+	pbody->IsSensor = sensor;
+	if (pbody->IsSensor == true)
+		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	else
+		body->setCollisionFlags(body->getCollisionFlags() &~btCollisionObject::CF_NO_CONTACT_RESPONSE);
+
+	pbody->collision_listeners.add(listener);
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.add(pbody);

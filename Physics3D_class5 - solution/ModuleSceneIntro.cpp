@@ -18,7 +18,7 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(0, 60, 0));
+	App->camera->Move(vec3(60, 60, 0));
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	// Recta Inicial
@@ -85,7 +85,7 @@ bool ModuleSceneIntro::Start()
 		CreateCircuitPoint({ 0, 86, 224 }, 0);
 	}
 	// Cilindres
-	CreateCilinder({ 0, 83, 225 }, 10, 50, 90);
+	CreateCilinder({ 0, 83, 235 }, 2, 20, 90);
 
 	JoinCircuitPoints();
 	return true;
@@ -109,6 +109,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.Render();
 	for (int i = 0; i < pieces.PrimBodies.Count(); i++)
 		pieces.PrimBodies[i].Render();
+	for (int i = 0; i < cilinders.count(); i++)
+		cilinders[i].Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -142,8 +144,10 @@ void ModuleSceneIntro::CreateCilinder(const vec3 init, int radius, int h, int an
 	Cylinder cilinder(radius, h);
 	cilinder.color = Orange;
 	cilinder.SetPos(init.x, init.y, init.z);
-	cilinder.SetRotation(radius, vec3(0, 0, 1));
-	App->physics->AddBody(cilinder, 0.0f);
+	cilinder.SetRotation(angle, vec3(0, 1, 0));
+	App->physics->AddBody(cilinder, 0.0f, this);
+	pieces.PhysBodies.PushBack(App->physics->AddBody(cilinder, 0.0f, this));
+	cilinders.add(cilinder);
 }
 
 
@@ -186,5 +190,6 @@ void ModuleSceneIntro::JoinCircuitPoints()
 
 	circuit_points.clear();
 }
+
 
 

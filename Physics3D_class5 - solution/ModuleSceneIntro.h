@@ -55,10 +55,11 @@ public:
 	void JoinCircuitPoints();
 
 	p2List2<circuitPoints> circuit_points;
-
+	p2List2<Cylinder> cilinders;
 
 
 public:
 
 	circuitPieces pieces;
+
 };
