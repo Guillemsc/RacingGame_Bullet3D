@@ -64,5 +64,6 @@ private:
 	p2List2<circuitPieces> circuit_pieces;
 
 	uint current_checkpoint = 0;
+	uint max_checkpoint = 0;
 };
 #endif // !__CIRCUITS_H_

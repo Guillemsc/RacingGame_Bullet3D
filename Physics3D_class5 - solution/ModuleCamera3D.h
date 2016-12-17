@@ -28,6 +28,8 @@ public:
 	
 	vec3 X, Y, Z, Position, Reference;
 
+	int camera_distance = 10;
+
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;

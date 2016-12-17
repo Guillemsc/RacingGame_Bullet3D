@@ -286,11 +286,14 @@ void CircuitsManager::UpdateCheckPoints()
 	{
 		if (pos.translation().z >= check_points[i].pos.z)
 		{
-			if (i > current_checkpoint)
+			if (i > max_checkpoint)
+			{
+				max_checkpoint = i;
 				current_checkpoint = i;
+			}
 		}
 
-		if (i <= current_checkpoint)
+		if (i <= max_checkpoint)
 			check_points[i].visual->color = Green;
 		else
 			check_points[i].visual->color = Red;
@@ -314,10 +317,12 @@ void CircuitsManager::UpdateCheckPoints()
 	{
 		if (current_checkpoint > 0)
 		{
+			current_checkpoint -= 1;
+
 			vec3 new_pos;
-			new_pos.x = check_points[current_checkpoint - 1].pos.x;
-			new_pos.y = check_points[current_checkpoint - 1].pos.y;
-			new_pos.z = check_points[current_checkpoint - 1].pos.z;
+			new_pos.x = check_points[current_checkpoint].pos.x;
+			new_pos.y = check_points[current_checkpoint].pos.y;
+			new_pos.z = check_points[current_checkpoint].pos.z;
 
 			// Reset all car motion
 			App->player->ResetCarMotion();
@@ -325,5 +330,21 @@ void CircuitsManager::UpdateCheckPoints()
 			// Set pos
 			App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
 		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		current_checkpoint = 0;
+
+		vec3 new_pos;
+		new_pos.x = check_points[current_checkpoint].pos.x;
+		new_pos.y = check_points[current_checkpoint].pos.y;
+		new_pos.z = check_points[current_checkpoint].pos.z;
+
+		// Reset all car motion
+		App->player->ResetCarMotion();
+
+		// Set pos
+		App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
 	}
 }

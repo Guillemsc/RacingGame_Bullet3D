@@ -53,10 +53,10 @@ update_status ModuleCamera3D::Update(float dt)
 		float* matrix;
 		Position.y = following_height + m.translation().y;
 
-		Position.x = m.translation().x - 10;
-		Position.z = m.translation().z - 10;
-
+		Position.x = m.translation().x - camera_distance;
+		Position.z = m.translation().z - camera_distance;
 	}
+
 	else
 	{
 

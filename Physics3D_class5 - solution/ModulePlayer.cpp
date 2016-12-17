@@ -72,8 +72,8 @@ bool ModulePlayer::Start()
 	moto.wheels[1].steering = false;
 
 	vehicle = App->physics->AddVehicle(moto, App->scene_intro);
-	vehicle->type = pb_vehicle;
 	vehicle->SetPos(0, 65, 2);
+	vehicle->type = pb_vehicle;
 	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
 	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
 
@@ -94,8 +94,6 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-
-	float turn_change = GetCarTrunCapability();
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
@@ -129,11 +127,6 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{
-		vehicle->SetPos(0, 60, 2);
-	}
-
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Brake(brake);
 
@@ -144,20 +137,6 @@ update_status ModulePlayer::Update(float dt)
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
-}
-
-float ModulePlayer::GetCarTrunCapability()
-{
-	float turn_change = turn_degrees;
-	turn_change -= (abs(vehicle->GetKmh()) * (0.00009*abs(vehicle->GetKmh())));
-
-	if (turn_change > turn_degrees)
-		turn_change = turn_degrees;
-
-	if (turn_change <= 0)
-		turn_change = 0.05f;
-
-	return turn_change;
 }
 
 void ModulePlayer::ResetCarMotion()

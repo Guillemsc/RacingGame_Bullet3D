@@ -19,7 +19,6 @@ public:
 	bool CleanUp();
 
 	float abs(float number);
-	float GetCarTrunCapability();
 
 	void ResetCarMotion();
 
