@@ -21,12 +21,14 @@ bool CircuitsManager::Start()
 
 update_status CircuitsManager::Update(float dt)
 {
+	// Circuit render
 	for (int i = 0; i < circuit_pieces.count(); i++)
 	{
 		if(circuit_pieces[i].PrimBody != nullptr)
 			circuit_pieces[i].PrimBody->Render();
 	}
 
+	// Checkpoints render
 	for(int i = 0; i<check_points.count(); i++)
 	{
 		if (check_points[i].PrimBody != nullptr)
@@ -140,13 +142,17 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 50, 270 }, 0);
 	}
 
-	// Check Points
+	// Check Points -------------------------
+
 	CreateCheckpoint({ 0, 51, 3 }, 10);
-	CreateCheckpoint({ 0, 31, 90 }, 10);
+	CreateCheckpoint({ 0, 33, 90 }, 10);
+
+	// --------------------------------------
 
 	JoinCircuitPoints();
 }
 
+// Free and reset circuit and checkpoint list
 void CircuitsManager::DeleteCircuit()
 {
 	for (int i = 0; i < circuit_pieces.count(); i++)
@@ -164,6 +170,8 @@ void CircuitsManager::DeleteCircuit()
 	circuit_pieces.clear();
 	circuit_points.clear();
 	check_points.clear();
+
+	current_checkpoint = 0;
 }
 
 void CircuitsManager::CreateCircuitPoint(const vec3 init, int distance_between)
@@ -257,6 +265,7 @@ void CircuitsManager::CreateCheckpoint(const vec3 init, int height)
 	check_points.add(cp);
 }
 
+// Sets initial values for the checkpoints
 void CircuitsManager::InitCheckPoints()
 {
 	if (check_points[0].PrimBody != nullptr)
@@ -267,6 +276,7 @@ void CircuitsManager::InitCheckPoints()
 	}
 }
 
+// Updates current checkpoint, move arround checkpoints and color
 void CircuitsManager::UpdateCheckPoints()
 {
 	// Update farest checkpoint
