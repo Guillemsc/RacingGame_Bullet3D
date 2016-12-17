@@ -71,7 +71,8 @@ bool ModulePlayer::Start()
 	moto.wheels[1].brake = true;
 	moto.wheels[1].steering = false;
 
-	vehicle = App->physics->AddVehicle(moto);
+	vehicle = App->physics->AddVehicle(moto, App->scene_intro);
+	vehicle->type = pb_vehicle;
 	vehicle->SetPos(0, 65, 2);
 	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
 	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
@@ -157,6 +158,20 @@ float ModulePlayer::GetCarTrunCapability()
 		turn_change = 0.05f;
 
 	return turn_change;
+}
+
+void ModulePlayer::ResetCarMotion()
+{
+	// Reestart velocity
+	vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+	vehicle->body->setAngularVelocity(btVector3(0, 0, 0));
+
+	// Reestart angle
+	btTransform startTransform;
+	startTransform.setIdentity();
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+	vehicle->body->setMotionState(myMotionState);
+	// --------------
 }
 
 float ModulePlayer::abs(float number)

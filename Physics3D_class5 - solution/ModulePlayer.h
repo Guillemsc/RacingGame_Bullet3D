@@ -21,6 +21,8 @@ public:
 	float abs(float number);
 	float GetCarTrunCapability();
 
+	void ResetCarMotion();
+
 public:
 
 	PhysVehicle3D* vehicle;

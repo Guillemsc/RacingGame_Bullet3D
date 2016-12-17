@@ -11,16 +11,23 @@ struct PhysBody3D;
 
 struct circuitPoints
 {
-	vec3 first;
-	vec3 second;
-	float platform_x;
-	float platform_y;
+	vec3	 first;
+	vec3	 second;
+	float	 platform_x;
+	float	 platform_y;
 };
 
 struct circuitPieces
 {
 	PhysBody3D*		PhysBody = nullptr;
 	Cube*			PrimBody = nullptr;
+};
+
+struct checkpoints
+{
+	vec3			pos;
+	Cube*			PrimBody = nullptr;
+	PhysBody3D*		PhysBody = nullptr;
 };
 
 class CircuitsManager : public Module
@@ -43,8 +50,17 @@ private:
 	void CreateCircuitPoint(const vec3 init, int distance_between);
 	void CreateCilinder(const vec3 init, int radius, int h, int angle);
 	void JoinCircuitPoints();
+
+	void CreateCheckpoint(const vec3 init, int height);
+	void InitCheckPoints();
+	void UpdateCheckPoints();
+
+public:
+	p2List2<checkpoints> check_points;
 private:
 	p2List2<circuitPoints> circuit_points;
 	p2List2<circuitPieces> circuit_pieces;
+
+	uint current_checkpoint = 0;
 };
 #endif // !__CIRCUITS_H_

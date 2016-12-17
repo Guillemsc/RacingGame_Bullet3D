@@ -3,6 +3,11 @@
 
 #include "p2List.h"
 
+enum Type
+{
+	pb_vehicle,
+};
+
 class btRigidBody;
 class Module;
 
@@ -24,6 +29,7 @@ private:
 public:
 	btRigidBody* body = nullptr;
 	p2List<Module*> collision_listeners;
+	Type type;
 };
 
 #endif // __PhysBody3D_H__

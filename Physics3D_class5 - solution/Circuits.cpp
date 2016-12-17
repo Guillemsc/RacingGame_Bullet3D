@@ -27,6 +27,14 @@ update_status CircuitsManager::Update(float dt)
 			circuit_pieces[i].PrimBody->Render();
 	}
 
+	for(int i = 0; i<check_points.count(); i++)
+	{
+		if (check_points[i].PrimBody != nullptr)
+			check_points[i].PrimBody->Render();
+	}
+
+	UpdateCheckPoints();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -45,6 +53,8 @@ void CircuitsManager::SetCircuit(int i)
 		Circtuit1();
 		break;
 	}
+
+	InitCheckPoints();
 }
 
 void CircuitsManager::Circtuit1()
@@ -126,6 +136,10 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 50, 270 }, 0);
 	}
 
+	// Check Points
+	CreateCheckpoint({ 0, 51, 3 }, 10);
+	CreateCheckpoint({ 0, 31, 90 }, 10);
+
 	JoinCircuitPoints();
 }
 
@@ -136,8 +150,16 @@ void CircuitsManager::DeleteCircuit()
 		delete circuit_pieces[i].PhysBody;
 		delete circuit_pieces[i].PrimBody;
 	}
+
+	for (int i = 0; i < check_points.count(); i++)
+	{
+		delete check_points[i].PhysBody;
+		delete check_points[i].PrimBody;
+	}
+
 	circuit_pieces.clear();
 	circuit_points.clear();
+	check_points.clear();
 }
 
 void CircuitsManager::CreateCircuitPoint(const vec3 init, int distance_between)
@@ -211,4 +233,74 @@ void CircuitsManager::JoinCircuitPoints()
 	}
 
 	circuit_points.clear();
+}
+
+void CircuitsManager::CreateCheckpoint(const vec3 init, int height)
+{
+	Cube* c = new Cube(5, height, 0.5f);
+	c->color = Black;
+	c->SetPos(init.x, init.y, init.z);
+
+	checkpoints cp;
+	cp.pos = init;
+	cp.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro, true);
+	cp.PrimBody = c;
+	check_points.add(cp);
+}
+
+void CircuitsManager::InitCheckPoints()
+{
+	if (check_points[0].PrimBody != nullptr)
+	{
+		vec3 pos = check_points[0].pos;
+		App->player->vehicle->SetPos(pos.x, pos.y, pos.z);
+		current_checkpoint = 0;
+	}
+}
+
+void CircuitsManager::UpdateCheckPoints()
+{
+	// Update farest checkpoint
+	mat4x4 pos;
+	App->player->vehicle->GetTransform(&pos);
+	for (int i = 0; i < check_points.count(); i++)
+	{
+		if (pos.translation().z >= check_points[i].pos.z)
+		{
+			if (i > current_checkpoint)
+				current_checkpoint = i;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		vec3 new_pos;
+		new_pos.x = check_points[current_checkpoint].pos.x;
+		new_pos.y = check_points[current_checkpoint].pos.y;
+		new_pos.z = check_points[current_checkpoint].pos.z;
+
+		// Reset all car motion
+		App->player->ResetCarMotion();
+		 
+		// Set pos
+		App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
+	{
+		if (current_checkpoint > 0)
+		{
+			current_checkpoint -= 1;
+			vec3 new_pos;
+			new_pos.x = check_points[current_checkpoint].pos.x;
+			new_pos.y = check_points[current_checkpoint].pos.y;
+			new_pos.z = check_points[current_checkpoint].pos.z;
+
+			// Reset all car motion
+			App->player->ResetCarMotion();
+
+			// Set pos
+			App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
+		}
+	}
 }

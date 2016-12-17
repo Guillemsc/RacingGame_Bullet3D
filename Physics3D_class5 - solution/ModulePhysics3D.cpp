@@ -288,7 +288,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass, Modul
 }
 
 // ---------------------------------------------------------
-PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
+PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info, Module* listener)
 {
 	btCompoundShape* comShape = new btCompoundShape();
 	shapes.add(comShape);
@@ -340,6 +340,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	// ---------------------
 
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);
+	pvehicle->collision_listeners.add(listener);
 	world->addVehicle(vehicle);
 	vehicles.add(pvehicle);
 

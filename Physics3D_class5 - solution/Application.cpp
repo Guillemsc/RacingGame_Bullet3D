@@ -22,10 +22,11 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(physics);
-	
+
+
 	// Scenes
-	AddModule(scene_intro);
 	AddModule(player);
+	AddModule(scene_intro);
 	AddModule(circuits);
 
 	// Renderer last!
