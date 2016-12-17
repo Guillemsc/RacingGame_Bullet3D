@@ -30,7 +30,11 @@ update_status CircuitsManager::Update(float dt)
 	for(int i = 0; i<check_points.count(); i++)
 	{
 		if (check_points[i].PrimBody != nullptr)
-			check_points[i].PrimBody->Render();
+		{
+			if(App->physics->debug)
+				check_points[i].PrimBody->Render();
+			check_points[i].visual->Render();
+		}
 	}
 
 	UpdateCheckPoints();
@@ -241,10 +245,15 @@ void CircuitsManager::CreateCheckpoint(const vec3 init, int height)
 	c->color = Black;
 	c->SetPos(init.x, init.y, init.z);
 
+	Cube* visual = new Cube(1, 3, 1);
+	visual->color = White;
+	visual->SetPos(init.x + 4, init.y, init.z);
+
 	checkpoints cp;
 	cp.pos = init;
 	cp.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro, true);
 	cp.PrimBody = c;
+	cp.visual = visual;
 	check_points.add(cp);
 }
 
@@ -270,6 +279,11 @@ void CircuitsManager::UpdateCheckPoints()
 			if (i > current_checkpoint)
 				current_checkpoint = i;
 		}
+
+		if (i <= current_checkpoint)
+			check_points[i].visual->color = Green;
+		else
+			check_points[i].visual->color = Red;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -290,11 +304,10 @@ void CircuitsManager::UpdateCheckPoints()
 	{
 		if (current_checkpoint > 0)
 		{
-			current_checkpoint -= 1;
 			vec3 new_pos;
-			new_pos.x = check_points[current_checkpoint].pos.x;
-			new_pos.y = check_points[current_checkpoint].pos.y;
-			new_pos.z = check_points[current_checkpoint].pos.z;
+			new_pos.x = check_points[current_checkpoint - 1].pos.x;
+			new_pos.y = check_points[current_checkpoint - 1].pos.y;
+			new_pos.z = check_points[current_checkpoint - 1].pos.z;
 
 			// Reset all car motion
 			App->player->ResetCarMotion();

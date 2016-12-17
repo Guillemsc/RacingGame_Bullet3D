@@ -28,6 +28,8 @@ struct checkpoints
 	vec3			pos;
 	Cube*			PrimBody = nullptr;
 	PhysBody3D*		PhysBody = nullptr;
+
+	Cube*			visual = nullptr;
 };
 
 class CircuitsManager : public Module
