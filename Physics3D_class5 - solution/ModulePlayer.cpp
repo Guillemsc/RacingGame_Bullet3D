@@ -105,7 +105,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else if (vehicle->GetKmh() > 0)
 	{
-		acceleration = -MAX_ACCELERATION * 0.6;
+		acceleration = -MAX_ACCELERATION * 0.3;
 	}
 
 	//btVector3 torque = App->player->vehicle->body->getTotalTorque();
