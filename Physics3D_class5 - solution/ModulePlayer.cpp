@@ -26,10 +26,10 @@ bool ModulePlayer::Start()
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
 	moto.mass = 500.0f;
 	moto.suspensionStiffness = 15.88f;
-	moto.suspensionCompression = 200.0f; // Important
+	moto.suspensionCompression = 10000; // Important
 	moto.suspensionDamping = 0.88f;
-	moto.maxSuspensionTravelCm = 100.0f;
-	moto.frictionSlip = 1000.5;
+	moto.maxSuspensionTravelCm = 50.0f;
+	moto.frictionSlip = 0.8;
 	moto.maxSuspensionForce = 10000.0f; // Important
 
 	// Wheel properties ---------------------------------------
@@ -77,7 +77,9 @@ bool ModulePlayer::Start()
 	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
 	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
 
-	App->camera->Follow(vehicle, 15, 15, 10);
+	App->camera->Follow(vehicle, 15, 15, 8, 5);
+
+	starting_camera_distance = App->camera->camera_distance;
 	
 	return true;
 }
@@ -95,19 +97,19 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
+	SetCameraDistance();
+
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)	
-			vehicle->body->applyCentralImpulse(vehicle->body->getWorldTransform().getBasis().getColumn(2) * 75);
-		else 	
-			acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.1*abs(vehicle->GetKmh()))));
-
+		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.8*abs(vehicle->GetKmh()))));
 	}
 	else if (vehicle->GetKmh() > 0)
 	{
 		acceleration = -MAX_ACCELERATION * 0.6;
 	}
 
+	btVector3 torque = App->player->vehicle->body->getTotalTorque();
+	LOG("%d", torque.getX())
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		App->player->vehicle->body->applyTorque(btVector3(-2500, 0, 0));
@@ -121,10 +123,9 @@ update_status ModulePlayer::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		if (vehicle->GetKmh() > 0)
-			acceleration = -MAX_ACCELERATION;
-		else {
+			acceleration = -MAX_ACCELERATION * 1.4;
+		else 
 			acceleration = 0;
-		}
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
@@ -137,6 +138,26 @@ update_status ModulePlayer::Update(float dt)
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::SetCameraDistance()
+{
+	//float dist = App->camera->camera_distance;
+	//float movement = 0.03;
+
+	//if (starting_camera_distance + abs(vehicle->GetKmh() * 0.2) > dist + 5)
+	//{
+	//	if(dist < 25)
+	//		App->camera->camera_distance += movement;
+	//	LOG("One");
+	//}
+	//else if(App->camera->camera_distance - movement > starting_camera_distance - 5)
+	//{
+	//	if(dist > starting_camera_distance)
+	//		App->camera->camera_distance -= movement;
+	//	LOG("Two");
+	//}
+
 }
 
 void ModulePlayer::ResetCarMotion()

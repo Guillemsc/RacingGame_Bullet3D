@@ -18,7 +18,7 @@ public:
 	void Move(const vec3 &Movement);
 	float* GetViewMatrix();
 
-	void Follow(PhysBody3D* body, float min, float max, float height);
+	void Follow(PhysBody3D* body, float min, float max, float height, float displacement);
 
 private:
 
@@ -28,7 +28,7 @@ public:
 	
 	vec3 X, Y, Z, Position, Reference;
 
-	int camera_distance = 10;
+	float camera_distance;
 
 private:
 
@@ -39,4 +39,5 @@ private:
 	float min_following_dist;
 	float max_following_dist;
 	float following_height;
+	float displacement;
 };

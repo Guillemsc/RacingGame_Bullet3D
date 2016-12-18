@@ -5,7 +5,7 @@
 
 struct PhysVehicle3D;
 
-#define MAX_ACCELERATION 5000.0f
+#define MAX_ACCELERATION 10000.0f
 #define BRAKE_POWER 500.0f
 
 class ModulePlayer : public Module
@@ -20,6 +20,7 @@ public:
 
 	float abs(float number);
 
+	void SetCameraDistance();
 	void ResetCarMotion();
 
 public:
@@ -30,4 +31,7 @@ public:
 	float brake;
 
 	float turn_degrees;
+
+private:
+	float starting_camera_distance = 0;
 };

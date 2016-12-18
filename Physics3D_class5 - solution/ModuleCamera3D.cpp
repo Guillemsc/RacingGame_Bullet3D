@@ -13,6 +13,8 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	Position = vec3(0.0f, 0.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
+
+	camera_distance = 13;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -47,14 +49,15 @@ update_status ModuleCamera3D::Update(float dt)
 		mat4x4 m;
 		following->GetTransform(&m);
 
-		LookAt(m.translation());
+		vec3 look(m.translation().x, m.translation().y, m.translation().z + displacement);
+		LookAt(look);
 
 		// Height
 		float* matrix;
 		Position.y = following_height + m.translation().y;
 
 		Position.x = m.translation().x - camera_distance;
-		Position.z = m.translation().z - camera_distance;
+		Position.z = m.translation().z + displacement * 1.5 - camera_distance;
 	}
 
 	else
@@ -168,12 +171,13 @@ float* ModuleCamera3D::GetViewMatrix()
 	return &ViewMatrix;
 }
 
-void ModuleCamera3D::Follow(PhysBody3D * body, float min, float max, float height)
+void ModuleCamera3D::Follow(PhysBody3D * body, float min, float max, float height, float _displacement)
 {
 	min_following_dist = min;
 	max_following_dist = max;
 	following_height = height;
 	following = body;
+	displacement = _displacement;
 }
 
 // -----------------------------------------------------------------
