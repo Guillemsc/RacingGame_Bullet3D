@@ -24,19 +24,19 @@ bool ModulePlayer::Start()
 	//Moto properties
 	moto.chassis_size.Set(0.5f, 1, 2.5f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
-	moto.mass = 500.0f;
-	moto.suspensionStiffness = 15.88f;
-	moto.suspensionCompression = 10000; // Important
-	moto.suspensionDamping = 0.88f;
-	moto.maxSuspensionTravelCm = 50.0f;
-	moto.frictionSlip = 0.8;
-	moto.maxSuspensionForce = 10000.0f; // Important
+	moto.mass = 700.0f;
+	moto.suspensionStiffness = 100.88f;
+	moto.suspensionCompression = 10.8f;
+	moto.suspensionDamping = 0.1f;
+	moto.maxSuspensionTravelCm = 1000.0f;
+	moto.frictionSlip = 50.5f;
+	moto.maxSuspensionForce = 8000000.0f;
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
-	float wheel_radius = 0.3f;
-	float wheel_width = 0.4f;
-	float suspensionRestLength = 1.2f;
+	float wheel_radius = 0.4f;
+	float wheel_width = 0.1f;
+	float suspensionRestLength = 1.4f;
 
 	float half_width = moto.chassis_size.x*0.5f;
 	float half_length = moto.chassis_size.z*0.5f;
@@ -143,7 +143,7 @@ update_status ModulePlayer::Update(float dt)
 void ModulePlayer::SetCameraDistance()
 {
 	float dist = App->camera->camera_distance;
-	float movement = 0.03;
+	float movement = 0.02;
 
 	if (starting_camera_distance + abs(vehicle->GetKmh() * 0.2) > dist + 5)
 	{
@@ -153,7 +153,7 @@ void ModulePlayer::SetCameraDistance()
 	else if(App->camera->camera_distance - movement > starting_camera_distance - 5)
 	{
 		if(dist > starting_camera_distance)
-			App->camera->camera_distance -= movement;
+			App->camera->camera_distance -= movement * 2;
 	}
 }
 

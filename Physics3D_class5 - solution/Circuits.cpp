@@ -82,10 +82,13 @@ void CircuitsManager::Circtuit1()
 	// Rise
 	{
 		CreateCircuitPoint({ 0, 24, 47 }, 0);
-		CreateCircuitPoint({ 0, 23, 50 }, 0);
-		CreateCircuitPoint({ 0, 23, 53 }, 0);
-		CreateCircuitPoint({ 0, 24, 56 }, 0);
-		CreateCircuitPoint({ 0, 26, 59 }, 0);
+		CreateCircuitPoint({ 0, 23.2f, 49 }, 0);
+		CreateCircuitPoint({ 0, 22.7f, 51 }, 0);
+		CreateCircuitPoint({ 0, 22.7f, 53 }, 0);
+		CreateCircuitPoint({ 0, 22.9f, 55 }, 0);
+		CreateCircuitPoint({ 0, 23.4f, 57 }, 0);
+		CreateCircuitPoint({ 0, 24.2f, 59 }, 0);
+		CreateCircuitPoint({ 0, 25.4f, 61 }, 0);
 	}
 	// Space
 	JoinCircuitPoints();
@@ -139,13 +142,27 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 64.5f, 257 }, 0);
 		CreateCircuitPoint({ 0, 64, 259 }, 0);
 		CreateCircuitPoint({ 0, 63.5f, 261 }, 0);
-		CreateCircuitPoint({ 0, 50, 270 }, 0);
+		CreateCircuitPoint({ 0, 63.5f, 262 }, 0);
+		CreateCircuitPoint({ 0, 63.5f, 263 }, 0);
+		CreateCircuitPoint({ 0, 64, 265 }, 0);
+		CreateCircuitPoint({ 0, 64.5f, 266 }, 0);
+		JoinCircuitPoints();
+		CreateCircuitPoint({ 0, 65, 270 }, 0);
+		CreateCircuitPoint({ 0, 68, 277 }, 0);
+		JoinCircuitPoints();
+		CreateCircuitPoint({ 0, 65, 284 }, 0);
+		CreateCircuitPoint({ 0, 68, 291 }, 0);
+		JoinCircuitPoints();
+		CreateCircuitPoint({ 0, 65, 298 }, 0);
+		CreateCircuitPoint({ 0, 68, 305 }, 0);
+
 	}
 
 	// Check Points -------------------------
 
 	CreateCheckpoint({ 0, 51, 3 }, 10);
 	CreateCheckpoint({ 0, 33, 90 }, 10);
+	CreateCheckpoint({ 0, 71.5f, 200 }, 10);
 
 	// --------------------------------------
 

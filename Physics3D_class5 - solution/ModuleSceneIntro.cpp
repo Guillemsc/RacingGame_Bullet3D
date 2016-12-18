@@ -22,8 +22,8 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(60, 60, 0));
-	App->camera->LookAt(vec3(0, 0, 0));
+	App->camera->Move(vec3(30, 30, 60));
+	//App->camera->LookAt(vec3(0, 0, 0));
 
 	App->circuits->SetCircuit(1);
 
