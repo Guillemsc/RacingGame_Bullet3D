@@ -284,11 +284,15 @@ void CircuitsManager::UpdateCheckPoints()
 	App->player->vehicle->GetTransform(&pos);
 	for (int i = 0; i < check_points.count(); i++)
 	{
-		if (pos.translation().z >= check_points[i].pos.z)
+		if (pos.translation().z >= check_points[i].pos.z && pos.translation().y < check_points[i].pos.y + 10 && pos.translation().y > check_points[i].pos.y - 10)
 		{
 			if (i > max_checkpoint)
 			{
 				max_checkpoint = i;
+				current_checkpoint = i;
+			}
+			else if(i > current_checkpoint)
+			{
 				current_checkpoint = i;
 			}
 		}

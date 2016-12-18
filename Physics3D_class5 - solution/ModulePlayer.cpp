@@ -108,8 +108,8 @@ update_status ModulePlayer::Update(float dt)
 		acceleration = -MAX_ACCELERATION * 0.6;
 	}
 
-	btVector3 torque = App->player->vehicle->body->getTotalTorque();
-	LOG("%d", torque.getX())
+	//btVector3 torque = App->player->vehicle->body->getTotalTorque();
+
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		App->player->vehicle->body->applyTorque(btVector3(-2500, 0, 0));
@@ -142,22 +142,19 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::SetCameraDistance()
 {
-	//float dist = App->camera->camera_distance;
-	//float movement = 0.03;
+	float dist = App->camera->camera_distance;
+	float movement = 0.03;
 
-	//if (starting_camera_distance + abs(vehicle->GetKmh() * 0.2) > dist + 5)
-	//{
-	//	if(dist < 25)
-	//		App->camera->camera_distance += movement;
-	//	LOG("One");
-	//}
-	//else if(App->camera->camera_distance - movement > starting_camera_distance - 5)
-	//{
-	//	if(dist > starting_camera_distance)
-	//		App->camera->camera_distance -= movement;
-	//	LOG("Two");
-	//}
-
+	if (starting_camera_distance + abs(vehicle->GetKmh() * 0.2) > dist + 5)
+	{
+		if(dist < 25)
+			App->camera->camera_distance += movement;
+	}
+	else if(App->camera->camera_distance - movement > starting_camera_distance - 5)
+	{
+		if(dist > starting_camera_distance)
+			App->camera->camera_distance -= movement;
+	}
 }
 
 void ModulePlayer::ResetCarMotion()
