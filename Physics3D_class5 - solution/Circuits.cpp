@@ -158,6 +158,7 @@ void CircuitsManager::Circtuit1()
 	CreateCheckpoint({ 0, 51, 3 }, 5);
 	CreateCheckpoint({ 0, 33, 90 }, 13);
 	CreateCheckpoint({ 0, 56.5f, 185 }, 10);
+	CreateCheckpoint({ 0, 57.5f, 300 }, 10);
 
 	// --------------------------------------
 
