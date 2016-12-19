@@ -24,8 +24,18 @@ struct VehicleInfo
 {
 	~VehicleInfo();
 	
+	vec3 front_forkTube_size;
+	vec3 front_forkTube_offset;
+	vec3 handleBar_size;
+	vec3 handleBar_offset;
+	vec3 front_seat_size;
+	vec3 front_seat_offset;
+	vec3 back_seat_size;
+	vec3 back_seat_offset;
 	vec3 chassis_size;
 	vec3 chassis_offset;
+	vec3 back_forkTube_size;
+	vec3 back_forkTube_offset;
 	float mass;
 	float suspensionStiffness; // default to 5.88 / 10.0 offroad / 50.0 sports car / 200.0 F1 car
 	float suspensionCompression; // default to 0.83

@@ -18,11 +18,14 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 	
-	
 	VehicleInfo moto;
 	
 	//Moto properties
-	moto.chassis_size.Set(0.5f, 1, 2.5f);
+	moto.front_forkTube_size.Set(0.15f, 0.15f, 1);
+	moto.front_forkTube_offset.Set(0, 0.5f, 0.65f);
+	moto.back_forkTube_size.Set(0.15f, 0.15f, 1);
+	moto.back_forkTube_offset.Set(0, 0.5f, -0.65f);
+	moto.chassis_size.Set(0.5f, 1, 2.75f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
 	moto.mass = 700.0f; // 700
 	moto.suspensionStiffness = 130.88f; // 130
