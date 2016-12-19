@@ -248,22 +248,22 @@ void CircuitsManager::DeleteCircuit()
 {
 	for (int i = 0; i < circuit_pieces.count(); i++)
 	{
-		RELEASE(circuit_pieces[i].PhysBody);
-		RELEASE(circuit_pieces[i].PrimBody);
+		App->physics->UnloadPhysBody(circuit_pieces[i].PhysBody);
+		delete circuit_pieces[i].PrimBody;
 	}
 
 	for (int i = 0; i < check_points.count(); i++)
 	{
-		RELEASE(check_points[i].PhysBody);
-		RELEASE(check_points[i].PrimBody);
-		RELEASE(check_points[i].visual);
+		App->physics->UnloadPhysBody(check_points[i].PhysBody);
+		delete check_points[i].PrimBody;
+		delete check_points[i].visual;
 	}
 
 	for (int i = 0; i < score_dots.count(); i++)
 	{
-		RELEASE(score_dots[i].PhysBody);
-		RELEASE(score_dots[i].PrimBody);
-		RELEASE(score_dots[i].visual);
+		App->physics->UnloadPhysBody(score_dots[i].PhysBody);
+		delete score_dots[i].PrimBody;
+		delete score_dots[i].visual;
 	}
 
 	circuit_pieces.clear();
@@ -288,12 +288,7 @@ void CircuitsManager::CreateCircuitPoint(const vec3 init, int distance_between)
 	points.first = pos;
 	c->SetPos(pos.x, pos.y, pos.z);
 
-	circuitPieces pieces;
-	//pieces.PrimBody = c;
-	//pieces.PhysBody = App->physics->AddBody(*c, 0.0f, App->scene_intro);
-
 	circuit_points.add(points);
-	circuit_pieces.add(pieces);
 }
 
 void CircuitsManager::CreateCilinder(const vec3 init, int radius, int h, int angle)

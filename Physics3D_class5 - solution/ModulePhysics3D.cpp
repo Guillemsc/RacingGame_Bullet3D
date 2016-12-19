@@ -127,13 +127,13 @@ update_status ModulePhysics3D::Update(float dt)
 			item = item->next;
 		}
 
-		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	/*	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			Sphere s(1);
 			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 			float force = 30.0f;
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
-		}
+		}*/
 	}
 
 	return UPDATE_CONTINUE;
@@ -373,6 +373,31 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 	world->addConstraint(hinge, disable_collision);
 	constraints.add(hinge);
 	hinge->setDbgDrawSize(2.0f);
+}
+
+void ModulePhysics3D::UnloadPhysBody(PhysBody3D * pb)
+{
+	p2List_item<PhysBody3D*>* item = nullptr;
+
+	if (bodies.findNode(pb))
+	{
+		item = bodies.findNode(pb);
+		world->removeRigidBody(item->data->body);
+		RELEASE(item->data);
+		bodies.del(item);
+	}
+}
+
+void ModulePhysics3D::UnloadShape(btCollisionShape * pb)
+{
+	p2List_item<btCollisionShape*>* item = nullptr;
+
+	if (shapes.findNode(pb))
+	{
+		item = shapes.findNode(pb);
+		shapes.del(item);
+		delete item->data;
+	}
 }
 
 // =============================================

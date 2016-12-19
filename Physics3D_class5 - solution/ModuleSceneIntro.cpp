@@ -47,6 +47,11 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	p.Render();
 
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
+	{
+		App->circuits->SetCircuit(1);
+	}
+
 	return UPDATE_CONTINUE;
 }
 
