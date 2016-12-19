@@ -186,6 +186,14 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 54.5f, 314.75f }, 0);
 		CreateCircuitPoint({ 0, 50, 316 }, 0);
 		CreateCircuitPoint({ 0, 48, 317 }, 0);
+		CreateCircuitPoint({ 0, 46, 318.5f }, 0); 
+		CreateCircuitPoint({ 0, 44, 320 }, 0);
+		CreateCircuitPoint({ 0, 42.5f, 322 }, 0);
+		CreateCircuitPoint({ 0, 41.5f, 324 }, 0);
+		CreateCircuitPoint({ 0, 40.5f, 327 }, 0);
+		CreateCircuitPoint({ 0, 40, 329 }, 0);
+		CreateCircuitPoint({ 0, 40, 335 }, 0);
+		CreateCircuitPoint({ 0, 43, 335 }, 0);
 	}
 
 	// Check Points -------------------------
@@ -194,6 +202,7 @@ void CircuitsManager::Circtuit1()
 	CreateCheckpoint({ 0, 33, 90 }, 13);
 	CreateCheckpoint({ 0, 56.5f, 185 }, 10);
 	CreateCheckpoint({ 0, 57.5f, 300 }, 10);
+	CreateCheckpoint({ 0, 41.5f, 330 }, 10);
 
 	// --------------------------------------
 
