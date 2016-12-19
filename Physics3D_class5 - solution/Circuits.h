@@ -43,6 +43,7 @@ public:
 	bool CleanUp();
 
 	void SetCircuit(int i);
+	void Check(PhysBody3D* body);
 
 private:
 	// Circuits
@@ -55,7 +56,7 @@ private:
 
 	void CreateCheckpoint(const vec3 init, int height);
 	void InitCheckPoints();
-	void UpdateCheckPoints();
+	void MoveAroundCheckPoints();
 
 public:
 	p2List2<checkpoints> check_points;

@@ -6,6 +6,7 @@
 enum Type
 {
 	pb_vehicle,
+	pb_checkpoint
 };
 
 class btRigidBody;

@@ -5,7 +5,7 @@
 
 struct PhysVehicle3D;
 
-#define MAX_ACCELERATION 10000.0f
+#define MAX_ACCELERATION 40000.0f // 37000
 #define BRAKE_POWER 500.0f
 
 class ModulePlayer : public Module

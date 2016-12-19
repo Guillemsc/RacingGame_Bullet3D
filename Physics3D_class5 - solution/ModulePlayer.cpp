@@ -24,13 +24,13 @@ bool ModulePlayer::Start()
 	//Moto properties
 	moto.chassis_size.Set(0.5f, 1, 2.5f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
-	moto.mass = 700.0f;
-	moto.suspensionStiffness = 100.88f;
-	moto.suspensionCompression = 10.8f;
-	moto.suspensionDamping = 0.1f;
-	moto.maxSuspensionTravelCm = 1000.0f;
-	moto.frictionSlip = 50.5f;
-	moto.maxSuspensionForce = 8000000.0f;
+	moto.mass = 700.0f; // 700
+	moto.suspensionStiffness = 130.88f; // 130
+	moto.suspensionCompression = 100.8f; // 100
+	moto.suspensionDamping = 500.0f; // 999
+	moto.maxSuspensionTravelCm = 1000.0f; // 1000
+	moto.frictionSlip = 500.5f; // 500
+	moto.maxSuspensionForce = 26000.0f; // 26000
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
@@ -101,11 +101,11 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (0.8*abs(vehicle->GetKmh()))));
+		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.4f*abs(vehicle->GetKmh())))); // 4.7
 	}
 	else if (vehicle->GetKmh() > 0)
 	{
-		acceleration = -MAX_ACCELERATION * 0.3;
+		brake = BRAKE_POWER * 0.4;
 	}
 
 	//btVector3 torque = App->player->vehicle->body->getTotalTorque();
@@ -122,10 +122,7 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		if (vehicle->GetKmh() > 0)
-			acceleration = -MAX_ACCELERATION * 1.4;
-		else 
-			acceleration = 0;
+		brake = BRAKE_POWER;
 	}
 
 	vehicle->ApplyEngineForce(acceleration);

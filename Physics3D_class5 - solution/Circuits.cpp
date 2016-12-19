@@ -39,7 +39,7 @@ update_status CircuitsManager::Update(float dt)
 		}
 	}
 
-	UpdateCheckPoints();
+	MoveAroundCheckPoints();
 
 	return UPDATE_CONTINUE;
 }
@@ -88,7 +88,7 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 22.9f, 55 }, 0);
 		CreateCircuitPoint({ 0, 23.4f, 57 }, 0);
 		CreateCircuitPoint({ 0, 24.2f, 59 }, 0);
-		CreateCircuitPoint({ 0, 25.4f, 61 }, 0);
+		CreateCircuitPoint({ 0, 25.5f, 61 }, 0);
 	}
 	// Space
 	JoinCircuitPoints();
@@ -103,66 +103,61 @@ void CircuitsManager::Circtuit1()
 	// Rise 2
 	{
 		CreateCircuitPoint({ 0, 16.5f, 132 }, 0);
-		CreateCircuitPoint({ 0, 16.5f, 134 }, 0);
-		CreateCircuitPoint({ 0, 16.75f, 136 }, 0);
-		CreateCircuitPoint({ 0, 17.5f, 138 }, 0);
-		CreateCircuitPoint({ 0, 18, 139 }, 0);
-		CreateCircuitPoint({ 0, 19, 141 }, 0);
-		CreateCircuitPoint({ 0, 20, 143 }, 0);
-		CreateCircuitPoint({ 0, 21.5f, 146 }, 0);
-		CreateCircuitPoint({ 0, 23.5f, 149 }, 0);
-		CreateCircuitPoint({ 0, 25.5f, 152 }, 0);
-		CreateCircuitPoint({ 0, 27.5f, 154 }, 0);
-		CreateCircuitPoint({ 0, 47.5f, 170 }, 0);
-		CreateCircuitPoint({ 0, 67.5f, 190 }, 0);
-		CreateCircuitPoint({ 0, 68.5f, 191 }, 0);
-		CreateCircuitPoint({ 0, 69.0f, 192 }, 0);
-		CreateCircuitPoint({ 0, 69.5f, 193 }, 0);
-		CreateCircuitPoint({ 0, 70.0f, 194 }, 0);
-		CreateCircuitPoint({ 0, 70.0f, 195 }, 0);
-		CreateCircuitPoint({ 0, 70.0f, 215 }, 0);
+		CreateCircuitPoint({ 0, 16.2f, 134 }, 0);
+		CreateCircuitPoint({ 0, 16.2f, 136 }, 0);
+		CreateCircuitPoint({ 0, 16.3f, 138 }, 0);
+		CreateCircuitPoint({ 0, 16.6f, 140 }, 0);
+		CreateCircuitPoint({ 0, 17.1f, 142 }, 0);
+		CreateCircuitPoint({ 0, 17.9f, 144 }, 0);
+		CreateCircuitPoint({ 0, 19.0f, 146 }, 0);
+		CreateCircuitPoint({ 0, 20.7f, 148 }, 0);
+		CreateCircuitPoint({ 0, 22.9f, 150 }, 0);
+
+		CreateCircuitPoint({ 0, 52.5f, 176 }, 0);
+		CreateCircuitPoint({ 0, 54.2f, 178 }, 0);
+		CreateCircuitPoint({ 0, 55.0f, 179 }, 0);
+		CreateCircuitPoint({ 0, 55.0f, 180 }, 0);
 	}
-	// Rise 3
+	// Spaces zone
 	{
-		CreateCircuitPoint({ 0, 70.3f, 216 }, 0);
-		CreateCircuitPoint({ 0, 70.9f, 218 }, 0);
+		CreateCircuitPoint({ 0, 55.3f, 193 }, 0);
+		CreateCircuitPoint({ 0, 55.6f, 195 }, 0);
+		CreateCircuitPoint({ 0, 56.0f, 197 }, 0);
+		CreateCircuitPoint({ 0, 56.8f, 199 }, 0);
 
 		JoinCircuitPoints();
 	}
 	// platforms 1-2
 	{
-		CreateCircuitPoint({ 0, 70, 225 }, 0);
-		CreateCircuitPoint({ 0, 70, 235 }, 0);
+		CreateCircuitPoint({ 0, 55, 206 }, 0);
+		CreateCircuitPoint({ 0, 55, 216 }, 0);
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 65, 245 }, 0);
-		CreateCircuitPoint({ 0, 65, 255 }, 0);
+		CreateCircuitPoint({ 0, 53, 225 }, 0);
+		CreateCircuitPoint({ 0, 53, 235 }, 0);
 	}
 	// Down 2
 	{
-		CreateCircuitPoint({ 0, 64.5f, 257 }, 0);
-		CreateCircuitPoint({ 0, 64, 259 }, 0);
-		CreateCircuitPoint({ 0, 63.5f, 261 }, 0);
-		CreateCircuitPoint({ 0, 63.5f, 262 }, 0);
-		CreateCircuitPoint({ 0, 63.5f, 263 }, 0);
-		CreateCircuitPoint({ 0, 64, 265 }, 0);
-		CreateCircuitPoint({ 0, 64.5f, 266 }, 0);
+		CreateCircuitPoint({ 0, 53.2f, 237 }, 0);
+		CreateCircuitPoint({ 0, 53.6f, 239 }, 0);
+		CreateCircuitPoint({ 0, 54.2f, 241 }, 0);
+		CreateCircuitPoint({ 0, 55.0f, 243 }, 0);
+		CreateCircuitPoint({ 0, 60.5f, 254 }, 0);
+		CreateCircuitPoint({ 0, 60.9f, 256 }, 0);
+
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 65, 270 }, 0);
-		CreateCircuitPoint({ 0, 68, 277 }, 0);
+		CreateCircuitPoint({ 0, 60, 265 }, 0);
+		CreateCircuitPoint({ 0, 63, 272 }, 0);
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 65, 284 }, 0);
-		CreateCircuitPoint({ 0, 68, 291 }, 0);
-		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 65, 298 }, 0);
-		CreateCircuitPoint({ 0, 68, 305 }, 0);
+		CreateCircuitPoint({ 0, 57, 293 }, 0);
+		CreateCircuitPoint({ 0, 54, 310 }, 0);
 
 	}
 
 	// Check Points -------------------------
 
-	CreateCheckpoint({ 0, 51, 3 }, 10);
-	CreateCheckpoint({ 0, 33, 90 }, 10);
-	CreateCheckpoint({ 0, 71.5f, 200 }, 10);
+	CreateCheckpoint({ 0, 51, 3 }, 5);
+	CreateCheckpoint({ 0, 33, 90 }, 13);
+	CreateCheckpoint({ 0, 56.5f, 185 }, 10);
 
 	// --------------------------------------
 
@@ -206,7 +201,7 @@ void CircuitsManager::CreateCircuitPoint(const vec3 init, int distance_between)
 
 	circuitPieces pieces;
 	//pieces.PrimBody = c;
-	pieces.PhysBody = App->physics->AddBody(*c, 0.0f, App->scene_intro);
+	//pieces.PhysBody = App->physics->AddBody(*c, 0.0f, App->scene_intro);
 
 	circuit_points.add(points);
 	circuit_pieces.add(pieces);
@@ -277,6 +272,7 @@ void CircuitsManager::CreateCheckpoint(const vec3 init, int height)
 	checkpoints cp;
 	cp.pos = init;
 	cp.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro, true);
+	cp.PhysBody->type = pb_checkpoint;
 	cp.PrimBody = c;
 	cp.visual = visual;
 	check_points.add(cp);
@@ -293,33 +289,9 @@ void CircuitsManager::InitCheckPoints()
 	}
 }
 
-// Updates current checkpoint, move arround checkpoints and color
-void CircuitsManager::UpdateCheckPoints()
+// Move arround checkpoints and color
+void CircuitsManager::MoveAroundCheckPoints()
 {
-	// Update farest checkpoint
-	mat4x4 pos;
-	App->player->vehicle->GetTransform(&pos);
-	for (int i = 0; i < check_points.count(); i++)
-	{
-		if (pos.translation().z >= check_points[i].pos.z && pos.translation().y < check_points[i].pos.y + 10 && pos.translation().y > check_points[i].pos.y - 10)
-		{
-			if (i > max_checkpoint)
-			{
-				max_checkpoint = i;
-				current_checkpoint = i;
-			}
-			else if(i > current_checkpoint)
-			{
-				current_checkpoint = i;
-			}
-		}
-
-		if (i <= max_checkpoint)
-			check_points[i].visual->color = Green;
-		else
-			check_points[i].visual->color = Red;
-	}
-
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		vec3 new_pos;
@@ -367,5 +339,30 @@ void CircuitsManager::UpdateCheckPoints()
 
 		// Set pos
 		App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
+	}
+}
+
+// Update farest checkpoint
+void CircuitsManager::Check(PhysBody3D * body)
+{
+	for (int i = 0; i < check_points.count(); i++)
+	{
+		if (check_points[i].PhysBody == body)
+		{
+			if (i > max_checkpoint)
+			{
+				max_checkpoint = i;
+				current_checkpoint = i;
+			}
+			else if (i > current_checkpoint)
+			{
+				current_checkpoint = i;
+			}
+		}
+
+		if (i <= max_checkpoint)
+			check_points[i].visual->color = Green;
+		else
+			check_points[i].visual->color = Red;
 	}
 }
