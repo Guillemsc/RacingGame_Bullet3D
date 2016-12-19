@@ -141,9 +141,10 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 22.9f, 150 }, 0);
 
 		CreateCircuitPoint({ 0, 52.5f, 176 }, 0);
+		CreateCircuitPoint({ 0, 53.4f, 177 }, 0);
 		CreateCircuitPoint({ 0, 54.2f, 178 }, 0);
-		CreateCircuitPoint({ 0, 55.0f, 179 }, 0);
-		CreateCircuitPoint({ 0, 55.0f, 180 }, 0);
+		CreateCircuitPoint({ 0, 54.6f, 179 }, 0);
+		CreateCircuitPoint({ 0, 54.8f, 180 }, 0);
 	}
 	// Spaces zone
 	{
@@ -181,18 +182,19 @@ void CircuitsManager::Circtuit1()
 	}
 	//Loop
 	{
-		CreateCircuitPoint({ 0, 54.1f, 311 }, 0);
-		CreateCircuitPoint({ 0, 54.35f, 313 }, 0);
-		CreateCircuitPoint({ 0, 54.45f, 314 }, 0);
-		CreateCircuitPoint({ 0, 54.5f, 315 }, 0);
+		CreateCircuitPoint({ 0, 53.9f, 311 }, 0);
+		CreateCircuitPoint({ 0, 54.0f, 312 }, 0);
+		CreateCircuitPoint({ 0, 54.18f, 313 }, 0);
+		CreateCircuitPoint({ 0, 54.4f, 314 }, 0);
+		CreateCircuitPoint({ 0, 54.6f, 315 }, 0);
 		JoinCircuitPoints();
 		CreateCircuitPoint({ 0, 55, 320 }, 0);
 		CreateCircuitPoint({ 0, 55.3f, 322 }, 0);
-		CreateCircuitPoint({ 0, 55.7f, 323 }, 0);
+		CreateCircuitPoint({ 0, 55.6f, 323 }, 0);
 		CreateCircuitPoint({ 0, 56.1f, 324 }, 0);
-		CreateCircuitPoint({ 0, 57, 325 }, 0);
-		CreateCircuitPoint({ 0, 58, 326 }, 0);
-		CreateCircuitPoint({ 0, 59.5f, 327 }, 0);
+		CreateCircuitPoint({ 0, 56.8f, 325 }, 0);
+		CreateCircuitPoint({ 0, 57.7f, 326 }, 0);
+		CreateCircuitPoint({ 0, 59.0f, 327 }, 0);
 		CreateCircuitPoint({ 0, 61, 328 }, 0);
 		CreateCircuitPoint({ 0, 63, 328.5f }, 0);
 		CreateCircuitPoint({ 0, 65, 328.5f }, 0);
@@ -200,12 +202,15 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 68.5f, 327 }, 0);
 		CreateCircuitPoint({ 0, 70, 325.5f }, 0);
 		CreateCircuitPoint({ 0, 71, 324 }, 0);
-		CreateCircuitPoint({ 0, 71, 319 }, 0);
-		CreateCircuitPoint({ 0, 70.5f, 318 }, 0);
-		CreateCircuitPoint({ 0, 69, 317 }, 0);
-		CreateCircuitPoint({ 0, 67, 316 }, 0);
-		CreateCircuitPoint({ 0, 65, 315.5f }, 0);
-		CreateCircuitPoint({ 0, 60, 315.5f }, 0);
+		CreateCircuitPoint({ 0, 71.5f, 322 }, 0);
+		CreateCircuitPoint({ 0, 71.5f, 320 }, 0);
+		CreateCircuitPoint({ 0, 71.1f, 318 }, 0);
+		CreateCircuitPoint({ 0, 69.8f, 316 }, 0);
+		CreateCircuitPoint({ 0, 68.7f, 315 }, 0);
+		CreateCircuitPoint({ 0, 67, 314 }, 0);
+		CreateCircuitPoint({ 0, 65, 313.5f }, 0);
+		CreateCircuitPoint({ 0, 63, 313.6f }, 0);
+		CreateCircuitPoint({ 0, 60, 314.2f }, 0);
 		JoinCircuitPoints();
 	}
 	//Space zone 3
@@ -501,12 +506,12 @@ void CircuitsManager::ChangeTitle()
 {
 	if (!finished)
 	{
-		char title[80];
+		char title[120];
 		float time = (App->circuits->timer->Read() / 1000);
 
 		if (taken_score_dots == score_dots.count() - 1 && started)
 		{
-			sprintf_s(title, "Circuit %d completed. Time: %.3f", current_circuit, time - 3);
+			sprintf_s(title, "Circuit %d completed. Time: %.3f sec", current_circuit, time - 3);
 			started = false;
 			finished = true;
 		}
@@ -517,7 +522,7 @@ void CircuitsManager::ChangeTitle()
 		}
 		else
 		{
-			sprintf_s(title, "Current time: %.3f  Collected points %.0f/%d", time - 3, taken_score_dots + 1, score_dots.count());
+			sprintf_s(title, "Current time: %.3f  Collected points %.0f/%d     | SPACE to return to the last checkpoint |", time - 3, taken_score_dots + 1, score_dots.count());
 			started = true;
 		}
 
