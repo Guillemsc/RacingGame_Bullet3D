@@ -240,8 +240,8 @@ void CircuitsManager::Circtuit1()
 	// Score Creation -----------------------
 
 	CreateScoreDots({ 0, 49, 16 }, 4);
+	CreateScoreDots({ 0, 70, 320 }, 4);
 	CreateScoreDots({ 0, 42, 342 }, 4);
-
 
 	// --------------------------------------
 
@@ -417,19 +417,7 @@ void CircuitsManager::MoveAroundCheckPoints()
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
-		current_checkpoint = 0;
-		max_checkpoint = 0;
-
-		vec3 new_pos;
-		new_pos.x = check_points[current_checkpoint].pos.x;
-		new_pos.y = check_points[current_checkpoint].pos.y;
-		new_pos.z = check_points[current_checkpoint].pos.z;
-
-		// Reset all car motion
-		App->player->ResetCarMotion();
-
-		// Set pos
-		App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
+		App->circuits->SetCircuit(current_circuit);
 	}
 }
 

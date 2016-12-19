@@ -56,23 +56,31 @@ public:
 	void Check_CheckPoints(PhysBody3D* body);
 	void Check_ScoreDots(PhysBody3D* body);
 
-	void ChangeTitle();
-
 private:
-	// Circuits
-	void Circtuit1();
 
+	// Circuits -----------
+	void Circtuit1();
+	// Circuits -----------
+
+	// Circuit Creation ---
 	void DeleteCircuit();
 	void CreateCircuitPoint(const vec3 init, int distance_between);
 	void CreateCilinder(const vec3 init, int radius, int h, int angle);
 	void JoinCircuitPoints();
+	// --------------------
 
+	// Checkpoint ---------
 	void CreateCheckpoint(const vec3 init, int height);
 	void InitCheckPoints();
 	void MoveAroundCheckPoints();
+	// --------------------
 
+	// ScoreDots ----------
 	void CreateScoreDots(const vec3 init, int height);
 	void InitScoreDots();
+	// --------------------
+
+	void ChangeTitle();
 
 public:
 	p2List2<checkpoints>   check_points;

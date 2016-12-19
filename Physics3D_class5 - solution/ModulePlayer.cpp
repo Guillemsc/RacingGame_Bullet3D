@@ -33,13 +33,15 @@ bool ModulePlayer::Start()
 	moto.handleBar_offset.Set(0, 0.75f, 0.5f);
 	moto.chassis_size.Set(0.5f, 1, 2.75f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
+
+
 	moto.mass = 700.0f; // 700
 	moto.suspensionStiffness = 130.88f; // 130
-	moto.suspensionCompression = 100.8f; // 100
+	moto.suspensionCompression = 130.8f; // 130
 	moto.suspensionDamping = 999; // 999
 	moto.maxSuspensionTravelCm = 1000.0f; // 1000
 	moto.frictionSlip = 500.5f; // 500
-	moto.maxSuspensionForce = 26000.0f; // 26000
+	moto.maxSuspensionForce = 30000.0f; // 30000
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
@@ -108,34 +110,40 @@ update_status ModulePlayer::Update(float dt)
 
 	SetCameraDistance();
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && App->circuits->started)
+	if (App->circuits->started)
 	{
-		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.4f*abs(vehicle->GetKmh())))); // 4.7
-	}
-	else if (vehicle->GetKmh() > 0)
-	{
-		brake = BRAKE_POWER * 0.4;
-	}
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		{
+			acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.4f*abs(vehicle->GetKmh())))); // 5.4
+		}
+		else if (vehicle->GetKmh() > 0)
+		{
+			brake = BRAKE_POWER * 0.4;
+		}
 
-	//btVector3 torque = App->player->vehicle->body->getTotalTorque();
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		App->player->vehicle->body->applyTorque(btVector3(-2500, 0, 0));
+		btVector3 torque = App->player->vehicle->body->getAngularVelocity();
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		{
+			if (torque.getX() > -4)
+				App->player->vehicle->body->setAngularVelocity(btVector3(torque.getX() - 0.15f, torque.getY(), torque.getZ()));
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			if (torque.getX() < 4)
+				App->player->vehicle->body->setAngularVelocity(btVector3(torque.getX() + 0.15f, torque.getY(), torque.getZ()));
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+			brake = BRAKE_POWER;
+		}
+
+		vehicle->ApplyEngineForce(acceleration);
+		vehicle->Brake(brake);
 	}
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		App->player->vehicle->body->applyTorque(btVector3(2500, 0, 0));
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		brake = BRAKE_POWER;
-	}
-
-	vehicle->ApplyEngineForce(acceleration);
-	vehicle->Brake(brake);
 
 	vehicle->Render();
 
