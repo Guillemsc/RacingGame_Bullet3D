@@ -32,6 +32,15 @@ struct checkpoints
 	Cube*			visual = nullptr;
 };
 
+struct scoreDots
+{
+	vec3			pos;
+	Cube*			PrimBody = nullptr;
+	PhysBody3D*		PhysBody = nullptr;
+
+	Cube*			visual = nullptr;
+};
+
 class CircuitsManager : public Module
 {
 public:
@@ -58,8 +67,11 @@ private:
 	void InitCheckPoints();
 	void MoveAroundCheckPoints();
 
+	void CreateScoreDots(const vec3 init);
+
 public:
 	p2List2<checkpoints> check_points;
+	p2List2<scoreDots> score_dots;
 private:
 	p2List2<circuitPoints> circuit_points;
 	p2List2<circuitPieces> circuit_pieces;

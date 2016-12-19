@@ -31,6 +31,8 @@ public:
 	float brake;
 
 	float turn_degrees;
+	
+	int score = 0;
 
 private:
 	float starting_camera_distance = 0;

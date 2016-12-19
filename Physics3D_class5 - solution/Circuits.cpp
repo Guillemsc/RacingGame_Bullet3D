@@ -206,6 +206,14 @@ void CircuitsManager::Circtuit1()
 
 	// --------------------------------------
 
+	// Score Creation -----------------------
+
+	CreateScoreDots({ 0, 48, 16 });
+	CreateScoreDots({ 0, 43, 332 });
+
+
+	// --------------------------------------
+
 	JoinCircuitPoints();
 }
 
@@ -224,9 +232,15 @@ void CircuitsManager::DeleteCircuit()
 		delete check_points[i].PrimBody;
 	}
 
+	for (int i = 0; i < score_dots.count(); i++) {
+		delete score_dots[i].PhysBody;
+		delete score_dots[i].PrimBody;
+	}
+
 	circuit_pieces.clear();
 	circuit_points.clear();
 	check_points.clear();
+	score_dots.clear();
 
 	current_checkpoint = 0;
 }
@@ -410,4 +424,24 @@ void CircuitsManager::Check(PhysBody3D * body)
 		else
 			check_points[i].visual->color = Red;
 	}
+}
+
+void CircuitsManager::CreateScoreDots(const vec3 init)
+{
+	Cube* c = new Cube(1, 1, 1);
+	c->color = Black;
+	c->SetPos(init.x, init.y, init.z);
+	
+
+	Cube* visual = new Cube(1, 1, 1);
+	visual->color = White;
+	visual->SetPos(init.x, init.y, init.z);
+
+	checkpoints cp;
+	cp.pos = init;
+	cp.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro, true);
+	cp.PhysBody->type = pb_scoredot;
+	cp.PrimBody = c;
+	cp.visual = visual;
+	check_points.add(cp);
 }

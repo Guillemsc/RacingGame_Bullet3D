@@ -58,6 +58,14 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		{
 			App->circuits->Check(body2);
 		}
+		if (body2->type == pb_scoredot) {
+			App->player->score += 1;
+			for (int i = 0; i < App->circuits->score_dots.count(); i++) {
+				if (body2 == App->circuits->score_dots[i].PhysBody) {
+					delete App->circuits->score_dots[i].visual;
+				}
+			}
+		}
 	}
 }
 
