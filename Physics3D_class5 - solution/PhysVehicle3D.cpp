@@ -40,7 +40,6 @@ void PhysVehicle3D::Render()
 	}
 
 	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
-	btQuaternion q2 = q;	q2.setEulerZYX(45, 0, 0);
 
 	//--------
 	Cube chassis(info.chassis_size.x, info.chassis_size.y, info.chassis_size.z);
@@ -55,9 +54,9 @@ void PhysVehicle3D::Render()
 	Cube front_forkTube(info.front_forkTube_size.x, info.front_forkTube_size.y, info.front_forkTube_size.z);
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&front_forkTube.transform);
 	btVector3 front_FT_offset(info.front_forkTube_offset.x, info.front_forkTube_offset.y, info.front_forkTube_offset.z);
-	front_FT_offset = front_FT_offset.rotate(q2.getAxis(), q2.getAngle());
+	front_FT_offset = front_FT_offset.rotate(q.getAxis(), q.getAngle());
 
-//	front_forkTube.SetRotation(45, vec3(1, 0, 0));
+	front_forkTube.SetRotation(45, vec3(1, 0, 0));
 
 	front_forkTube.transform.M[12] += front_FT_offset.getX();
 	front_forkTube.transform.M[13] += front_FT_offset.getY();

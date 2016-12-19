@@ -22,15 +22,21 @@ bool ModulePlayer::Start()
 	
 	//Moto properties
 	moto.front_forkTube_size.Set(0.15f, 0.15f, 1);
-	moto.front_forkTube_offset.Set(0, 0.5f, 0.65f);
+	moto.front_forkTube_offset.Set(0, 0.25f, 0.65f);
 	moto.back_forkTube_size.Set(0.15f, 0.15f, 1);
-	moto.back_forkTube_offset.Set(0, 0.5f, -0.65f);
+	moto.back_forkTube_offset.Set(0, 0, -0.65f);
+	moto.front_seat_size.Set(0.5f, 0.25f, 0.65f);
+	moto.front_seat_offset.Set(0, 0.25f, 0);
+	moto.back_seat_size.Set(0.5f, 0.25f, 0.65f);
+	moto.back_seat_offset.Set(0, 0.25f, -0.5f);
+	moto.handleBar_size.Set(0.5f, 0.05f, 0.05f);
+	moto.handleBar_offset.Set(0, 0.75f, 0.5f);
 	moto.chassis_size.Set(0.5f, 1, 2.75f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
 	moto.mass = 700.0f; // 700
 	moto.suspensionStiffness = 130.88f; // 130
 	moto.suspensionCompression = 100.8f; // 100
-	moto.suspensionDamping = 500.0f; // 999
+	moto.suspensionDamping = 999; // 999
 	moto.maxSuspensionTravelCm = 1000.0f; // 1000
 	moto.frictionSlip = 500.5f; // 500
 	moto.maxSuspensionForce = 26000.0f; // 26000
