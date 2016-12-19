@@ -14,7 +14,7 @@ public:
 	void Start();
 	void Stop();
 
-	Uint32 Read();
+	float Read();
 
 private:
 

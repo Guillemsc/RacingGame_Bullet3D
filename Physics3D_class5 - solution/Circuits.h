@@ -8,6 +8,7 @@
 #include "p2List2.h"
 
 struct PhysBody3D;
+class Timer;
 
 struct circuitPoints
 {
@@ -52,7 +53,10 @@ public:
 	bool CleanUp();
 
 	void SetCircuit(int i);
-	void Check(PhysBody3D* body);
+	void Check_CheckPoints(PhysBody3D* body);
+	void Check_ScoreDots(PhysBody3D* body);
+
+	void ChangeTitle();
 
 private:
 	// Circuits
@@ -67,16 +71,28 @@ private:
 	void InitCheckPoints();
 	void MoveAroundCheckPoints();
 
-	void CreateScoreDots(const vec3 init);
+	void CreateScoreDots(const vec3 init, int height);
+	void InitScoreDots();
 
 public:
-	p2List2<checkpoints> check_points;
-	p2List2<scoreDots> score_dots;
+	p2List2<checkpoints>   check_points;
+
+	bool			       started = false;
+	bool				   finished = false;
+
 private:
 	p2List2<circuitPoints> circuit_points;
 	p2List2<circuitPieces> circuit_pieces;
+	p2List2<scoreDots>     score_dots;
 
-	uint current_checkpoint = 0;
-	uint max_checkpoint = 0;
+	uint				   current_circuit = 0;
+
+	uint				   current_checkpoint = 0;
+	uint				   max_checkpoint = 0;
+
+	float				   taken_score_dots = 0.0f;
+	uint				   dots_rotation = 0;
+
+	Timer*				   timer = nullptr;
 };
 #endif // !__CIRCUITS_H_

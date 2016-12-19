@@ -5,6 +5,8 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include "Timer.h"
+#include <stdio.h>
 
 CircuitsManager::CircuitsManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -12,6 +14,7 @@ CircuitsManager::CircuitsManager(Application* app, bool start_enabled) : Module(
 
 CircuitsManager::~CircuitsManager()
 {
+	//delete timer;
 }
 
 bool CircuitsManager::Start()
@@ -24,22 +27,39 @@ update_status CircuitsManager::Update(float dt)
 	// Circuit render
 	for (int i = 0; i < circuit_pieces.count(); i++)
 	{
-		if(circuit_pieces[i].PrimBody != nullptr)
+		if (circuit_pieces[i].PrimBody != nullptr)
 			circuit_pieces[i].PrimBody->Render();
 	}
 
 	// Checkpoints render
-	for(int i = 0; i<check_points.count(); i++)
+	for (int i = 0; i<check_points.count(); i++)
 	{
 		if (check_points[i].PrimBody != nullptr)
 		{
-			if(App->physics->debug)
+			if (App->physics->debug)
 				check_points[i].PrimBody->Render();
 			check_points[i].visual->Render();
 		}
 	}
 
+	// Score render
+	dots_rotation++;
+	for (int i = 0; i < score_dots.count(); i++)
+	{
+		if (score_dots[i].PrimBody != nullptr)
+		{
+			if (App->physics->debug)
+				score_dots[i].PrimBody->Render();
+			score_dots[i].visual->Render();
+
+			score_dots[i].visual->SetRotation(dots_rotation, vec3(0, 1, 0));
+		}
+	}
+
+	ChangeTitle();
+
 	MoveAroundCheckPoints();
+
 
 	return UPDATE_CONTINUE;
 }
@@ -52,6 +72,12 @@ bool CircuitsManager::CleanUp()
 void CircuitsManager::SetCircuit(int i)
 {
 	DeleteCircuit();
+	App->player->ResetCarMotion();
+
+	current_circuit = i;
+	started = false;
+	finished = false;
+	timer = new Timer();
 
 	switch (i)
 	{
@@ -61,6 +87,7 @@ void CircuitsManager::SetCircuit(int i)
 	}
 
 	InitCheckPoints();
+	InitScoreDots();
 }
 
 void CircuitsManager::Circtuit1()
@@ -145,10 +172,10 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 60.9f, 256 }, 0);
 
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 60, 265 }, 0);
-		CreateCircuitPoint({ 0, 63, 272 }, 0);
+		CreateCircuitPoint({ 0, 61, 265 }, 0);
+		CreateCircuitPoint({ 0, 64, 272 }, 0);
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 57.5f, 287 }, 0);
+		CreateCircuitPoint({ 0, 57.5f, 292 }, 0);
 		CreateCircuitPoint({ 0, 54, 310 }, 0);
 
 	}
@@ -156,7 +183,7 @@ void CircuitsManager::Circtuit1()
 	{
 		CreateCircuitPoint({ 0, 54.1f, 311 }, 0);
 		CreateCircuitPoint({ 0, 54.35f, 313 }, 0);
-		CreateCircuitPoint({ 0, 54.45f, 314 }, 0); 
+		CreateCircuitPoint({ 0, 54.45f, 314 }, 0);
 		CreateCircuitPoint({ 0, 54.5f, 315 }, 0);
 		JoinCircuitPoints();
 		CreateCircuitPoint({ 0, 55, 320 }, 0);
@@ -165,7 +192,7 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 56.1f, 324 }, 0);
 		CreateCircuitPoint({ 0, 57, 325 }, 0);
 		CreateCircuitPoint({ 0, 58, 326 }, 0);
-		CreateCircuitPoint({ 0, 59.5f, 327 }, 0); 
+		CreateCircuitPoint({ 0, 59.5f, 327 }, 0);
 		CreateCircuitPoint({ 0, 61, 328 }, 0);
 		CreateCircuitPoint({ 0, 63, 328.5f }, 0);
 		CreateCircuitPoint({ 0, 65, 328.5f }, 0);
@@ -186,14 +213,14 @@ void CircuitsManager::Circtuit1()
 		CreateCircuitPoint({ 0, 54.5f, 314.75f }, 0);
 		CreateCircuitPoint({ 0, 50, 316 }, 0);
 		CreateCircuitPoint({ 0, 48, 317 }, 0);
-		CreateCircuitPoint({ 0, 46, 318.5f }, 0); 
+		CreateCircuitPoint({ 0, 46, 318.5f }, 0);
 		CreateCircuitPoint({ 0, 44, 320 }, 0);
 		CreateCircuitPoint({ 0, 42.5f, 322 }, 0);
 		CreateCircuitPoint({ 0, 41.5f, 324 }, 0);
 		CreateCircuitPoint({ 0, 40.5f, 327 }, 0);
 		CreateCircuitPoint({ 0, 40, 329 }, 0);
-		CreateCircuitPoint({ 0, 40, 335 }, 0);
-		CreateCircuitPoint({ 0, 43, 335 }, 0);
+		CreateCircuitPoint({ 0, 40, 350 }, 0);
+		CreateCircuitPoint({ 0, 43, 350 }, 0);
 	}
 
 	// Check Points -------------------------
@@ -202,14 +229,13 @@ void CircuitsManager::Circtuit1()
 	CreateCheckpoint({ 0, 33, 90 }, 13);
 	CreateCheckpoint({ 0, 56.5f, 185 }, 10);
 	CreateCheckpoint({ 0, 57.5f, 300 }, 10);
-	CreateCheckpoint({ 0, 41.5f, 330 }, 10);
 
 	// --------------------------------------
 
 	// Score Creation -----------------------
 
-	CreateScoreDots({ 0, 48, 16 });
-	CreateScoreDots({ 0, 43, 332 });
+	CreateScoreDots({ 0, 49, 16 }, 4);
+	CreateScoreDots({ 0, 42, 342 }, 4);
 
 
 	// --------------------------------------
@@ -222,19 +248,22 @@ void CircuitsManager::DeleteCircuit()
 {
 	for (int i = 0; i < circuit_pieces.count(); i++)
 	{
-		delete circuit_pieces[i].PhysBody;
-		delete circuit_pieces[i].PrimBody;
+		RELEASE(circuit_pieces[i].PhysBody);
+		RELEASE(circuit_pieces[i].PrimBody);
 	}
 
 	for (int i = 0; i < check_points.count(); i++)
 	{
-		delete check_points[i].PhysBody;
-		delete check_points[i].PrimBody;
+		RELEASE(check_points[i].PhysBody);
+		RELEASE(check_points[i].PrimBody);
+		RELEASE(check_points[i].visual);
 	}
 
-	for (int i = 0; i < score_dots.count(); i++) {
-		delete score_dots[i].PhysBody;
-		delete score_dots[i].PrimBody;
+	for (int i = 0; i < score_dots.count(); i++)
+	{
+		RELEASE(score_dots[i].PhysBody);
+		RELEASE(score_dots[i].PrimBody);
+		RELEASE(score_dots[i].visual);
 	}
 
 	circuit_pieces.clear();
@@ -242,7 +271,8 @@ void CircuitsManager::DeleteCircuit()
 	check_points.clear();
 	score_dots.clear();
 
-	current_checkpoint = 0;
+	//if (timer != nullptr)
+	//delete timer;
 }
 
 void CircuitsManager::CreateCircuitPoint(const vec3 init, int distance_between)
@@ -345,6 +375,7 @@ void CircuitsManager::InitCheckPoints()
 		vec3 pos = check_points[0].pos;
 		App->player->vehicle->SetPos(pos.x, pos.y, pos.z);
 		current_checkpoint = 0;
+		max_checkpoint = 0;
 	}
 }
 
@@ -360,7 +391,7 @@ void CircuitsManager::MoveAroundCheckPoints()
 
 		// Reset all car motion
 		App->player->ResetCarMotion();
-		 
+
 		// Set pos
 		App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
 	}
@@ -387,6 +418,7 @@ void CircuitsManager::MoveAroundCheckPoints()
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		current_checkpoint = 0;
+		max_checkpoint = 0;
 
 		vec3 new_pos;
 		new_pos.x = check_points[current_checkpoint].pos.x;
@@ -402,7 +434,7 @@ void CircuitsManager::MoveAroundCheckPoints()
 }
 
 // Update farest checkpoint
-void CircuitsManager::Check(PhysBody3D * body)
+void CircuitsManager::Check_CheckPoints(PhysBody3D * body)
 {
 	for (int i = 0; i < check_points.count(); i++)
 	{
@@ -426,22 +458,74 @@ void CircuitsManager::Check(PhysBody3D * body)
 	}
 }
 
-void CircuitsManager::CreateScoreDots(const vec3 init)
+void CircuitsManager::Check_ScoreDots(PhysBody3D * body)
 {
-	Cube* c = new Cube(1, 1, 1);
+	for (int i = 0; i < score_dots.count(); i++)
+	{
+		if (score_dots[i].PhysBody == body)
+		{
+			if (taken_score_dots < i)
+			{
+				taken_score_dots = i;
+			}
+		}
+
+		if (i <= taken_score_dots)
+			score_dots[i].visual->color = Green;
+		else
+			score_dots[i].visual->color = Grey;
+	}
+}
+
+void CircuitsManager::CreateScoreDots(const vec3 init, int height)
+{
+	Cube* c = new Cube(0.6f, height, 0.6f);
 	c->color = Black;
 	c->SetPos(init.x, init.y, init.z);
-	
 
-	Cube* visual = new Cube(1, 1, 1);
-	visual->color = White;
+	Cube* visual = new Cube(0.6f, 0.6f, 0.6f);
+	visual->color = Grey;
 	visual->SetPos(init.x, init.y, init.z);
 
-	checkpoints cp;
+	scoreDots cp;
 	cp.pos = init;
 	cp.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro, true);
 	cp.PhysBody->type = pb_scoredot;
 	cp.PrimBody = c;
 	cp.visual = visual;
-	check_points.add(cp);
+	score_dots.add(cp);
+}
+
+void CircuitsManager::InitScoreDots()
+{
+	taken_score_dots = -1.0f;
+	dots_rotation = 0;
+}
+
+void CircuitsManager::ChangeTitle()
+{
+	if (!finished)
+	{
+		char title[80];
+		float time = (App->circuits->timer->Read() / 1000);
+
+		if (taken_score_dots == score_dots.count() - 1 && started)
+		{
+			sprintf_s(title, "Circuit %d completed. Time: %.3f", current_circuit, time - 3);
+			started = false;
+			finished = true;
+		}
+		else if (time < 3 && !started)
+		{
+			sprintf_s(title, "Time to start: %2.f", 3 - time);
+			started = false;
+		}
+		else
+		{
+			sprintf_s(title, "Current time: %.3f  Collected points %.0f/%d", time - 3, taken_score_dots + 1, score_dots.count());
+			started = true;
+		}
+
+		App->window->SetTitle(title);
+	}
 }

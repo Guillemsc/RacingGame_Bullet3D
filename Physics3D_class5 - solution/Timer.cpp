@@ -26,7 +26,7 @@ void Timer::Stop()
 }
 
 // ---------------------------------------------
-Uint32 Timer::Read()
+float Timer::Read()
 {
 	if(running == true)
 	{

@@ -102,7 +102,7 @@ update_status ModulePlayer::Update(float dt)
 
 	SetCameraDistance();
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT && App->circuits->started)
 	{
 		acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.4f*abs(vehicle->GetKmh())))); // 4.7
 	}
@@ -133,9 +133,9 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 
-	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
-	App->window->SetTitle(title);
+	//char title[80];
+	//sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	//App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
 }
