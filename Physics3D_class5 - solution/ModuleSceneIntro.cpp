@@ -24,11 +24,11 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(30, 70, 150));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
-	/*_0to2kmh_fx = App->audio->LoadFx("Game/Music/0to2kmh_fx.wav");
-	_3to20kmh_fx = App->audio->LoadFx("Game/Music/3to20kmh_fx.wav");
-	_more20kmh_fx = App->audio->LoadFx("Game/Music/more20kmh_fx.wav");*/
-
 	App->circuits->SetCircuit(1);
+
+	engine_idle_fx = App->audio->LoadFx("Game/Music/engine_idle_fx.wav");
+	engine_start_fx = App->audio->LoadFx("Game/Music/engine_start_fx.wav");
+	checkpoint_fx = App->audio->LoadFx("Game/Music/checkpoint_fx.wav");
 
 	return true;
 }
@@ -55,15 +55,20 @@ update_status ModuleSceneIntro::Update(float dt)
 		App->circuits->SetCircuit(1);
 	}
 
-	//if (App->player->vehicle->GetKmh() >= 0 && App->player->vehicle->GetKmh() < 15) {
-	//	App->audio->PlayFx(_0to2kmh_fx);
-	//}
-	//else if (App->player->vehicle->GetKmh() >= 15 && App->player->vehicle->GetKmh() < 40) {
-	//	App->audio->PlayFx(_3to20kmh_fx);
-	//}
-	//else if (App->player->vehicle->GetKmh() >= 40) {
-	//	App->audio->PlayFx(_more20kmh_fx);
-	//}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) 
+	{
+		App->audio->PlayFx(engine_start_fx, 0, 2);
+		App->audio->PlayFx(engine_idle_fx, -1, 1);
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+	{
+		App->audio->PlayFx(engine_idle_fx, -1, 1);
+	}
+	else if (App->player->vehicle->GetKmh() == 0) 
+	{
+		App->audio->PlayFx(engine_idle_fx, 0, 1);
+	}
+
 
 	return UPDATE_CONTINUE;
 }
