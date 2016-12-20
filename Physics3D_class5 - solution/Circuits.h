@@ -83,6 +83,7 @@ private:
 	void CreateCheckpoint(const vec3 init, int height);
 	void InitCheckPoints();
 	void MoveAroundCheckPoints();
+	void ReturnToLastCheckpoint();
 	// --------------------
 
 	// ScoreDots ----------

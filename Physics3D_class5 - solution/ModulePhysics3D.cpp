@@ -386,12 +386,12 @@ void ModulePhysics3D::UnloadPhysBody(PhysBody3D * pb)
 	{
 		item = bodies.findNode(pb);
 		world->removeRigidBody(item->data->body);
-		RELEASE(item->data);
+		delete(item->data);
 		bodies.del(item);
 	}
 }
 
-void ModulePhysics3D::UnloadConstraint(btHingeConstraint * con)
+void ModulePhysics3D::UnloadConstraint(btTypedConstraint* con)
 {
 	p2List_item<btTypedConstraint*>* item = nullptr;
 
@@ -399,7 +399,7 @@ void ModulePhysics3D::UnloadConstraint(btHingeConstraint * con)
 	{
 		item = constraints.findNode(con);
 		world->removeConstraint(item->data);
-		RELEASE(item->data);
+		delete(item->data);
 		constraints.del(item);
 	}
 }

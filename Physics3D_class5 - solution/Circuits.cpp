@@ -293,14 +293,18 @@ void CircuitsManager::DeleteCircuit()
 		delete score_dots[i].visual;
 	}
 
+	int counter = 1;
 	for (int i = 0; i < circuit_constraints.count(); i++)
 	{
 		App->physics->UnloadPhysBody(circuit_constraints[i].PhysBody);
 		if (circuit_constraints[i].hinge != nullptr)
+		{
+			LOG("%d", counter);
 			App->physics->UnloadConstraint(circuit_constraints[i].hinge);
+			counter++;
+		}
 		if (circuit_constraints[i].Sensor != nullptr)
 			App->physics->UnloadPhysBody(circuit_constraints[i].Sensor);
-		
 	}
 
 	circuit_pieces.clear();
@@ -368,11 +372,10 @@ void CircuitsManager::CreateHammer(const vec3 posA, const vec3 posB, int velocit
 
 	int dist = piece1.PrimBody->transform.translation().y - piece2.PrimBody->transform.translation().y;
 
-	btHingeConstraint* hinge = App->physics->AddConstraintHinge(*piece1.PhysBody, *piece2.PhysBody, vec3(0, 0, 0), vec3(0, dist, 0), vec3(0, 0, 1), vec3(0, 0, 1));
+	piece2.hinge = App->physics->AddConstraintHinge(*piece1.PhysBody, *piece2.PhysBody, vec3(0, 0, 0), vec3(0, dist, 0), vec3(0, 0, 1), vec3(0, 0, 1));
 
-	hinge->enableAngularMotor(true, velocity, max_speed);
+	piece2.hinge->enableAngularMotor(true, velocity, max_speed);
 
-	piece2.hinge = hinge;
 	circuit_constraints.add(piece2);
 }
 
@@ -455,16 +458,7 @@ void CircuitsManager::MoveAroundCheckPoints()
 	{
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
-			vec3 new_pos;
-			new_pos.x = check_points[current_checkpoint].pos.x;
-			new_pos.y = check_points[current_checkpoint].pos.y;
-			new_pos.z = check_points[current_checkpoint].pos.z;
-
-			// Reset all car motion
-			App->player->ResetCarMotion();
-
-			// Set pos
-			App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
+			ReturnToLastCheckpoint();
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
@@ -491,6 +485,20 @@ void CircuitsManager::MoveAroundCheckPoints()
 	{
 		App->circuits->SetCircuit(current_circuit);
 	}
+}
+
+void CircuitsManager::ReturnToLastCheckpoint()
+{
+	vec3 new_pos;
+	new_pos.x = check_points[current_checkpoint].pos.x;
+	new_pos.y = check_points[current_checkpoint].pos.y;
+	new_pos.z = check_points[current_checkpoint].pos.z;
+
+	// Reset all car motion
+	App->player->ResetCarMotion();
+
+	// Set pos
+	App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
 }
 
 // Update farest checkpoint
@@ -571,7 +579,7 @@ void CircuitsManager::ChangeTitle()
 
 		if (taken_score_dots == score_dots.count() - 1 && started)
 		{
-			sprintf_s(title, "Circuit %d completed. Time: %.3f sec", current_circuit, time - 3);
+			sprintf_s(title, "Circuit %d completed. Time: %.3f sec     | R to reestart |  | NUMBERS to change circuit |", current_circuit, time - 3);
 			started = false;
 			finished = true;
 		}

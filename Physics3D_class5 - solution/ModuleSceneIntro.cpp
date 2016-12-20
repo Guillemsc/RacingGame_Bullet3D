@@ -83,8 +83,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		}
 		if (body2->type == pb_hammer)
 		{
-			App->player->vehicle->body->setLinearFactor(btVector3(1, 1, 1));
-			App->player->vehicle->body->setAngularFactor(btVector3(1, 1, 1));
+			App->player->VeicleCrash();
 		}
 	}
 }

@@ -37,7 +37,7 @@ public:
 	bool debug;
 
 	void UnloadPhysBody(PhysBody3D* pb);
-	void UnloadConstraint(btHingeConstraint* con);
+	void UnloadConstraint(btTypedConstraint* con);
 	void UnloadShape(btCollisionShape* pb);
 private:
 

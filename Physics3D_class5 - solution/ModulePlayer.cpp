@@ -47,11 +47,11 @@ bool ModulePlayer::Start()
 
 	moto.mass = 700.0f; // 700
 	moto.suspensionStiffness = 130.88f; // 130
-	moto.suspensionCompression = 130.8f; // 130
+	moto.suspensionCompression = 40.8f; // 130
 	moto.suspensionDamping = 999; // 999
-	moto.maxSuspensionTravelCm = 1000.0f; // 1000
+	moto.maxSuspensionTravelCm = 80.0f; // 1000
 	moto.frictionSlip = 500.5f; // 500
-	moto.maxSuspensionForce = 30000.0f; // 30000
+	moto.maxSuspensionForce = 45000.0f; // 30000
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
@@ -124,7 +124,7 @@ update_status ModulePlayer::Update(float dt)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
-			acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.4f*abs(vehicle->GetKmh())))); // 5.4
+			acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.2f*abs(vehicle->GetKmh())))); // 5.4
 		}
 		else if (vehicle->GetKmh() > 0)
 		{
@@ -196,6 +196,12 @@ void ModulePlayer::ResetCarMotion()
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 	vehicle->body->setMotionState(myMotionState);
 	// --------------
+}
+
+void ModulePlayer::VeicleCrash()
+{
+	App->player->vehicle->body->setLinearFactor(btVector3(1, 1, 1));
+	App->player->vehicle->body->setAngularFactor(btVector3(1, 1, 1));
 }
 
 float ModulePlayer::abs(float number)
