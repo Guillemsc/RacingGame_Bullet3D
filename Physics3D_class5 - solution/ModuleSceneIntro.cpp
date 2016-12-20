@@ -21,7 +21,7 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(30, 70, 150));
+	App->camera->Move(vec3(30, 30, 0));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
 	App->circuits->SetCircuit(1);
@@ -51,9 +51,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.Render();
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-	{
 		App->circuits->SetCircuit(1);
-	}
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		App->circuits->SetCircuit(2);
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) 
 	{

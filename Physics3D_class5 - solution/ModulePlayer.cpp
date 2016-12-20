@@ -49,9 +49,9 @@ bool ModulePlayer::Start()
 	moto.suspensionStiffness = 130.88f; // 130
 	moto.suspensionCompression = 40.8f; // 130
 	moto.suspensionDamping = 999; // 999
-	moto.maxSuspensionTravelCm = 80.0f; // 1000
+	moto.maxSuspensionTravelCm = 40.0f; // 1000
 	moto.frictionSlip = 500.5f; // 500
-	moto.maxSuspensionForce = 45000.0f; // 30000
+	moto.maxSuspensionForce = 50000.0f; // 30000
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
@@ -154,8 +154,6 @@ update_status ModulePlayer::Update(float dt)
 		vehicle->ApplyEngineForce(acceleration);
 		vehicle->Brake(brake);
 	}
-
-	
 
 	vehicle->Render();
 

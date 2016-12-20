@@ -18,6 +18,7 @@ struct circuitPoints
 	vec3	 second;
 	float	 platform_x;
 	float	 platform_y;
+	float	 distance_between = -1;
 };
 
 struct circuitPieces
@@ -72,6 +73,7 @@ private:
 
 	// Circuits -----------
 	void Circtuit1();
+	void Circtuit2();
 	// Circuits -----------
 
 	// Circuit Creation ---

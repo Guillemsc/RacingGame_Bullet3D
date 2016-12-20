@@ -118,6 +118,9 @@ void CircuitsManager::SetCircuit(int i)
 	case 1:
 		Circtuit1();
 		break;
+	case 2:
+		Circtuit2();
+		break;
 	}
 
 	InitCheckPoints();
@@ -128,138 +131,138 @@ void CircuitsManager::Circtuit1()
 {
 	// Initial Rect
 	{
-		CreateCircuitPoint({ 0, 51, 0 }, 0);
-		CreateCircuitPoint({ 0, 50, 0 }, 0);
-		CreateCircuitPoint({ 0, 50, 10 }, 0);
+		CreateCircuitPoint({ 0, 53, 0 }, 5);
+		CreateCircuitPoint({ 0, 50, 0 }, 5);
+		CreateCircuitPoint({ 0, 50, 10 }, 5);
 	}
 
 	// Down
 	{
-		CreateCircuitPoint({ 0, 49.5f, 12 }, 0);
-		CreateCircuitPoint({ 0, 48.5f, 14 }, 0);
-		CreateCircuitPoint({ 0, 47, 16 }, 0);
-		CreateCircuitPoint({ 0, 25, 45 }, 0);
+		CreateCircuitPoint({ 0, 49.5f, 12 }, 5);
+		CreateCircuitPoint({ 0, 48.5f, 14 }, 5);
+		CreateCircuitPoint({ 0, 47, 16 }, 5);
+		CreateCircuitPoint({ 0, 25, 45 }, 5);
 	}
 	// Rise
 	{
-		CreateCircuitPoint({ 0, 24, 47 }, 0);
-		CreateCircuitPoint({ 0, 23.2f, 49 }, 0);
-		CreateCircuitPoint({ 0, 22.7f, 51 }, 0);
-		CreateCircuitPoint({ 0, 22.7f, 53 }, 0);
-		CreateCircuitPoint({ 0, 22.9f, 55 }, 0);
-		CreateCircuitPoint({ 0, 23.4f, 57 }, 0);
-		CreateCircuitPoint({ 0, 24.2f, 59 }, 0);
-		CreateCircuitPoint({ 0, 25.5f, 61 }, 0);
+		CreateCircuitPoint({ 0, 24, 47 }, 5);
+		CreateCircuitPoint({ 0, 23.2f, 49 }, 5);
+		CreateCircuitPoint({ 0, 22.7f, 51 }, 5);
+		CreateCircuitPoint({ 0, 22.7f, 53 }, 5);
+		CreateCircuitPoint({ 0, 22.9f, 55 }, 5);
+		CreateCircuitPoint({ 0, 23.4f, 57 }, 5);
+		CreateCircuitPoint({ 0, 24.2f, 59 }, 5);
+		CreateCircuitPoint({ 0, 25.5f, 61 }, 5);
 	}
 	// Space
 	JoinCircuitPoints();
 
 	// Reception
 	{
-		CreateCircuitPoint({ 0, 32, 88 }, 0);
-		CreateCircuitPoint({ 0, 31, 92 }, 0);
-		CreateCircuitPoint({ 0, 29, 98 }, 0);
-		CreateCircuitPoint({ 0, 17, 130 }, 0);
+		CreateCircuitPoint({ 0, 32, 88 }, 5);
+		CreateCircuitPoint({ 0, 31, 92 }, 5);
+		CreateCircuitPoint({ 0, 29, 98 }, 5);
+		CreateCircuitPoint({ 0, 17, 130 }, 5);
 	}
 	// Rise 2
 	{
-		CreateCircuitPoint({ 0, 16.5f, 132 }, 0);
-		CreateCircuitPoint({ 0, 16.2f, 134 }, 0);
-		CreateCircuitPoint({ 0, 16.2f, 136 }, 0);
-		CreateCircuitPoint({ 0, 16.3f, 138 }, 0);
-		CreateCircuitPoint({ 0, 16.6f, 140 }, 0);
-		CreateCircuitPoint({ 0, 17.1f, 142 }, 0);
-		CreateCircuitPoint({ 0, 17.9f, 144 }, 0);
-		CreateCircuitPoint({ 0, 19.0f, 146 }, 0);
-		CreateCircuitPoint({ 0, 20.7f, 148 }, 0);
-		CreateCircuitPoint({ 0, 22.9f, 150 }, 0);
+		CreateCircuitPoint({ 0, 16.5f, 132 }, 5);
+		CreateCircuitPoint({ 0, 16.2f, 134 }, 5);
+		CreateCircuitPoint({ 0, 16.2f, 136 }, 5);
+		CreateCircuitPoint({ 0, 16.3f, 138 }, 5);
+		CreateCircuitPoint({ 0, 16.6f, 140 }, 5);
+		CreateCircuitPoint({ 0, 17.1f, 142 }, 5);
+		CreateCircuitPoint({ 0, 17.9f, 144 }, 5);
+		CreateCircuitPoint({ 0, 19.0f, 146 }, 5);
+		CreateCircuitPoint({ 0, 20.7f, 148 }, 5);
+		CreateCircuitPoint({ 0, 22.9f, 150 }, 5);
 
-		CreateCircuitPoint({ 0, 52.5f, 176 }, 0);
-		CreateCircuitPoint({ 0, 53.4f, 177 }, 0);
-		CreateCircuitPoint({ 0, 54.2f, 178 }, 0);
-		CreateCircuitPoint({ 0, 54.6f, 179 }, 0);
-		CreateCircuitPoint({ 0, 54.8f, 180 }, 0);
+		CreateCircuitPoint({ 0, 52.5f, 176 }, 5);
+		CreateCircuitPoint({ 0, 53.4f, 177 }, 5);
+		CreateCircuitPoint({ 0, 54.2f, 178 }, 5);
+		CreateCircuitPoint({ 0, 54.6f, 179 }, 5);
+		CreateCircuitPoint({ 0, 54.8f, 180 }, 5);
 	}
 	// Spaces zone
 	{
-		CreateCircuitPoint({ 0, 55.3f, 193 }, 0);
-		CreateCircuitPoint({ 0, 55.6f, 195 }, 0);
-		CreateCircuitPoint({ 0, 56.0f, 197 }, 0);
-		CreateCircuitPoint({ 0, 56.8f, 199 }, 0);
+		CreateCircuitPoint({ 0, 55.3f, 193 }, 5);
+		CreateCircuitPoint({ 0, 55.6f, 195 }, 5);
+		CreateCircuitPoint({ 0, 56.0f, 197 }, 5);
+		CreateCircuitPoint({ 0, 56.8f, 199 }, 5);
 
 		JoinCircuitPoints();
 	}
 	// platforms 1-2
 	{
-		CreateCircuitPoint({ 0, 55, 206 }, 0);
-		CreateCircuitPoint({ 0, 55, 216 }, 0);
+		CreateCircuitPoint({ 0, 55, 206 }, 5);
+		CreateCircuitPoint({ 0, 55, 216 }, 5);
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 53, 225 }, 0);
-		CreateCircuitPoint({ 0, 53, 235 }, 0);
+		CreateCircuitPoint({ 0, 53, 225 }, 5);
+		CreateCircuitPoint({ 0, 53, 235 }, 5);
 	}
 	// Down 2
 	{
-		CreateCircuitPoint({ 0, 53.2f, 237 }, 0);
-		CreateCircuitPoint({ 0, 53.6f, 239 }, 0);
-		CreateCircuitPoint({ 0, 54.2f, 241 }, 0);
-		CreateCircuitPoint({ 0, 55.0f, 243 }, 0);
-		CreateCircuitPoint({ 0, 60.5f, 254 }, 0);
-		CreateCircuitPoint({ 0, 60.9f, 256 }, 0);
+		CreateCircuitPoint({ 0, 53.2f, 237 }, 5);
+		CreateCircuitPoint({ 0, 53.6f, 239 }, 5);
+		CreateCircuitPoint({ 0, 54.2f, 241 }, 5);
+		CreateCircuitPoint({ 0, 55.0f, 243 }, 5);
+		CreateCircuitPoint({ 0, 60.5f, 254 }, 5);
+		CreateCircuitPoint({ 0, 60.9f, 256 }, 5);
 
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 61, 265 }, 0);
-		CreateCircuitPoint({ 0, 64, 272 }, 0);
+		CreateCircuitPoint({ 0, 61, 265 }, 5);
+		CreateCircuitPoint({ 0, 64, 272 }, 5);
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 57.5f, 292 }, 0);
-		CreateCircuitPoint({ 0, 54, 310 }, 0);
+		CreateCircuitPoint({ 0, 57.5f, 292 }, 5);
+		CreateCircuitPoint({ 0, 54, 310 }, 5);
 
 	}
 	//Loop
 	{
-		CreateCircuitPoint({ 0, 53.9f, 311 }, 0);
-		CreateCircuitPoint({ 0, 54.0f, 312 }, 0);
-		CreateCircuitPoint({ 0, 54.18f, 313 }, 0);
-		CreateCircuitPoint({ 0, 54.4f, 314 }, 0);
-		CreateCircuitPoint({ 0, 54.6f, 315 }, 0);
+		CreateCircuitPoint({ 0, 53.9f, 311 }, 5);
+		CreateCircuitPoint({ 0, 54.0f, 312 }, 5);
+		CreateCircuitPoint({ 0, 54.18f, 313 }, 5);
+		CreateCircuitPoint({ 0, 54.4f, 314 }, 5);
+		CreateCircuitPoint({ 0, 54.6f, 315 }, 5);
 		JoinCircuitPoints();
-		CreateCircuitPoint({ 0, 55, 320 }, 0);
-		CreateCircuitPoint({ 0, 55.3f, 322 }, 0);
-		CreateCircuitPoint({ 0, 55.6f, 323 }, 0);
-		CreateCircuitPoint({ 0, 56.1f, 324 }, 0);
-		CreateCircuitPoint({ 0, 56.8f, 325 }, 0);
-		CreateCircuitPoint({ 0, 57.7f, 326 }, 0);
-		CreateCircuitPoint({ 0, 59.0f, 327 }, 0);
-		CreateCircuitPoint({ 0, 61, 328 }, 0);
-		CreateCircuitPoint({ 0, 63, 328.5f }, 0);
-		CreateCircuitPoint({ 0, 65, 328.5f }, 0);
-		CreateCircuitPoint({ 0, 67, 328 }, 0);
-		CreateCircuitPoint({ 0, 68.5f, 327 }, 0);
-		CreateCircuitPoint({ 0, 70, 325.5f }, 0);
-		CreateCircuitPoint({ 0, 71, 324 }, 0);
-		CreateCircuitPoint({ 0, 71.5f, 322 }, 0);
-		CreateCircuitPoint({ 0, 71.5f, 320 }, 0);
-		CreateCircuitPoint({ 0, 71.1f, 318 }, 0);
-		CreateCircuitPoint({ 0, 69.8f, 316 }, 0);
-		CreateCircuitPoint({ 0, 68.7f, 315 }, 0);
-		CreateCircuitPoint({ 0, 67, 314 }, 0);
-		CreateCircuitPoint({ 0, 65, 313.5f }, 0);
-		CreateCircuitPoint({ 0, 63, 313.6f }, 0);
-		CreateCircuitPoint({ 0, 60, 314.2f }, 0);
+		CreateCircuitPoint({ 0, 55, 320 }, 5);
+		CreateCircuitPoint({ 0, 55.3f, 322 }, 5);
+		CreateCircuitPoint({ 0, 55.6f, 323 }, 5);
+		CreateCircuitPoint({ 0, 56.1f, 324 }, 5);
+		CreateCircuitPoint({ 0, 56.8f, 325 }, 5);
+		CreateCircuitPoint({ 0, 57.7f, 326 }, 5);
+		CreateCircuitPoint({ 0, 59.0f, 327 }, 5);
+		CreateCircuitPoint({ 0, 61, 328 }, 5);
+		CreateCircuitPoint({ 0, 63, 328.5f }, 5);
+		CreateCircuitPoint({ 0, 65, 328.5f }, 5);
+		CreateCircuitPoint({ 0, 67, 328 }, 5);
+		CreateCircuitPoint({ 0, 68.5f, 327 }, 5);
+		CreateCircuitPoint({ 0, 70, 325.5f }, 5);
+		CreateCircuitPoint({ 0, 71, 324 }, 5);
+		CreateCircuitPoint({ 0, 71.5f, 322 }, 5);
+		CreateCircuitPoint({ 0, 71.5f, 320 }, 5);
+		CreateCircuitPoint({ 0, 71.1f, 318 }, 5);
+		CreateCircuitPoint({ 0, 69.8f, 316 }, 5);
+		CreateCircuitPoint({ 0, 68.7f, 315 }, 5);
+		CreateCircuitPoint({ 0, 67, 314 }, 5);
+		CreateCircuitPoint({ 0, 65, 313.5f }, 5);
+		CreateCircuitPoint({ 0, 63, 313.6f }, 5);
+		CreateCircuitPoint({ 0, 60, 314.2f }, 5);
 		JoinCircuitPoints();
 	}
 	//Space zone 3
 	{
-		CreateCircuitPoint({ 0, 54.5f, 314.75f }, 0);
-		CreateCircuitPoint({ 0, 50, 316 }, 0);
-		CreateCircuitPoint({ 0, 48, 317 }, 0);
-		CreateCircuitPoint({ 0, 46, 318.5f }, 0);
-		CreateCircuitPoint({ 0, 44, 320 }, 0);
-		CreateCircuitPoint({ 0, 42.5f, 322 }, 0);
-		CreateCircuitPoint({ 0, 41.5f, 324 }, 0);
-		CreateCircuitPoint({ 0, 40.5f, 327 }, 0);
-		CreateCircuitPoint({ 0, 40, 329 }, 0);
-		CreateCircuitPoint({ 0, 40, 350 }, 0);
-		CreateCircuitPoint({ 0, 43, 350 }, 0);
+		CreateCircuitPoint({ 0, 54.5f, 314.75f }, 5);
+		CreateCircuitPoint({ 0, 50, 316 }, 5);
+		CreateCircuitPoint({ 0, 48, 317 }, 5);
+		CreateCircuitPoint({ 0, 46, 318.5f }, 5);
+		CreateCircuitPoint({ 0, 44, 320 }, 5);
+		CreateCircuitPoint({ 0, 42.5f, 322 }, 5);
+		CreateCircuitPoint({ 0, 41.5f, 324 }, 5);
+		CreateCircuitPoint({ 0, 40.5f, 327 }, 5);
+		CreateCircuitPoint({ 0, 40, 329 }, 5);
+		CreateCircuitPoint({ 0, 40, 350 }, 5);
+		CreateCircuitPoint({ 0, 43, 350 }, 5);
 	}
 
 	// Check Points -------------------------
@@ -286,6 +289,51 @@ void CircuitsManager::Circtuit1()
 	// --------------------------------------
 
 	JoinCircuitPoints();
+}
+
+void CircuitsManager::Circtuit2()
+{
+	// start + rampa
+	{
+		CreateCircuitPoint({ 0, 37, 0 }, 5);
+		CreateCircuitPoint({ 0, 33, 0 }, 5);
+		CreateCircuitPoint({ 0, 33, 16 }, 5);
+		CreateCircuitPoint({ 0, 33.2f, 18 }, 2);
+		CreateCircuitPoint({ 0, 33.8f, 20 }, 2);
+		CreateCircuitPoint({ 0, 34.5f, 21 }, 2);
+		CreateCircuitPoint({ 0, 35.7f, 22 }, 2);
+		CreateCircuitPoint({ 0, 30.0f, 22 }, 2);
+
+	}
+
+	JoinCircuitPoints();
+
+	//baixada
+	{
+		CreateCircuitPoint({ 0, 33, 16 }, 5);
+		CreateCircuitPoint({ 0, 15, 50 }, 5);
+	}
+	// pla + salt
+	{
+		CreateCircuitPoint({ 0, 14.2f, 52 }, 5);
+		CreateCircuitPoint({ 0, 14.0f, 54 }, 5);
+		CreateCircuitPoint({ 0, 14.0f, 66 }, 5);
+	}
+	JoinCircuitPoints();
+
+	// Check Points -------------------------
+
+	CreateCheckpoint({ 0, 34, 4 }, 5);
+
+	// --------------------------------------
+
+	// Score Creation -----------------------
+
+	// --------------------------------------
+
+	// Hummer -------------------------------
+
+	// --------------------------------------
 }
 
 // Free and reset circuit and checkpoint list
@@ -336,13 +384,15 @@ void CircuitsManager::CreateCircuitPoint(const vec3 init, int distance_between)
 	circuitPoints points;
 
 	vec3 pos = init;
-	vec3 dim(5, 0.5f, 0.5f);
+	vec3 dim(distance_between, 0.5f, 0.5f);
 
 	Cube* c = new Cube(dim.x, dim.y, dim.z);
 	c->color = Orange;
 
 	points.first = pos;
 	c->SetPos(pos.x, pos.y, pos.z);
+
+	points.distance_between = distance_between;
 
 	circuit_points.add(points);
 }
@@ -414,7 +464,7 @@ void CircuitsManager::JoinCircuitPoints()
 
 		float distance = length(distance_vec);
 
-		Cube* c = new Cube(5, 0.5f, distance);
+		Cube* c = new Cube(circuit_points[i + 1].distance_between, 0.5f, distance);
 		c->color = Orange;
 
 		c->SetRotation(-angleV, vec3(1, 0, 0));
@@ -454,12 +504,15 @@ void CircuitsManager::CreateCheckpoint(const vec3 init, int height)
 // Sets initial values for the checkpoints
 void CircuitsManager::InitCheckPoints()
 {
-	if (check_points[0].PrimBody != nullptr)
+	if (check_points.count() > 0)
 	{
-		vec3 pos = check_points[0].pos;
-		App->player->vehicle->SetPos(pos.x, pos.y, pos.z);
-		current_checkpoint = 0;
-		max_checkpoint = 0;
+		if (check_points[0].PrimBody != nullptr)
+		{
+			vec3 pos = check_points[0].pos;
+			App->player->vehicle->SetPos(pos.x, pos.y, pos.z);
+			current_checkpoint = 0;
+			max_checkpoint = 0;
+		}
 	}
 }
 
