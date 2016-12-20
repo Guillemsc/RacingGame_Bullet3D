@@ -183,6 +183,9 @@ void ModulePlayer::SetCameraDistance()
 
 void ModulePlayer::ResetCarMotion()
 {
+	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
+	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
+
 	// Reestart velocity
 	vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
 	vehicle->body->setAngularVelocity(btVector3(0, 0, 0));

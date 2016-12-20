@@ -22,7 +22,7 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(-10, 55, 10));
+	App->camera->Move(vec3(30, 70, 150));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
 	App->circuits->SetCircuit(1);
@@ -80,6 +80,11 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		if (body2->type == pb_scoredot) 
 		{
 			App->circuits->Check_ScoreDots(body2);
+		}
+		if (body2->type == pb_hammer)
+		{
+			App->player->vehicle->body->setLinearFactor(btVector3(1, 1, 1));
+			App->player->vehicle->body->setAngularFactor(btVector3(1, 1, 1));
 		}
 	}
 }

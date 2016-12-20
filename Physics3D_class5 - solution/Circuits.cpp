@@ -56,6 +56,22 @@ update_status CircuitsManager::Update(float dt)
 		}
 	}
 
+	// Constraints
+	for (int i = 0; i < circuit_constraints.count(); i++)
+	{
+		circuit_constraints[i].PhysBody->GetTransform(&(circuit_constraints[i].PrimBody->transform));
+
+		if (circuit_constraints[i].Sensor != nullptr)
+		{
+			mat4x4 m;
+			circuit_constraints[i].PhysBody->GetTransform(&m);
+			m[12] -= 5;
+
+			circuit_constraints[i].Sensor->SetTransform(&m);
+		}
+		circuit_constraints[i].PrimBody->Render();
+	}
+
 	ChangeTitle();
 
 	MoveAroundCheckPoints();
@@ -245,6 +261,12 @@ void CircuitsManager::Circtuit1()
 
 	// --------------------------------------
 
+	// Hummer -------------------------------
+	CreateHammer(vec3(0, 87.5f, 210), vec3(0, 57.5f, 210), 2, 160.0f);
+	CreateHammer(vec3(0, 87.5f, 230), vec3(0, 57.5f, 230), 2, 160.0f);
+	CreateHammer(vec3(0, 87.5f, 215), vec3(0, 57.5f, 215), 4, 160.0f);
+	// --------------------------------------
+
 	JoinCircuitPoints();
 }
 
@@ -271,8 +293,19 @@ void CircuitsManager::DeleteCircuit()
 		delete score_dots[i].visual;
 	}
 
+	for (int i = 0; i < circuit_constraints.count(); i++)
+	{
+		App->physics->UnloadPhysBody(circuit_constraints[i].PhysBody);
+		if (circuit_constraints[i].hinge != nullptr)
+			App->physics->UnloadConstraint(circuit_constraints[i].hinge);
+		if (circuit_constraints[i].Sensor != nullptr)
+			App->physics->UnloadPhysBody(circuit_constraints[i].Sensor);
+		
+	}
+
 	circuit_pieces.clear();
 	circuit_points.clear();
+	circuit_constraints.clear();
 	check_points.clear();
 	score_dots.clear();
 
@@ -305,6 +338,42 @@ void CircuitsManager::CreateCilinder(const vec3 init, int radius, int h, int ang
 
 	pieces.PhysBodies.PushBack(App->physics->AddBody(cilinder, 0.0f, this));
 	cilinders.add(cilinder);*/
+}
+
+void CircuitsManager::CreateHammer(const vec3 posA, const vec3 posB, int velocity, int max_speed)
+{
+	circuitConstraints piece1;
+	Cube* c = new Cube(3, 3, 3);
+	c->color = Orange;
+	c->SetPos(posA.x, posA.y, posA.z);
+	piece1.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro);
+	piece1.PrimBody = c;
+	piece1.hinge = nullptr;
+	circuit_constraints.add(piece1);
+
+	circuitConstraints piece2;
+	Cube* c2 = new Cube(10, 3, 4);
+	c2->color = Orange;
+	c2->SetPos(posB.x, posB.y, posB.z);
+	piece2.PhysBody = App->physics->AddBody(*c2, 30, App->scene_intro);
+	piece2.PrimBody = c2;
+	piece2.hinge = nullptr;
+
+	Cube* c3 = new Cube(10, 3, 4);
+	c3->color = Orange;
+	c3->SetPos(posB.x + 1, posB.y, posB.z);
+	piece2.Sensor = App->physics->AddBody(*c3, 30, App->scene_intro, true);
+	piece2.Sensor->type = pb_hammer;
+	piece2.hinge = nullptr;
+
+	int dist = piece1.PrimBody->transform.translation().y - piece2.PrimBody->transform.translation().y;
+
+	btHingeConstraint* hinge = App->physics->AddConstraintHinge(*piece1.PhysBody, *piece2.PhysBody, vec3(0, 0, 0), vec3(0, dist, 0), vec3(0, 0, 1), vec3(0, 0, 1));
+
+	hinge->enableAngularMotor(true, velocity, max_speed);
+
+	piece2.hinge = hinge;
+	circuit_constraints.add(piece2);
 }
 
 void CircuitsManager::JoinCircuitPoints()
@@ -382,26 +451,10 @@ void CircuitsManager::InitCheckPoints()
 // Move arround checkpoints and color
 void CircuitsManager::MoveAroundCheckPoints()
 {
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (!finished)
 	{
-		vec3 new_pos;
-		new_pos.x = check_points[current_checkpoint].pos.x;
-		new_pos.y = check_points[current_checkpoint].pos.y;
-		new_pos.z = check_points[current_checkpoint].pos.z;
-
-		// Reset all car motion
-		App->player->ResetCarMotion();
-
-		// Set pos
-		App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
-	{
-		if (current_checkpoint > 0)
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
-			current_checkpoint -= 1;
-
 			vec3 new_pos;
 			new_pos.x = check_points[current_checkpoint].pos.x;
 			new_pos.y = check_points[current_checkpoint].pos.y;
@@ -412,6 +465,25 @@ void CircuitsManager::MoveAroundCheckPoints()
 
 			// Set pos
 			App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
+		{
+			if (current_checkpoint > 0)
+			{
+				current_checkpoint -= 1;
+
+				vec3 new_pos;
+				new_pos.x = check_points[current_checkpoint].pos.x;
+				new_pos.y = check_points[current_checkpoint].pos.y;
+				new_pos.z = check_points[current_checkpoint].pos.z;
+
+				// Reset all car motion
+				App->player->ResetCarMotion();
+
+				// Set pos
+				App->player->vehicle->SetPos(new_pos.x, new_pos.y, new_pos.z);
+			}
 		}
 	}
 
