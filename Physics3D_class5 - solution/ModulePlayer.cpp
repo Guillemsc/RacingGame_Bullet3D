@@ -35,6 +35,15 @@ bool ModulePlayer::Start()
 	moto.handleBar_offset.Set(0, 0.65f, 0.25f);
 	moto.chassis_size.Set(0.5f, 1, 2.75f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
+	//Man properties
+	moto.torso_size.Set(0.25f, 0.7f, 0.4f);
+	moto.torso_offset.Set(0, 0.75f, -0.15f);
+	moto.biceps1_size.Set(0.1f, 0.6f, 0.1f);
+	moto.biceps1_offset.Set(0.15f, 0.85f, 0.05f);
+	moto.biceps2_size.Set(0.1f, 0.6f, 0.1f);
+	moto.biceps2_offset.Set(-0.15f, 0.85f, 0.05f);
+	moto.head_size = 0.25f;
+	moto.head_offset.Set(0, 1.35f, -0.15f);
 
 	moto.mass = 700.0f; // 700
 	moto.suspensionStiffness = 130.88f; // 130

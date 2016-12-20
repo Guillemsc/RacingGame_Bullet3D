@@ -34,4 +34,9 @@ public:
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
+public:
+	// Music
+	uint	_0to2kmh_fx;
+	uint	_3to20kmh_fx;
+	uint	_more20kmh_fx;
 };

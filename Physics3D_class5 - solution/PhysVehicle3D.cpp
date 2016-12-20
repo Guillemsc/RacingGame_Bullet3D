@@ -53,7 +53,7 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[14] += offset.getZ();
 	//--------
 	Cube front_forkTube(info.front_forkTube_size.x, info.front_forkTube_size.y, info.front_forkTube_size.z);
-	front_forkTube.color.Set(192, 192, 192);
+	front_forkTube.color = Grey;
 	front_forkTube.SetRotation(45, vec3(1, 0, 0));
 	front_forkTube.transform = transform * front_forkTube.transform;
 	btVector3 front_FT_offset(info.front_forkTube_offset.x, info.front_forkTube_offset.y, info.front_forkTube_offset.z);
@@ -65,7 +65,7 @@ void PhysVehicle3D::Render()
 
 	//--------
 	Cube back_forkTube(info.back_forkTube_size.x, info.back_forkTube_size.y, info.back_forkTube_size.z);
-	back_forkTube.color.Set(192, 192, 192);
+	back_forkTube.color = Grey;
 	back_forkTube.SetRotation(-45, vec3(1, 0, 0));
 	back_forkTube.transform = transform * back_forkTube.transform;
 	btVector3 back_FT_offset(info.back_forkTube_offset.x, info.back_forkTube_offset.y, info.back_forkTube_offset.z);
@@ -87,7 +87,7 @@ void PhysVehicle3D::Render()
 	handleBar.transform.M[14] += HB_offset.getZ();
 	//--------
 	Cube front_seat(info.front_seat_size.x, info.front_seat_size.y, info.front_seat_size.z);
-	front_seat.color = Black;
+	front_seat.color = Brown;
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&front_seat.transform);
 	btVector3 FS_offset(info.front_seat_offset.x, info.front_seat_offset.y, info.front_seat_offset.z);
 	FS_offset = FS_offset.rotate(q.getAxis(), q.getAngle());
@@ -97,7 +97,7 @@ void PhysVehicle3D::Render()
 	front_seat.transform.M[14] += FS_offset.getZ();
 	//--------
 	Cube back_seat(info.back_seat_size.x, info.back_seat_size.y, info.back_seat_size.z);
-	back_seat.color = Black;
+	back_seat.color = Brown;
 	back_seat.SetRotation(25, vec3(1, 0, 0));
 	back_seat.transform = transform * back_seat.transform;
 	btVector3 BS_offset(info.back_seat_offset.x, info.back_seat_offset.y, info.back_seat_offset.z);
@@ -125,6 +125,51 @@ void PhysVehicle3D::Render()
 	back_seat.Render();
 	back_seat_colored.Render();
 
+	//Man----------------------------
+	Sphere head(info.head_size);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&head.transform);
+	btVector3 HEAD_offset(info.head_offset.x, info.head_offset.y, info.head_offset.z);
+	HEAD_offset = HEAD_offset.rotate(q.getAxis(), q.getAngle());
+
+	head.transform.M[12] += HEAD_offset.getX();
+	head.transform.M[13] += HEAD_offset.getY();
+	head.transform.M[14] += HEAD_offset.getZ();
+	//-----------
+	Cube torso(info.torso_size.x, info.torso_size.y, info.torso_size.z);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&torso.transform);
+	btVector3 TORSO_offset(info.torso_offset.x, info.torso_offset.y, info.torso_offset.z);
+	TORSO_offset = TORSO_offset.rotate(q.getAxis(), q.getAngle());
+	torso.color = Red;
+
+	torso.transform.M[12] += TORSO_offset.getX();
+	torso.transform.M[13] += TORSO_offset.getY();
+	torso.transform.M[14] += TORSO_offset.getZ();
+	//-----------
+	Cube biceps1(info.biceps1_size.x, info.biceps1_size.y, info.biceps1_size.z);
+	biceps1.SetRotation(-50, vec3(1, 0, 0));
+	biceps1.transform = transform * biceps1.transform;
+	btVector3 BICEPS1_offset(info.biceps1_offset.x, info.biceps1_offset.y, info.biceps1_offset.z);
+	BICEPS1_offset = BICEPS1_offset.rotate(q.getAxis(), q.getAngle());
+
+	biceps1.transform.M[12] += BICEPS1_offset.getX();
+	biceps1.transform.M[13] += BICEPS1_offset.getY();
+	biceps1.transform.M[14] += BICEPS1_offset.getZ();
+	//-----------
+	Cube biceps2(info.biceps2_size.x, info.biceps2_size.y, info.biceps2_size.z);
+	biceps2.SetRotation(-50, vec3(1, 0, 0));
+	biceps2.transform = transform * biceps2.transform;
+	btVector3 BICEPS2_offset(info.biceps2_offset.x, info.biceps2_offset.y, info.biceps2_offset.z);
+	BICEPS2_offset = BICEPS2_offset.rotate(q.getAxis(), q.getAngle());
+
+	biceps2.transform.M[12] += BICEPS2_offset.getX();
+	biceps2.transform.M[13] += BICEPS2_offset.getY();
+	biceps2.transform.M[14] += BICEPS2_offset.getZ();
+	//-----------
+	
+	head.Render();
+	torso.Render();
+	biceps1.Render();
+	biceps2.Render();
 
 }
 
