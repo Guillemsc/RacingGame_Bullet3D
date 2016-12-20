@@ -33,10 +33,11 @@ public:
 	PhysVehicle3D* AddVehicle(const VehicleInfo& info, Module* listener = nullptr);
 
 	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
-	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
+	btHingeConstraint* AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
 	bool debug;
 
 	void UnloadPhysBody(PhysBody3D* pb);
+	void UnloadConstraint(btHingeConstraint* con);
 	void UnloadShape(btCollisionShape* pb);
 private:
 
