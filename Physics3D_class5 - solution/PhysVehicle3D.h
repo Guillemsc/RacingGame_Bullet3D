@@ -36,6 +36,9 @@ struct VehicleInfo
 	vec3 chassis_offset;
 	vec3 back_forkTube_size;
 	vec3 back_forkTube_offset;
+	vec3 back_seat_colored_size;
+	vec3 back_seat_colored_offset;
+
 	float mass;
 	float suspensionStiffness; // default to 5.88 / 10.0 offroad / 50.0 sports car / 200.0 F1 car
 	float suspensionCompression; // default to 0.83

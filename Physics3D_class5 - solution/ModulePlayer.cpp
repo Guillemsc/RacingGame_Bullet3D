@@ -26,14 +26,15 @@ bool ModulePlayer::Start()
 	moto.back_forkTube_size.Set(0.15f, 0.15f, 1);
 	moto.back_forkTube_offset.Set(0, 0, -0.65f);
 	moto.front_seat_size.Set(0.5f, 0.25f, 0.65f);
-	moto.front_seat_offset.Set(0, 0.25f, 0);
+	moto.front_seat_offset.Set(0, 0.30f, -0.05f);
 	moto.back_seat_size.Set(0.5f, 0.25f, 0.65f);
-	moto.back_seat_offset.Set(0, 0.25f, -0.5f);
+	moto.back_seat_offset.Set(0, 0.40f, -0.6f);
+	moto.back_seat_colored_size.Set(0.25f, 0.25f, 0.55f);
+	moto.back_seat_colored_offset.Set(0, 0.45f, -0.65f);
 	moto.handleBar_size.Set(0.5f, 0.05f, 0.05f);
-	moto.handleBar_offset.Set(0, 0.75f, 0.5f);
+	moto.handleBar_offset.Set(0, 0.65f, 0.25f);
 	moto.chassis_size.Set(0.5f, 1, 2.75f);
 	moto.chassis_offset.Set(0.08f, 1.0f, 0);
-
 
 	moto.mass = 700.0f; // 700
 	moto.suspensionStiffness = 130.88f; // 130

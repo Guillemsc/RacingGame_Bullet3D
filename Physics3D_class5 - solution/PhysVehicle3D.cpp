@@ -26,7 +26,7 @@ void PhysVehicle3D::Render()
 {
 	Cylinder wheel;
 
-	wheel.color = Blue;
+	wheel.color = Black;
 
 	for(int i = 0; i < vehicle->getNumWheels(); ++i)
 	{
@@ -40,7 +40,8 @@ void PhysVehicle3D::Render()
 	}
 
 	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
-
+	mat4x4 transform;
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&transform);
 	//--------
 	Cube chassis(info.chassis_size.x, info.chassis_size.y, info.chassis_size.z);
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
@@ -52,11 +53,11 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[14] += offset.getZ();
 	//--------
 	Cube front_forkTube(info.front_forkTube_size.x, info.front_forkTube_size.y, info.front_forkTube_size.z);
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&front_forkTube.transform);
+	front_forkTube.color.Set(192, 192, 192);
+	front_forkTube.SetRotation(45, vec3(1, 0, 0));
+	front_forkTube.transform = transform * front_forkTube.transform;
 	btVector3 front_FT_offset(info.front_forkTube_offset.x, info.front_forkTube_offset.y, info.front_forkTube_offset.z);
 	front_FT_offset = front_FT_offset.rotate(q.getAxis(), q.getAngle());
-
-	front_forkTube.SetRotation(45, vec3(1, 0, 0));
 
 	front_forkTube.transform.M[12] += front_FT_offset.getX();
 	front_forkTube.transform.M[13] += front_FT_offset.getY();
@@ -64,7 +65,9 @@ void PhysVehicle3D::Render()
 
 	//--------
 	Cube back_forkTube(info.back_forkTube_size.x, info.back_forkTube_size.y, info.back_forkTube_size.z);
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&back_forkTube.transform);
+	back_forkTube.color.Set(192, 192, 192);
+	back_forkTube.SetRotation(-45, vec3(1, 0, 0));
+	back_forkTube.transform = transform * back_forkTube.transform;
 	btVector3 back_FT_offset(info.back_forkTube_offset.x, info.back_forkTube_offset.y, info.back_forkTube_offset.z);
 	back_FT_offset = back_FT_offset.rotate(q.getAxis(), q.getAngle());
 
@@ -72,9 +75,9 @@ void PhysVehicle3D::Render()
 	back_forkTube.transform.M[13] += back_FT_offset.getY();
 	back_forkTube.transform.M[14] += back_FT_offset.getZ();
 
-	back_forkTube.SetRotation(-45, vec3(1, 0, 0));
 	//--------
 	Cube handleBar(info.handleBar_size.x, info.handleBar_size.y, info.handleBar_size.z);
+	handleBar.color = Black;
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&handleBar.transform);
 	btVector3 HB_offset(info.handleBar_offset.x, info.handleBar_offset.y, info.handleBar_offset.z);
 	HB_offset = HB_offset.rotate(q.getAxis(), q.getAngle());
@@ -84,6 +87,7 @@ void PhysVehicle3D::Render()
 	handleBar.transform.M[14] += HB_offset.getZ();
 	//--------
 	Cube front_seat(info.front_seat_size.x, info.front_seat_size.y, info.front_seat_size.z);
+	front_seat.color = Black;
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&front_seat.transform);
 	btVector3 FS_offset(info.front_seat_offset.x, info.front_seat_offset.y, info.front_seat_offset.z);
 	FS_offset = FS_offset.rotate(q.getAxis(), q.getAngle());
@@ -93,7 +97,9 @@ void PhysVehicle3D::Render()
 	front_seat.transform.M[14] += FS_offset.getZ();
 	//--------
 	Cube back_seat(info.back_seat_size.x, info.back_seat_size.y, info.back_seat_size.z);
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&back_seat.transform);
+	back_seat.color = Black;
+	back_seat.SetRotation(25, vec3(1, 0, 0));
+	back_seat.transform = transform * back_seat.transform;
 	btVector3 BS_offset(info.back_seat_offset.x, info.back_seat_offset.y, info.back_seat_offset.z);
 	BS_offset = BS_offset.rotate(q.getAxis(), q.getAngle());
 
@@ -101,12 +107,23 @@ void PhysVehicle3D::Render()
 	back_seat.transform.M[13] += BS_offset.getY();
 	back_seat.transform.M[14] += BS_offset.getZ();
 	//--------
+	Cube back_seat_colored(info.back_seat_colored_size.x, info.back_seat_colored_size.y, info.back_seat_colored_size.z);
+	back_seat_colored.color = Orange;
+	back_seat_colored.SetRotation(25, vec3(1, 0, 0));
+	back_seat_colored.transform = transform * back_seat_colored.transform;
+	btVector3 BSC_offset(info.back_seat_colored_offset.x, info.back_seat_colored_offset.y, info.back_seat_colored_offset.z);
+	BSC_offset = BSC_offset.rotate(q.getAxis(), q.getAngle());
+
+	back_seat_colored.transform.M[12] += BSC_offset.getX();
+	back_seat_colored.transform.M[13] += BSC_offset.getY();
+	back_seat_colored.transform.M[14] += BSC_offset.getZ();
 
 	front_forkTube.Render();
 	back_forkTube.Render();
 	handleBar.Render();
 	front_seat.Render();
 	back_seat.Render();
+	back_seat_colored.Render();
 
 
 }
