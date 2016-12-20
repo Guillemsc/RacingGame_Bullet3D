@@ -452,7 +452,7 @@ void CircuitsManager::Check_ScoreDots(PhysBody3D * body)
 	{
 		if (score_dots[i].PhysBody == body)
 		{
-			if (taken_score_dots < i)
+			if (taken_score_dots + 1 == i)
 			{
 				taken_score_dots = i;
 			}
