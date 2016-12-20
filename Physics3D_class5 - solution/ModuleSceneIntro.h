@@ -36,7 +36,7 @@ public:
 	PhysMotor3D* right_wheel;
 public:
 	// Music
-	uint	_0to2kmh_fx;
-	uint	_3to20kmh_fx;
-	uint	_more20kmh_fx;
+	uint	engine_idle_fx;
+	uint	engine_start_fx;
+	uint	checkpoint_fx;
 };

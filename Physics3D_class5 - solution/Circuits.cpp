@@ -522,6 +522,7 @@ void CircuitsManager::Check_CheckPoints(PhysBody3D * body)
 		{
 			if (i > max_checkpoint)
 			{
+				App->audio->PlayFx(App->scene_intro->checkpoint_fx);
 				max_checkpoint = i;
 				current_checkpoint = i;
 			}
