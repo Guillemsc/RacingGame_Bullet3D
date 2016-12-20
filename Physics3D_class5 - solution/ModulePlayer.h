@@ -22,7 +22,6 @@ public:
 
 	void SetCameraDistance();
 	void ResetCarMotion();
-	void VeicleCrash();
 
 public:
 

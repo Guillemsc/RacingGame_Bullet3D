@@ -8,7 +8,8 @@ enum Type
 	pb_vehicle,
 	pb_checkpoint,
 	pb_scoredot,
-	pb_hammer
+	pb_hammer,
+	pb_undefined
 };
 
 class btRigidBody;
@@ -32,7 +33,7 @@ private:
 public:
 	btRigidBody* body = nullptr;
 	p2List<Module*> collision_listeners;
-	Type type;
+	Type type = pb_undefined;
 };
 
 #endif // __PhysBody3D_H__

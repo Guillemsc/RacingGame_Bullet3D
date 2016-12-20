@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModulePlayer.h"
 #include "Primitive.h"
+#include "ModulePlayer.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
 #include "Timer.h"
@@ -19,6 +20,10 @@ CircuitsManager::~CircuitsManager()
 
 bool CircuitsManager::Start()
 {
+	started = false;
+	finished = false;
+	crashed = false;
+
 	return true;
 }
 
@@ -59,23 +64,35 @@ update_status CircuitsManager::Update(float dt)
 	// Constraints
 	for (int i = 0; i < circuit_constraints.count(); i++)
 	{
-		circuit_constraints[i].PhysBody->GetTransform(&(circuit_constraints[i].PrimBody->transform));
+		circuit_constraints[i].PhysBody2->GetTransform(&(circuit_constraints[i].PrimBody2->transform));
 
 		if (circuit_constraints[i].Sensor != nullptr)
 		{
 			mat4x4 m;
-			circuit_constraints[i].PhysBody->GetTransform(&m);
+			circuit_constraints[i].PhysBody2->GetTransform(&m);
 			m[12] -= 5;
 
 			circuit_constraints[i].Sensor->SetTransform(&m);
 		}
-		circuit_constraints[i].PrimBody->Render();
+		circuit_constraints[i].PrimBody2->Render();
+	}
+
+	// Fix or not fix angles 
+	if (crashed == true)
+	{
+		App->player->vehicle->body->setLinearFactor(btVector3(1, 1, 1));
+		App->player->vehicle->body->setAngularFactor(btVector3(1, 1, 1));
+	}
+	else
+	{
+
+		App->player->vehicle->body->setLinearFactor(btVector3(0, 1, 1));
+		App->player->vehicle->body->setAngularFactor(btVector3(1, 0, 0));
 	}
 
 	ChangeTitle();
 
 	MoveAroundCheckPoints();
-
 
 	return UPDATE_CONTINUE;
 }
@@ -93,6 +110,7 @@ void CircuitsManager::SetCircuit(int i)
 	current_circuit = i;
 	started = false;
 	finished = false;
+	crashed = false;
 	timer = new Timer();
 
 	switch (i)
@@ -293,18 +311,14 @@ void CircuitsManager::DeleteCircuit()
 		delete score_dots[i].visual;
 	}
 
-	int counter = 1;
 	for (int i = 0; i < circuit_constraints.count(); i++)
 	{
-		App->physics->UnloadPhysBody(circuit_constraints[i].PhysBody);
-		if (circuit_constraints[i].hinge != nullptr)
-		{
-			LOG("%d", counter);
-			App->physics->UnloadConstraint(circuit_constraints[i].hinge);
-			counter++;
-		}
-		if (circuit_constraints[i].Sensor != nullptr)
-			App->physics->UnloadPhysBody(circuit_constraints[i].Sensor);
+		App->physics->UnloadConstraint(circuit_constraints[i].hinge);
+		App->physics->UnloadPhysBody(circuit_constraints[i].PhysBody1);
+		App->physics->UnloadPhysBody(circuit_constraints[i].PhysBody2);
+		App->physics->UnloadPhysBody(circuit_constraints[i].Sensor);
+		delete circuit_constraints[i].PrimBody1;
+		delete circuit_constraints[i].PrimBody2;
 	}
 
 	circuit_pieces.clear();
@@ -346,37 +360,35 @@ void CircuitsManager::CreateCilinder(const vec3 init, int radius, int h, int ang
 
 void CircuitsManager::CreateHammer(const vec3 posA, const vec3 posB, int velocity, int max_speed)
 {
-	circuitConstraints piece1;
+	circuitConstraints piece;
 	Cube* c = new Cube(3, 3, 3);
 	c->color = Orange;
 	c->SetPos(posA.x, posA.y, posA.z);
-	piece1.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro);
-	piece1.PrimBody = c;
-	piece1.hinge = nullptr;
-	circuit_constraints.add(piece1);
+	piece.PhysBody1 = App->physics->AddBody(*c, 0, App->scene_intro);
+	piece.PrimBody1 = c;
+	piece.hinge = nullptr;
 
-	circuitConstraints piece2;
 	Cube* c2 = new Cube(10, 3, 4);
 	c2->color = Orange;
 	c2->SetPos(posB.x, posB.y, posB.z);
-	piece2.PhysBody = App->physics->AddBody(*c2, 30, App->scene_intro);
-	piece2.PrimBody = c2;
-	piece2.hinge = nullptr;
+	piece.PhysBody2 = App->physics->AddBody(*c2, 30, App->scene_intro);
+	piece.PrimBody2 = c2;
+	piece.hinge = nullptr;
 
 	Cube* c3 = new Cube(10, 3, 4);
 	c3->color = Orange;
 	c3->SetPos(posB.x + 1, posB.y, posB.z);
-	piece2.Sensor = App->physics->AddBody(*c3, 30, App->scene_intro, true);
-	piece2.Sensor->type = pb_hammer;
-	piece2.hinge = nullptr;
+	piece.Sensor = App->physics->AddBody(*c3, 30, App->scene_intro, true);
+	piece.Sensor->type = pb_hammer;
+	piece.hinge = nullptr;
 
-	int dist = piece1.PrimBody->transform.translation().y - piece2.PrimBody->transform.translation().y;
+	int dist = piece.PrimBody1->transform.translation().y - piece.PrimBody2->transform.translation().y;
 
-	piece2.hinge = App->physics->AddConstraintHinge(*piece1.PhysBody, *piece2.PhysBody, vec3(0, 0, 0), vec3(0, dist, 0), vec3(0, 0, 1), vec3(0, 0, 1));
+	piece.hinge = App->physics->AddConstraintHinge(*piece.PhysBody1, *piece.PhysBody2, vec3(0, 0, 0), vec3(0, dist, 0), vec3(0, 0, 1), vec3(0, 0, 1));
 
-	piece2.hinge->enableAngularMotor(true, velocity, max_speed);
+	piece.hinge->enableAngularMotor(true, velocity, max_speed);
 
-	circuit_constraints.add(piece2);
+	circuit_constraints.add(piece);
 }
 
 void CircuitsManager::JoinCircuitPoints()

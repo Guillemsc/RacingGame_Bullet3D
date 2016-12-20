@@ -8,6 +8,7 @@
 #include "p2List2.h"
 
 struct PhysBody3D;
+struct PhysMotor3D;
 class btHingeConstraint;
 class Timer;
 
@@ -45,9 +46,11 @@ struct scoreDots
 
 struct circuitConstraints
 {
-	PhysBody3D*		   PhysBody = nullptr;
+	PhysBody3D*		   PhysBody1 = nullptr;
+	PhysBody3D*		   PhysBody2 = nullptr;
 	PhysBody3D*		   Sensor = nullptr;
-	Cube*			   PrimBody = nullptr;
+	Cube*			   PrimBody1 = nullptr;
+	Cube*			   PrimBody2 = nullptr;
 	btHingeConstraint* hinge = nullptr;
 };
 
@@ -98,6 +101,7 @@ public:
 
 	bool			            started = false;
 	bool				        finished = false;
+	bool						crashed = 1;
 
 private:
 	p2List2<circuitPoints>      circuit_points;

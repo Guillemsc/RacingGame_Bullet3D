@@ -183,25 +183,22 @@ void ModulePlayer::SetCameraDistance()
 
 void ModulePlayer::ResetCarMotion()
 {
-	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
-	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
-
-	// Reestart velocity
-	vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
-	vehicle->body->setAngularVelocity(btVector3(0, 0, 0));
-
 	// Reestart angle
 	btTransform startTransform;
 	startTransform.setIdentity();
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 	vehicle->body->setMotionState(myMotionState);
 	// --------------
-}
 
-void ModulePlayer::VeicleCrash()
-{
-	App->player->vehicle->body->setLinearFactor(btVector3(1, 1, 1));
-	App->player->vehicle->body->setAngularFactor(btVector3(1, 1, 1));
+	// Reestart velocity
+	vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+	vehicle->body->setAngularVelocity(btVector3(0, 0, 0));
+
+	// Fix angles
+	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
+	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
+
+	App->circuits->crashed = false;
 }
 
 float ModulePlayer::abs(float number)

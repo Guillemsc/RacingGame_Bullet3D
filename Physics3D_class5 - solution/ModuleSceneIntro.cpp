@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
-#include "PhysBody3D.h"
 #include "Circuits.h"
 #include "ModulePlayer.h"
 #include "PhysVehicle3D.h"
@@ -25,11 +24,11 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(30, 70, 150));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
-	App->circuits->SetCircuit(1);
-
-	_0to2kmh_fx = App->audio->LoadFx("Game/Music/0to2kmh_fx.wav");
+	/*_0to2kmh_fx = App->audio->LoadFx("Game/Music/0to2kmh_fx.wav");
 	_3to20kmh_fx = App->audio->LoadFx("Game/Music/3to20kmh_fx.wav");
-	_more20kmh_fx = App->audio->LoadFx("Game/Music/more20kmh_fx.wav");
+	_more20kmh_fx = App->audio->LoadFx("Game/Music/more20kmh_fx.wav");*/
+
+	App->circuits->SetCircuit(1);
 
 	return true;
 }
@@ -51,7 +50,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	p.Render();
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		App->circuits->SetCircuit(1);
 	}
@@ -83,7 +82,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		}
 		if (body2->type == pb_hammer)
 		{
-			App->player->VeicleCrash();
+			App->circuits->crashed = true;
 		}
 	}
 }
