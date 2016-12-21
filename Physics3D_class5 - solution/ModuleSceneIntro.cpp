@@ -21,10 +21,10 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(30, 30, 0));
+	App->camera->Move(vec3(-15, 29.5f, 140));
 	//App->camera->LookAt(vec3(0, 0, 0));
 
-	App->circuits->SetCircuit(1);
+	App->circuits->SetCircuit(2);
 
 	engine_idle_fx = App->audio->LoadFx("Game/Music/engine_idle_fx.wav");
 	engine_start_fx = App->audio->LoadFx("Game/Music/engine_start_fx.wav");

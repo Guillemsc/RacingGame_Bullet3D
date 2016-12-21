@@ -355,18 +355,57 @@ void CircuitsManager::Circtuit2()
 		CreateCircuitPoint({ 0, 24, 119 }, 5);
 		CreateCircuitPoint({ 0, 24.5f, 120 }, 5);
 		CreateCircuitPoint({ 0, 25, 121 }, 5);
+		CreateCircuitPoint({ 0, 25.5f, 122 }, 5);
+		CreateCircuitPoint({ 0, 26, 123 }, 5);
+		CreateCircuitPoint({ 0, 26.5f, 124 }, 5);
+		JoinCircuitPoints();
 	}
-	
+	//Plane	
+	{
+		CreateCircuitPoint({ 0, 26.75f, 133 }, 5);
+		CreateCircuitPoint({ 0, 29, 145 }, 5);
+	}
+	//Loop
+	{
+		CreateCircuitPoint({ 0, 28.9f, 146 }, 5);
+		CreateCircuitPoint({ 0, 29.0f, 147 }, 5);
+		CreateCircuitPoint({ 0, 29.18f, 148 }, 5);
+		CreateCircuitPoint({ 0, 29.4f, 149 }, 5);
+		CreateCircuitPoint({ 0, 29.6f, 150 }, 5);
+		JoinCircuitPoints();
+		CreateCircuitPoint({ 0, 30, 155 }, 5);
+		CreateCircuitPoint({ 0, 30.3f, 157 }, 5);
+		CreateCircuitPoint({ 0, 30.6f, 158 }, 5);
+		CreateCircuitPoint({ 0, 31.1f, 159 }, 5);
+		CreateCircuitPoint({ 0, 32.8f, 160 }, 5);
+		CreateCircuitPoint({ 0, 33.7f, 161 }, 5);
+		CreateCircuitPoint({ 0, 35.0f, 162 }, 5);
+		CreateCircuitPoint({ 0, 37, 163 }, 5);
+		CreateCircuitPoint({ 0, 39, 163.5f }, 5);
+		CreateCircuitPoint({ 0, 41, 163.5f }, 5);
+		CreateCircuitPoint({ 0, 43, 163 }, 5);
+		CreateCircuitPoint({ 0, 44.5f, 162 }, 5);
+		CreateCircuitPoint({ 0, 46, 160.5f }, 5);
+		CreateCircuitPoint({ 0, 47, 159 }, 5);
+		CreateCircuitPoint({ 0, 47.5f, 157 }, 5);
+		CreateCircuitPoint({ 0, 47.5f, 155 }, 5);
+		CreateCircuitPoint({ 0, 47.1f, 153 }, 5);
+		CreateCircuitPoint({ 0, 45.8f, 151 }, 5);
+		CreateCircuitPoint({ 0, 44.7f, 150 }, 5);
+		CreateCircuitPoint({ 0, 43, 149 }, 5);
+		CreateCircuitPoint({ 0, 41, 148.5f }, 5);
+		CreateCircuitPoint({ 0, 39, 148.6f }, 5);
+		CreateCircuitPoint({ 0, 38, 149.2f }, 5);
+	}
 	JoinCircuitPoints();
 
 	// Check Points -------------------------
-
 	CreateCheckpoint({ 0, 34, 4 }, 5);
 
 	// --------------------------------------
 
 	// Score Creation -----------------------
-
+	
 	// --------------------------------------
 
 	// Hummer -------------------------------
@@ -558,7 +597,7 @@ void CircuitsManager::InitCheckPoints()
 void CircuitsManager::MoveAroundCheckPoints()
 {
 	if (!finished)
-	{
+	{ 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			ReturnToLastCheckpoint();
