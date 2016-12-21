@@ -62,7 +62,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Position.z = m.translation().z + displacement * 1.5 - camera_distance;
 	}
 
-	else
+	else if(App->physics->debug == true)
 	{
 
 		vec3 newPos(0, 0, 0);

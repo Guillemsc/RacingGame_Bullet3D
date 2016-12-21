@@ -21,12 +21,11 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(-300, 400.5f, 200));
+	App->camera->Move(vec3(0, 50.5f, 0));
 	//App->camera->Move(vec3(-300, 100.5f, 200));
 	App->camera->LookAt(vec3(0, 0, 200));
-	App->circuits->SetCircuit(2);
 
-	App->circuits->SetCircuit(3);
+	App->circuits->SetCircuit(4);
 
 	engine_idle_fx = App->audio->LoadFx("Game/Music/engine_idle_fx.wav");
 	engine_start_fx = App->audio->LoadFx("Game/Music/engine_start_fx.wav");
@@ -62,6 +61,8 @@ update_status ModuleSceneIntro::Update(float dt)
 		App->circuits->SetCircuit(2);
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		App->circuits->SetCircuit(3);
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		App->circuits->SetCircuit(4);
 
 	
 

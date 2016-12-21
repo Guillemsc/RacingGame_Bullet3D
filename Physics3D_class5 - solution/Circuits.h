@@ -76,6 +76,7 @@ private:
 	void Circtuit1();
 	void Circtuit2();
 	void Circtuit3();
+	void Circtuit4();
 	// Circuits -----------
 
 	// Circuit Creation ---

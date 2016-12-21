@@ -9,7 +9,7 @@
 #include "Timer.h"
 #include <stdio.h>
 
-#define NUMBER_OF_CIRCUITS 3
+#define NUMBER_OF_CIRCUITS 4
 
 CircuitsManager::CircuitsManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -114,6 +114,9 @@ void CircuitsManager::SetCircuit(int i)
 		break;
 	case 3:
 		Circtuit3();
+		break;
+	case 4:
+		Circtuit4();
 		break;
 	}
 
@@ -530,7 +533,7 @@ void CircuitsManager::Circtuit3()
 
 	// Score Creation -----------------------
 
-	CreateScoreDots({ 0, 15, 310 }, 4);
+	CreateScoreDots({ 0, 14, 310 }, 4);
 
 	// --------------------------------------
 
@@ -541,6 +544,75 @@ void CircuitsManager::Circtuit3()
 
 	// Dead sensor
 	CreateDeadSensor(vec3(0, 0.5f, 150), 100, 400);
+
+	JoinCircuitPoints();
+}
+
+void CircuitsManager::Circtuit4()
+{
+	CreateCircuitPoint({ 0, 15.7f, 0 }, 2);
+	CreateCircuitPoint({ 0, 10.7f, 0 }, 2);
+	CreateCircuitPoint({ 0, 10.7f, 5 }, 2);
+	CreateCircuitPoint({ 0, 10.7f, 200 }, 2);
+	CreateCircuitPoint({ 0, 14.7f, 200 }, 2);
+
+	// Check Points -------------------------
+
+	CreateCheckpoint({ 0, 12, 3 }, 5);
+	CreateCheckpoint({ 0, 12, 45 }, 5);
+	CreateCheckpoint({ 0, 12, 75 }, 5);
+	CreateCheckpoint({ 0, 12, 100 }, 5);
+	CreateCheckpoint({ 0, 12, 135 }, 5);
+
+	// --------------------------------------
+
+	// Score Creation -----------------------
+
+	CreateScoreDots({ 0, 12, 25 }, 5);
+	CreateScoreDots({ 0, 12, 30 }, 4);
+	CreateScoreDots({ 0, 12, 35 }, 4);
+	CreateScoreDots({ 0, 12, 50 }, 4);
+	CreateScoreDots({ 0, 12, 55 }, 4);
+	CreateScoreDots({ 0, 12, 60 }, 4);
+	CreateScoreDots({ 0, 12, 70 }, 4);
+	CreateScoreDots({ 0, 12, 80 }, 4);
+	CreateScoreDots({ 0, 12, 90 }, 4);
+	CreateScoreDots({ 0, 12, 110 }, 4);
+	CreateScoreDots({ 0, 12, 115 }, 4);
+	CreateScoreDots({ 0, 12, 120 }, 4);
+	CreateScoreDots({ 0, 12, 125 }, 4);
+	CreateScoreDots({ 0, 12, 145 }, 4);
+	CreateScoreDots({ 0, 12, 150 }, 4);
+	CreateScoreDots({ 0, 12, 160 }, 4);
+	CreateScoreDots({ 0, 12, 165 }, 4);
+	CreateScoreDots({ 0, 12, 175 }, 4);
+	CreateScoreDots({ 0, 12, 195 }, 4);
+
+	// --------------------------------------
+
+	// Hummer -------------------------------
+	CreateHammer(vec3(0, 43.5f, 25), vec3(0, 13.5f, 25), 4, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 30), vec3(0, 13.5f, 30), 3, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 35), vec3(0, 13.5f, 35), 5, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 50), vec3(0, 13.5f, 50), 4, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 55), vec3(0, 13.5f, 55), 3, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 60), vec3(0, 13.5f, 60), 6, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 70), vec3(0, 13.5f, 70), 2, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 90), vec3(0, 13.5f, 90), 4, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 110), vec3(0, 13.5f, 110), 4, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 115), vec3(0, 13.5f, 115), 2, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 120), vec3(0, 13.5f, 120), 4, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 125), vec3(0, 13.5f, 125), 4, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 145), vec3(0, 13.5f, 145), 1, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 150), vec3(0, 13.5f, 150), 3, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 160), vec3(0, 13.5f, 160), 4, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 165), vec3(0, 13.5f, 165), 6, 600.0f);
+	CreateHammer(vec3(0, 43.5f, 175), vec3(0, 13.5f, 175), 2, 600.0f);
+
+	// --------------------------------------
+
+	// Dead sensor
+	CreateDeadSensor(vec3(0, 5.0f, 3), 100, 400);
 
 	JoinCircuitPoints();
 }
@@ -894,7 +966,7 @@ void CircuitsManager::ChangeTitle()
 	else if(choose_level)
 	{
 		char title[120];
-		sprintf_s(title, "Welcome! Press the numbers [1], [2] or [3] any time to change levels");
+		sprintf_s(title, "Welcome! Press the numbers [1], [2], [3] or [4] any time to change levels");
 		App->window->SetTitle(title);
 	}
 }
