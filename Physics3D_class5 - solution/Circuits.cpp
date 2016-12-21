@@ -293,7 +293,7 @@ void CircuitsManager::Circtuit1()
 
 void CircuitsManager::Circtuit2()
 {
-	// start + rampa
+	// start + slope
 	{
 		CreateCircuitPoint({ 0, 37, 0 }, 5);
 		CreateCircuitPoint({ 0, 33, 0 }, 5);
@@ -308,17 +308,55 @@ void CircuitsManager::Circtuit2()
 
 	JoinCircuitPoints();
 
-	//baixada
+	//down 1
 	{
 		CreateCircuitPoint({ 0, 33, 16 }, 5);
 		CreateCircuitPoint({ 0, 15, 50 }, 5);
 	}
-	// pla + salt
+	//jump1
 	{
 		CreateCircuitPoint({ 0, 14.2f, 52 }, 5);
 		CreateCircuitPoint({ 0, 14.0f, 54 }, 5);
 		CreateCircuitPoint({ 0, 14.0f, 66 }, 5);
+		JoinCircuitPoints();
 	}
+	//down & rise 1
+	{
+		CreateCircuitPoint({ 0, 13.75f, 75 }, 5);
+		CreateCircuitPoint({ 0, 13.5f, 76 }, 5);
+		CreateCircuitPoint({ 0, 13, 77 }, 5);
+		CreateCircuitPoint({ 0, 12.5f, 78 }, 5);
+		CreateCircuitPoint({ 0, 12.25f, 79 }, 5);
+		CreateCircuitPoint({ 0, 12.5f, 80 }, 5);
+		CreateCircuitPoint({ 0, 13, 81 }, 5);
+		CreateCircuitPoint({ 0, 13.5f, 82 }, 5);
+		CreateCircuitPoint({ 0, 14, 83 }, 5);
+		CreateCircuitPoint({ 0, 14.5f, 84 }, 5);
+		CreateCircuitPoint({ 0, 15, 85 }, 5);
+		JoinCircuitPoints();
+	}
+	//rising platfrorm 1
+	{
+		CreateCircuitPoint({ 0, 17.25f, 97 }, 5);
+		CreateCircuitPoint({ 0, 17.5f, 98 }, 5);
+		CreateCircuitPoint({ 0, 18, 99 }, 5);
+		CreateCircuitPoint({ 0, 18.5f, 100 }, 5);
+		CreateCircuitPoint({ 0, 19, 101 }, 5);
+		CreateCircuitPoint({ 0, 19.5f, 102 }, 5);
+		CreateCircuitPoint({ 0, 20, 103 }, 5);
+		JoinCircuitPoints();
+	}
+	//rising platfrorm 2
+	{
+		CreateCircuitPoint({ 0, 22.25f, 115 }, 5);
+		CreateCircuitPoint({ 0, 22.5f, 116 }, 5);
+		CreateCircuitPoint({ 0, 23, 117 }, 5);
+		CreateCircuitPoint({ 0, 23.5f, 118 }, 5);
+		CreateCircuitPoint({ 0, 24, 119 }, 5);
+		CreateCircuitPoint({ 0, 24.5f, 120 }, 5);
+		CreateCircuitPoint({ 0, 25, 121 }, 5);
+	}
+	
 	JoinCircuitPoints();
 
 	// Check Points -------------------------
