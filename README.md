@@ -1,4 +1,4 @@
-# RacingGame_Bullet3D
+# RacingGame Bullet3D
 
 Welcome to our Physics II project.
 
