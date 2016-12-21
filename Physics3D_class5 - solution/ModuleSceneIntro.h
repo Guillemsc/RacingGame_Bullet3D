@@ -39,4 +39,7 @@ public:
 	uint	engine_idle_fx;
 	uint	engine_start_fx;
 	uint	checkpoint_fx;
+	uint	level_finished_fx;
+	uint	theme_song_ms;
+
 };

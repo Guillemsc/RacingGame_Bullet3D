@@ -29,6 +29,10 @@ bool ModuleSceneIntro::Start()
 	engine_idle_fx = App->audio->LoadFx("Game/Music/engine_idle_fx.wav");
 	engine_start_fx = App->audio->LoadFx("Game/Music/engine_start_fx.wav");
 	checkpoint_fx = App->audio->LoadFx("Game/Music/checkpoint_fx.wav");
+	level_finished_fx = App->audio->LoadFx("Game/Music/level_finished_fx.wav");
+
+	theme_song_ms = App->audio->LoadFx("Game/Music/theme_song_ms.wav");
+	App->audio->PlayFx(theme_song_ms, -1, 5);
 
 	return true;
 }

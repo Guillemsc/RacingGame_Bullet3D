@@ -645,6 +645,7 @@ void CircuitsManager::ChangeTitle()
 
 		if (taken_score_dots == score_dots.count() - 1 && started)
 		{
+			App->audio->PlayFx(App->scene_intro->level_finished_fx, 0, -1);
 			sprintf_s(title, "Circuit %d completed. Time: %.3f sec     | R to reestart |  | NUMBERS to change circuit |", current_circuit, time - 3);
 			started = false;
 			finished = true;
