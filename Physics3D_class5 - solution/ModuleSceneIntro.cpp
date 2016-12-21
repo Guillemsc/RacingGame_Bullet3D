@@ -68,13 +68,11 @@ update_status ModuleSceneIntro::Update(float dt)
 		App->audio->PlayFx(engine_idle_fx, -1, 1);
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
-	{
 		App->audio->PlayFx(engine_idle_fx, -1, 1);
-	}
+
 	else if (App->player->vehicle->GetKmh() == 0) 
-	{
 		App->audio->PlayFx(engine_idle_fx, 0, 1);
-	}
+
 
 
 	return UPDATE_CONTINUE;
@@ -95,6 +93,10 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		if (body2->type == pb_hammer)
 		{
 			App->player->Crash();
+		}
+		if (body2->type == pb_die_sensor)
+		{
+			App->circuits->ReturnToLastCheckpoint();
 		}
 	}
 }

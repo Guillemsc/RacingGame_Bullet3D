@@ -26,7 +26,7 @@ void PhysVehicle3D::Render()
 {
 	Cylinder wheel;
 
-	wheel.color = Black;
+	wheel.color = DarkGrey;
 
 	for(int i = 0; i < vehicle->getNumWheels(); ++i)
 	{
@@ -87,7 +87,7 @@ void PhysVehicle3D::Render()
 	handleBar.transform.M[14] += HB_offset.getZ();
 	//--------
 	Cube front_seat(info.front_seat_size.x, info.front_seat_size.y, info.front_seat_size.z);
-	front_seat.color = Brown;
+	front_seat.color = Blue1;
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&front_seat.transform);
 	btVector3 FS_offset(info.front_seat_offset.x, info.front_seat_offset.y, info.front_seat_offset.z);
 	FS_offset = FS_offset.rotate(q.getAxis(), q.getAngle());
@@ -97,7 +97,7 @@ void PhysVehicle3D::Render()
 	front_seat.transform.M[14] += FS_offset.getZ();
 	//--------
 	Cube back_seat(info.back_seat_size.x, info.back_seat_size.y, info.back_seat_size.z);
-	back_seat.color = Brown;
+	back_seat.color = Blue1;
 	back_seat.SetRotation(25, vec3(1, 0, 0));
 	back_seat.transform = transform * back_seat.transform;
 	btVector3 BS_offset(info.back_seat_offset.x, info.back_seat_offset.y, info.back_seat_offset.z);
@@ -130,6 +130,7 @@ void PhysVehicle3D::Render()
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&head.transform);
 	btVector3 HEAD_offset(info.head_offset.x, info.head_offset.y, info.head_offset.z);
 	HEAD_offset = HEAD_offset.rotate(q.getAxis(), q.getAngle());
+	head.color = Pink;
 
 	head.transform.M[12] += HEAD_offset.getX();
 	head.transform.M[13] += HEAD_offset.getY();
@@ -139,7 +140,7 @@ void PhysVehicle3D::Render()
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&torso.transform);
 	btVector3 TORSO_offset(info.torso_offset.x, info.torso_offset.y, info.torso_offset.z);
 	TORSO_offset = TORSO_offset.rotate(q.getAxis(), q.getAngle());
-	torso.color = Red;
+	torso.color = Blue2;
 
 	torso.transform.M[12] += TORSO_offset.getX();
 	torso.transform.M[13] += TORSO_offset.getY();
@@ -150,6 +151,7 @@ void PhysVehicle3D::Render()
 	biceps1.transform = transform * biceps1.transform;
 	btVector3 BICEPS1_offset(info.biceps1_offset.x, info.biceps1_offset.y, info.biceps1_offset.z);
 	BICEPS1_offset = BICEPS1_offset.rotate(q.getAxis(), q.getAngle());
+	biceps1.color = Pink;
 
 	biceps1.transform.M[12] += BICEPS1_offset.getX();
 	biceps1.transform.M[13] += BICEPS1_offset.getY();
@@ -160,6 +162,7 @@ void PhysVehicle3D::Render()
 	biceps2.transform = transform * biceps2.transform;
 	btVector3 BICEPS2_offset(info.biceps2_offset.x, info.biceps2_offset.y, info.biceps2_offset.z);
 	BICEPS2_offset = BICEPS2_offset.rotate(q.getAxis(), q.getAngle());
+	biceps2.color = Pink;
 
 	biceps2.transform.M[12] += BICEPS2_offset.getX();
 	biceps2.transform.M[13] += BICEPS2_offset.getY();

@@ -33,3 +33,8 @@ extern Color White;
 extern Color Orange;
 extern Color Grey;
 extern Color Brown;
+extern Color DarkGrey;
+extern Color Pink;
+extern Color Blue1;
+extern Color Blue2;
+extern Color Orange1;

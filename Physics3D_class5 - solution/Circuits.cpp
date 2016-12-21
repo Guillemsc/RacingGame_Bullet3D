@@ -37,7 +37,7 @@ update_status CircuitsManager::Update(float dt)
 	// Circuit render
 	for (int i = 0; i < circuit_pieces.count(); i++)
 	{
-		if (circuit_pieces[i].PrimBody != nullptr)
+		if (circuit_pieces[i].PrimBody != nullptr && circuit_pieces[i].PhysBody->type != pb_die_sensor)
 			circuit_pieces[i].PrimBody->Render();
 	}
 
@@ -281,6 +281,10 @@ void CircuitsManager::Circtuit1()
 	CreateHammer(vec3(0, 86.0f, 230), vec3(0, 56.0f, 230), 2, 160.0f);
 	// --------------------------------------
 
+	// Dead sensor
+	CreateDeadSensor(vec3(0, 10.5f, 200), 100, 500);
+	CreateDeadSensor(vec3(0, 35.5f, 270), 100, 150);
+
 	JoinCircuitPoints();
 }
 
@@ -466,7 +470,7 @@ void CircuitsManager::Circtuit2()
 
 	// Check Points -------------------------
 	CreateCheckpoint({ 0, 34, 4 }, 5);
-	CreateCheckpoint({ 0, 28.7f, 134.5f }, 10);
+	CreateCheckpoint({ 0, 28.7f, 134.5f }, 5);
 	CreateCheckpoint({ 0, 52.7f, 235.5f }, 15);
 	// --------------------------------------
 
@@ -481,6 +485,9 @@ void CircuitsManager::Circtuit2()
 	CreateHammer(vec3(0, 35.5f, 165), vec3(0, 5.5f, 165), 2, 160.0f);
 	CreateHammer(vec3(0, 35.5f, 170), vec3(0, 5.5f, 170), 3, 160.0f);
 	// --------------------------------------
+
+	// Dead sensor
+	CreateDeadSensor(vec3(0, -0.5f, 200), 100, 500);
 }
 
 // Free and reset circuit and checkpoint list
@@ -521,9 +528,6 @@ void CircuitsManager::DeleteCircuit()
 	circuit_constraints.clear();
 	check_points.clear();
 	score_dots.clear();
-
-	//if (timer != nullptr)
-	//delete timer;
 }
 
 void CircuitsManager::CreateCircuitPoint(const vec3 init, int distance_between)
@@ -566,7 +570,7 @@ void CircuitsManager::CreateHammer(const vec3 posA, const vec3 posB, int velocit
 	piece.hinge = nullptr;
 
 	Cube* c2 = new Cube(10, 3, 4);
-	c2->color = Orange;
+	c2->color = Red;
 	c2->SetPos(posB.x, posB.y, posB.z);
 	piece.PhysBody2 = App->physics->AddBody(*c2, 30, App->scene_intro);
 	piece.PrimBody2 = c2;
@@ -632,11 +636,26 @@ void CircuitsManager::JoinCircuitPoints()
 	}
 }
 
+void CircuitsManager::CreateDeadSensor(const vec3 init, float x, float y)
+{
+	circuitPieces pieces;
+	Cube* c = new Cube(x, 5, y);
+
+	c->SetPos(init.x, init.y, init.z);
+	c->color = Black;
+
+	pieces.PhysBody = App->physics->AddBody(*c, 0, App->scene_intro, true);
+	pieces.PhysBody->type = pb_die_sensor;
+	pieces.PrimBody = c;
+
+	circuit_pieces.add(pieces);
+}
+
 void CircuitsManager::CreateCheckpoint(const vec3 init, int height)
 {
 	Cube* c = new Cube(5, height, 0.5f);
 	c->color = Black;
-	c->SetPos(init.x, init.y, init.z);
+	c->SetPos(init.x, (init.y + height/2) - 3, init.z);
 
 	Cube* visual = new Cube(1, 3, 1);
 	visual->color = White;

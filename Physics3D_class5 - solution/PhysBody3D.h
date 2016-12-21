@@ -9,6 +9,7 @@ enum Type
 	pb_checkpoint,
 	pb_scoredot,
 	pb_hammer,
+	pb_die_sensor,
 	pb_undefined
 };
 

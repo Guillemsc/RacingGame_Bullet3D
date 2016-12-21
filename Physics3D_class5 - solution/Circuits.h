@@ -68,6 +68,7 @@ public:
 	void SetCircuit(int i);
 	void Check_CheckPoints(PhysBody3D* body);
 	void Check_ScoreDots(PhysBody3D* body);
+	void ReturnToLastCheckpoint();
 
 private:
 
@@ -82,13 +83,13 @@ private:
 	void CreateCilinder(const vec3 init, int radius, int h, int angle);
 	void CreateHammer(const vec3 posA, const vec3 posB, int velocity, int max_speed);
 	void JoinCircuitPoints();
+	void CreateDeadSensor(const vec3 init, float x, float y);
 	// --------------------
 
 	// Checkpoint ---------
 	void CreateCheckpoint(const vec3 init, int height);
 	void InitCheckPoints();
 	void MoveAroundCheckPoints();
-	void ReturnToLastCheckpoint();
 	// --------------------
 
 	// ScoreDots ----------
