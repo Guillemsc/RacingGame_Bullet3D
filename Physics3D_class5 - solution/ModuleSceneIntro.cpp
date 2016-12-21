@@ -49,11 +49,11 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 10, 0, 0);
+	//Plane p(0, 10, 0, 0);
 
-	p.axis = true;
+	//p.axis = true;
 
-	p.Render();
+	//p.Render();
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		App->circuits->SetCircuit(1);
