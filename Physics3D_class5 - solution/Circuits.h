@@ -103,13 +103,14 @@ public:
 
 	bool			            started = false;
 	bool				        finished = false;
-	bool						crashed = 1;
+	bool						choose_level = true;
 
 private:
 	p2List2<circuitPoints>      circuit_points;
 	p2List2<circuitPieces>		circuit_pieces;
 	p2List2<circuitConstraints> circuit_constraints;
-	p2List2<scoreDots>          score_dots;     
+	p2List2<scoreDots>          score_dots;
+	p2List2<float>				better_times;
 
 	uint				        current_circuit = 0;
 

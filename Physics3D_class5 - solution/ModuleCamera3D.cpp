@@ -44,7 +44,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	// Follow code
-	if (following != nullptr && !App->physics->debug)
+	if (following != nullptr && !App->circuits->choose_level)
 	{
 		mat4x4 m;
 		following->GetTransform(&m);

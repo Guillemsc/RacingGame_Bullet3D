@@ -124,7 +124,7 @@ update_status ModulePlayer::Update(float dt)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
-			acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.2f*abs(vehicle->GetKmh())))); // 5.4
+			acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.0f*abs(vehicle->GetKmh())))); // 5.4
 		}
 		else if (vehicle->GetKmh() > 0)
 		{
@@ -150,11 +150,11 @@ update_status ModulePlayer::Update(float dt)
 		{
 			brake = BRAKE_POWER;
 		}
-
-		vehicle->ApplyEngineForce(acceleration);
-		vehicle->Brake(brake);
 	}
+	
 
+	vehicle->ApplyEngineForce(acceleration);
+	vehicle->Brake(brake);
 	vehicle->Render();
 
 	return UPDATE_CONTINUE;
@@ -193,8 +193,12 @@ void ModulePlayer::ResetCarMotion()
 	// Fix angles
 	vehicle->body->setLinearFactor(btVector3(0, 1, 1));
 	vehicle->body->setAngularFactor(btVector3(1, 0, 0));
+}
 
-	App->circuits->crashed = false;
+void ModulePlayer::Crash()
+{
+	App->player->vehicle->body->setLinearFactor(btVector3(1, 1, 1));
+	App->player->vehicle->body->setAngularFactor(btVector3(1, 1, 1));
 }
 
 float ModulePlayer::abs(float number)

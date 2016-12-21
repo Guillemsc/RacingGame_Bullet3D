@@ -9,6 +9,8 @@
 #include "Timer.h"
 #include <stdio.h>
 
+#define NUMBER_OF_CIRCUITS 2
+
 CircuitsManager::CircuitsManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -22,7 +24,10 @@ bool CircuitsManager::Start()
 {
 	started = false;
 	finished = false;
-	crashed = false;
+	choose_level = true;
+
+	for (int i = 0; i < NUMBER_OF_CIRCUITS; i++)
+		better_times.add(0.0f);
 
 	return true;
 }
@@ -77,19 +82,6 @@ update_status CircuitsManager::Update(float dt)
 		circuit_constraints[i].PrimBody2->Render();
 	}
 
-	// Fix or not fix angles 
-	if (crashed == true)
-	{
-		App->player->vehicle->body->setLinearFactor(btVector3(1, 1, 1));
-		App->player->vehicle->body->setAngularFactor(btVector3(1, 1, 1));
-	}
-	else
-	{
-
-		App->player->vehicle->body->setLinearFactor(btVector3(0, 1, 1));
-		App->player->vehicle->body->setAngularFactor(btVector3(1, 0, 0));
-	}
-
 	ChangeTitle();
 
 	MoveAroundCheckPoints();
@@ -105,12 +97,11 @@ bool CircuitsManager::CleanUp()
 void CircuitsManager::SetCircuit(int i)
 {
 	DeleteCircuit();
-	App->player->ResetCarMotion();
 
 	current_circuit = i;
 	started = false;
 	finished = false;
-	crashed = false;
+	choose_level = false;
 	timer = new Timer();
 
 	switch (i)
@@ -122,6 +113,8 @@ void CircuitsManager::SetCircuit(int i)
 		Circtuit2();
 		break;
 	}
+
+	App->player->ResetCarMotion();
 
 	InitCheckPoints();
 	InitScoreDots();
@@ -284,8 +277,8 @@ void CircuitsManager::Circtuit1()
 
 	// Hummer -------------------------------
 	CreateHammer(vec3(0, 87.5f, 210), vec3(0, 57.5f, 210), 2, 160.0f);
-	CreateHammer(vec3(0, 87.5f, 230), vec3(0, 57.5f, 230), 2, 160.0f);
-	CreateHammer(vec3(0, 87.5f, 215), vec3(0, 57.5f, 215), 4, 160.0f);
+	CreateHammer(vec3(0, 87.5f, 215), vec3(0, 57.5f, 215), 3.5f, 160.0f);
+	CreateHammer(vec3(0, 86.0f, 230), vec3(0, 56.0f, 230), 2, 160.0f);
 	// --------------------------------------
 
 	JoinCircuitPoints();
@@ -303,7 +296,6 @@ void CircuitsManager::Circtuit2()
 		CreateCircuitPoint({ 0, 34.5f, 21 }, 2);
 		CreateCircuitPoint({ 0, 35.7f, 22 }, 2);
 		CreateCircuitPoint({ 0, 30.0f, 22 }, 2);
-
 	}
 
 	JoinCircuitPoints();
@@ -322,10 +314,10 @@ void CircuitsManager::Circtuit2()
 	}
 	//down & rise 1
 	{
-		CreateCircuitPoint({ 0, 13.75f, 75 }, 5);
-		CreateCircuitPoint({ 0, 13.5f, 76 }, 5);
-		CreateCircuitPoint({ 0, 13, 77 }, 5);
-		CreateCircuitPoint({ 0, 12.5f, 78 }, 5);
+		CreateCircuitPoint({ 0, 12.25f, 75 }, 5);
+		CreateCircuitPoint({ 0, 12.25f, 76 }, 5);
+		CreateCircuitPoint({ 0, 12.25, 77 }, 5);
+		CreateCircuitPoint({ 0, 12.25f, 78 }, 5);
 		CreateCircuitPoint({ 0, 12.25f, 79 }, 5);
 		CreateCircuitPoint({ 0, 12.5f, 80 }, 5);
 		CreateCircuitPoint({ 0, 13, 81 }, 5);
@@ -337,13 +329,13 @@ void CircuitsManager::Circtuit2()
 	}
 	//rising platfrorm 1
 	{
-		CreateCircuitPoint({ 0, 17.25f, 97 }, 5);
-		CreateCircuitPoint({ 0, 17.5f, 98 }, 5);
-		CreateCircuitPoint({ 0, 18, 99 }, 5);
-		CreateCircuitPoint({ 0, 18.5f, 100 }, 5);
-		CreateCircuitPoint({ 0, 19, 101 }, 5);
-		CreateCircuitPoint({ 0, 19.5f, 102 }, 5);
-		CreateCircuitPoint({ 0, 20, 103 }, 5);
+		CreateCircuitPoint({ 0, 17.25f, 102 }, 5);
+		CreateCircuitPoint({ 0, 17.5f, 103 }, 5);
+		CreateCircuitPoint({ 0, 18, 104 }, 5);
+		CreateCircuitPoint({ 0, 18.5f, 105 }, 5);
+		CreateCircuitPoint({ 0, 19, 106 }, 5);
+		CreateCircuitPoint({ 0, 19.5f, 107 }, 5);
+		CreateCircuitPoint({ 0, 20, 108 }, 5);
 		JoinCircuitPoints();
 	}
 	//rising platfrorm 2
@@ -404,18 +396,77 @@ void CircuitsManager::Circtuit2()
 		CreateCircuitPoint({ 0, 16, 151 }, 5);
 		CreateCircuitPoint({ 0, 14, 151.5f }, 5);
 		CreateCircuitPoint({ 0, 12, 152 }, 5);
-		CreateCircuitPoint({ 0, 10.5f, 153 }, 5);
-		CreateCircuitPoint({ 0, 9.5f, 155 }, 5);
-		CreateCircuitPoint({ 0, 8.5f, 157 }, 5);
-		CreateCircuitPoint({ 0, 8, 159 }, 5);
-		CreateCircuitPoint({ 0, 8, 170 }, 5);
-
+		CreateCircuitPoint({ 0, 8.7f, 153 }, 5);
+		CreateCircuitPoint({ 0, 5.7f, 155 }, 5);
+		CreateCircuitPoint({ 0, 4.0f, 157 }, 5);
+		CreateCircuitPoint({ 0, 3.0f, 159 }, 5);
+		CreateCircuitPoint({ 0, 2.5f, 161 }, 5);
+		CreateCircuitPoint({ 0, 2.5f, 163 }, 5);
+		CreateCircuitPoint({ 0, 2.5f, 173 }, 5);
+	}
+	//Rising + Jump
+	{
+		CreateCircuitPoint({ 0, 2.7f, 175 }, 5);
+		CreateCircuitPoint({ 0, 3.2f, 177 }, 5);
+		CreateCircuitPoint({ 0, 4.2f, 179 }, 5);
+		CreateCircuitPoint({ 0, 49.2f, 229 }, 5);
+		CreateCircuitPoint({ 0, 50.6f, 231 }, 5);
+		CreateCircuitPoint({ 0, 51.4f, 233 }, 5);
+		CreateCircuitPoint({ 0, 51.8f, 235 }, 5);
+		CreateCircuitPoint({ 0, 51.8f, 237 }, 5);
+		CreateCircuitPoint({ 0, 51.8f, 255 }, 5);
+		JoinCircuitPoints();
+		CreateCircuitPoint({ 0, 51.8f, 250 }, 2);
+		CreateCircuitPoint({ 0, 52.0f, 252 }, 2);
+		CreateCircuitPoint({ 0, 52.4f, 254 }, 2);
+		CreateCircuitPoint({ 0, 52.8f, 255 }, 2);
+		CreateCircuitPoint({ 0, 51.8f, 255 }, 2);
+		JoinCircuitPoints();
+	}
+	// Reception + Jump
+	{
+		CreateCircuitPoint({ 0, 40.7f, 280 }, 5);
+		CreateCircuitPoint({ 0, 10.7f, 330 }, 5);
+		CreateCircuitPoint({ 0, 9.7f, 333 }, 5);
+		CreateCircuitPoint({ 0, 9.2f, 336 }, 5);
+		CreateCircuitPoint({ 0, 9.2f, 339 }, 5);
+		CreateCircuitPoint({ 0, 9.5f, 342 }, 5);
+		CreateCircuitPoint({ 0, 10.4f, 345 }, 5);
+		CreateCircuitPoint({ 0, 12.0f, 348 }, 5);
+		CreateCircuitPoint({ 0, 14.6f, 351 }, 5);
+		CreateCircuitPoint({ 0, 17.9f, 354 }, 5);
+		CreateCircuitPoint({ 0, 22.5f, 357 }, 5);
+		CreateCircuitPoint({ 0, 28.5f, 360 }, 5);
+		JoinCircuitPoints();
+	}
+	// Reception + Jump
+	{
+		CreateCircuitPoint({ 0, 28.5f, 382 }, 5);
+		CreateCircuitPoint({ 0, 20.5f, 386 }, 5);
+		CreateCircuitPoint({ 0, 15.0f, 390 }, 5);
+		CreateCircuitPoint({ 0, 12.0f, 393 }, 5);
+		CreateCircuitPoint({ 0, 10.0f, 396 }, 5);
+		CreateCircuitPoint({ 0, 9.0f, 399 }, 5);
+		CreateCircuitPoint({ 0, 9.0f, 404 }, 5);
+		CreateCircuitPoint({ 0, 9.2f, 406 }, 5);
+		CreateCircuitPoint({ 0, 9.6f, 408 }, 5);
+		CreateCircuitPoint({ 0, 10.5f, 410 }, 5);
+		CreateCircuitPoint({ 0, 11.7f, 412 }, 5);
+		CreateCircuitPoint({ 0, 13.7f, 414 }, 5);
+		CreateCircuitPoint({ 0, 16.7f, 416 }, 5);
+		JoinCircuitPoints();
+	}
+	// End
+	{
+		CreateCircuitPoint({ 0, 29.5f, 436 }, 5);
+		CreateCircuitPoint({ 0, 29.5f, 456 }, 5);
+		CreateCircuitPoint({ 0, 34.5f, 456 }, 5);
 	}
 	JoinCircuitPoints();
 
 	// Check Points -------------------------
 	CreateCheckpoint({ 0, 34, 4 }, 5);
-	CreateCheckpoint({ 0, 8.5f, 162 }, 10);
+	CreateCheckpoint({ 0, 28.7f, 134.5f }, 10);
 	// --------------------------------------
 
 	// Score Creation -----------------------
@@ -423,7 +474,8 @@ void CircuitsManager::Circtuit2()
 	// --------------------------------------
 
 	// Hummer -------------------------------
-
+	CreateHammer(vec3(0, 35.5f, 165), vec3(0, 5.5f, 165), 2, 160.0f);
+	CreateHammer(vec3(0, 35.5f, 170), vec3(0, 5.5f, 170), 3, 160.0f);
 	// --------------------------------------
 }
 
@@ -534,43 +586,46 @@ void CircuitsManager::CreateHammer(const vec3 posA, const vec3 posB, int velocit
 
 void CircuitsManager::JoinCircuitPoints()
 {
-	for (int i = 0; i < circuit_points.count() - 1; i++)
+	if (circuit_points.count() > 0)
 	{
-		// Angle Vertical -----
-		float P1_z = circuit_points[i].first.z;
-		float P1_y = circuit_points[i].first.y;
+		for (int i = 0; i < circuit_points.count() - 1; i++)
+		{
+			// Angle Vertical -----
+			float P1_z = circuit_points[i].first.z;
+			float P1_y = circuit_points[i].first.y;
 
-		float P2_z = circuit_points[i + 1].first.z;
-		float P2_y = circuit_points[i + 1].first.y;
+			float P2_z = circuit_points[i + 1].first.z;
+			float P2_y = circuit_points[i + 1].first.y;
 
-		float deltaY = P2_y - P1_y;
-		float deltaX = P2_z - P1_z;
+			float deltaY = P2_y - P1_y;
+			float deltaX = P2_z - P1_z;
 
-		float angleV = atan2(deltaY, deltaX) * 180 / 3.141592653589793;
+			float angleV = atan2(deltaY, deltaX) * 180 / 3.141592653589793;
 
-		// -----------
+			// -----------
 
-		// Ground --
-		vec3 distance_vec = circuit_points[i + 1].first - circuit_points[i].first;
+			// Ground --
+			vec3 distance_vec = circuit_points[i + 1].first - circuit_points[i].first;
 
-		float distance = length(distance_vec);
+			float distance = length(distance_vec);
 
-		Cube* c = new Cube(circuit_points[i + 1].distance_between, 0.5f, distance);
-		c->color = Orange;
+			Cube* c = new Cube(circuit_points[i + 1].distance_between, 0.5f, distance);
+			c->color = Orange;
 
-		c->SetRotation(-angleV, vec3(1, 0, 0));
+			c->SetRotation(-angleV, vec3(1, 0, 0));
 
-		c->SetPos((circuit_points[i].first.x + distance_vec.x / 2), circuit_points[i].first.y + distance_vec.y / 2, circuit_points[i].first.z + distance_vec.z / 2);
+			c->SetPos((circuit_points[i].first.x + distance_vec.x / 2), circuit_points[i].first.y + distance_vec.y / 2, circuit_points[i].first.z + distance_vec.z / 2);
 
-		circuitPieces pieces;
-		pieces.PrimBody = c;
-		pieces.PhysBody = App->physics->AddBody(*c, 0.0f, App->scene_intro);
+			circuitPieces pieces;
+			pieces.PrimBody = c;
+			pieces.PhysBody = App->physics->AddBody(*c, 0.0f, App->scene_intro);
 
-		circuit_pieces.add(pieces);
-		// -----------
+			circuit_pieces.add(pieces);
+			// -----------
+		}
+
+		circuit_points.clear();
 	}
-
-	circuit_points.clear();
 }
 
 void CircuitsManager::CreateCheckpoint(const vec3 init, int height)
@@ -729,7 +784,7 @@ void CircuitsManager::InitScoreDots()
 
 void CircuitsManager::ChangeTitle()
 {
-	if (!finished)
+	if (!finished && !choose_level)
 	{
 		char title[120];
 		float time = (App->circuits->timer->Read() / 1000);
@@ -737,21 +792,31 @@ void CircuitsManager::ChangeTitle()
 		if (taken_score_dots == score_dots.count() - 1 && started)
 		{
 			App->audio->PlayFx(App->scene_intro->level_finished_fx, 0, -1);
-			sprintf_s(title, "Circuit %d completed. Time: %.3f sec     | R to reestart |  | NUMBERS to change circuit |", current_circuit, time - 3);
+
+			if (time - 3 < better_times[current_circuit - 1] || better_times[current_circuit - 1] == 0)
+				better_times[current_circuit - 1] = time - 3;
+
+			sprintf_s(title, "Circuit %d completed. Time: %.3f sec  Better: %.3f   | R to reestart |  | NUMBERS to change circuit |", current_circuit, time - 3, better_times[current_circuit - 1]);
 			started = false;
 			finished = true;
 		}
 		else if (time < 3 && !started)
 		{
-			sprintf_s(title, "Time to start: %2.f", 3 - time);
+			sprintf_s(title, "Time to start: %2.f    Better time on this circuit: %.3f", 3 - time, better_times[current_circuit - 1]);
 			started = false;
 		}
 		else
 		{
-			sprintf_s(title, "Current time: %.3f  Collected points %.0f/%d     | SPACE to return to the last checkpoint |", time - 3, taken_score_dots + 1, score_dots.count());
+			sprintf_s(title, "Current time: %.3f  Better: %.3f  Collected points %.0f/%d     | SPACE to return to the last checkpoint |", time - 3, better_times[current_circuit - 1], taken_score_dots + 1, score_dots.count());
 			started = true;
 		}
 
+		App->window->SetTitle(title);
+	}
+	else if(choose_level)
+	{
+		char title[120];
+		sprintf_s(title, "Welcome! Press the numbers [1] or [2] any time to change levels");
 		App->window->SetTitle(title);
 	}
 }
