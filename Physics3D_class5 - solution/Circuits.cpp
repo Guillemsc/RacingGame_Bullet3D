@@ -9,7 +9,7 @@
 #include "Timer.h"
 #include <stdio.h>
 
-#define NUMBER_OF_CIRCUITS 2
+#define NUMBER_OF_CIRCUITS 3
 
 CircuitsManager::CircuitsManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -111,6 +111,9 @@ void CircuitsManager::SetCircuit(int i)
 		break;
 	case 2:
 		Circtuit2();
+		break;
+	case 3:
+		Circtuit3();
 		break;
 	}
 
@@ -490,6 +493,58 @@ void CircuitsManager::Circtuit2()
 	CreateDeadSensor(vec3(0, -0.5f, 200), 100, 500);
 }
 
+void CircuitsManager::Circtuit3()
+{
+	CreateCircuitPoint({ 0, 305.4f, 0 }, 5);
+	CreateCircuitPoint({ 0, 300.5f, 0 }, 5);
+	CreateCircuitPoint({ 0, 300.5f, 10 }, 5);
+	CreateCircuitPoint({ 0, 300.3f, 12 }, 5);
+	CreateCircuitPoint({ 0, 299.7f, 14 }, 5);
+	CreateCircuitPoint({ 0, 298.9f, 16 }, 5);
+	CreateCircuitPoint({ 0, 297.6f, 18 }, 5);
+	CreateCircuitPoint({ 0, 295.6f, 20 }, 5);
+	JoinCircuitPoints();
+	CreateCircuitPoint({ 0, 250.6f, 40 }, 5);
+	CreateCircuitPoint({ 0, 150.6f, 100 }, 5);
+	CreateCircuitPoint({ 0, 100.6f, 140 }, 5);
+	CreateCircuitPoint({ 0, 97.6f, 143 }, 5);
+	CreateCircuitPoint({ 0, 95.6f, 146 }, 5);
+	CreateCircuitPoint({ 0, 94.6f, 149 }, 5);
+	CreateCircuitPoint({ 0, 93.9f, 152 }, 5);
+	CreateCircuitPoint({ 0, 93.5f, 158 }, 5);
+	CreateCircuitPoint({ 0, 93.5f, 168 }, 5);
+	JoinCircuitPoints();
+	CreateCircuitPoint({ 0, 63.5f, 225 }, 5);
+	CreateCircuitPoint({ 0, 13.5f, 288 }, 5);
+	CreateCircuitPoint({ 0, 12.2f, 291 }, 5);
+	CreateCircuitPoint({ 0, 11.7f, 294 }, 5);
+	CreateCircuitPoint({ 0, 11.7f, 294 }, 5);
+	CreateCircuitPoint({ 0, 11.7f, 314 }, 5);
+	CreateCircuitPoint({ 0, 14.7f, 314 }, 5);
+
+	// Check Points -------------------------
+
+	CreateCheckpoint({ 0, 301, 3 }, 5);
+
+	// --------------------------------------
+
+	// Score Creation -----------------------
+
+	CreateScoreDots({ 0, 15, 310 }, 4);
+
+	// --------------------------------------
+
+	// Hummer -------------------------------
+	//CreateHammer(vec3(0, 87.5f, 210), vec3(0, 57.5f, 210), 2, 160.0f);
+
+	// --------------------------------------
+
+	// Dead sensor
+	CreateDeadSensor(vec3(0, 0.5f, 150), 100, 400);
+
+	JoinCircuitPoints();
+}
+
 // Free and reset circuit and checkpoint list
 void CircuitsManager::DeleteCircuit()
 {
@@ -839,7 +894,7 @@ void CircuitsManager::ChangeTitle()
 	else if(choose_level)
 	{
 		char title[120];
-		sprintf_s(title, "Welcome! Press the numbers [1] or [2] any time to change levels");
+		sprintf_s(title, "Welcome! Press the numbers [1], [2] or [3] any time to change levels");
 		App->window->SetTitle(title);
 	}
 }
