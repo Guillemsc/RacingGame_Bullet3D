@@ -23,6 +23,7 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(-300, 100.5f, 200));
 	App->camera->LookAt(vec3(0, 0, 200));
+	App->circuits->SetCircuit(2);
 	//App->camera->LookAt(vec3(0, 0, 0));
 
 	App->circuits->SetCircuit(1);

@@ -425,7 +425,7 @@ void CircuitsManager::Circtuit2()
 	}
 	// Reception + Jump
 	{
-		CreateCircuitPoint({ 0, 40.7f, 280 }, 5);
+		CreateCircuitPoint({ 0, 40.7f, 277 }, 5);
 		CreateCircuitPoint({ 0, 10.7f, 330 }, 5);
 		CreateCircuitPoint({ 0, 9.7f, 333 }, 5);
 		CreateCircuitPoint({ 0, 9.2f, 336 }, 5);
@@ -467,10 +467,14 @@ void CircuitsManager::Circtuit2()
 	// Check Points -------------------------
 	CreateCheckpoint({ 0, 34, 4 }, 5);
 	CreateCheckpoint({ 0, 28.7f, 134.5f }, 10);
+	CreateCheckpoint({ 0, 52.7f, 235.5f }, 15);
 	// --------------------------------------
 
 	// Score Creation -----------------------
-	
+	CreateScoreDots({ 0, 20.9f, 106 }, 4);
+	CreateScoreDots({ 0, 40.9f, 156 }, 4);
+	CreateScoreDots({ 0, 53.9f, 255 }, 4);
+	CreateScoreDots({ 0, 32.0f, 444.5f }, 4);
 	// --------------------------------------
 
 	// Hummer -------------------------------

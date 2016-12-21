@@ -42,6 +42,8 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
+	//(following != nullptr && !App->circuits->choose_level)
+	//(following != nullptr && App->physics->debug == true)
 
 	// Follow code
 	if (following != nullptr && !App->circuits->choose_level)
