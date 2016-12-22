@@ -451,26 +451,26 @@ void CircuitsManager::Circtuit2()
 	}
 	// Reception + Jump
 	{
-		CreateCircuitPoint({ 0, 28.5f, 382 }, 5);
-		CreateCircuitPoint({ 0, 20.5f, 386 }, 5);
-		CreateCircuitPoint({ 0, 15.0f, 390 }, 5);
-		CreateCircuitPoint({ 0, 12.0f, 393 }, 5);
-		CreateCircuitPoint({ 0, 10.0f, 396 }, 5);
-		CreateCircuitPoint({ 0, 9.0f, 399 }, 5);
-		CreateCircuitPoint({ 0, 9.0f, 404 }, 5);
-		CreateCircuitPoint({ 0, 9.2f, 406 }, 5);
-		CreateCircuitPoint({ 0, 9.6f, 408 }, 5);
-		CreateCircuitPoint({ 0, 10.5f, 410 }, 5);
-		CreateCircuitPoint({ 0, 11.7f, 412 }, 5);
-		CreateCircuitPoint({ 0, 13.7f, 414 }, 5);
-		CreateCircuitPoint({ 0, 16.7f, 416 }, 5);
+		CreateCircuitPoint({ 0, 28.5f, 392 }, 5);
+		CreateCircuitPoint({ 0, 20.5f, 396 }, 5);
+		CreateCircuitPoint({ 0, 15.0f, 400 }, 5);
+		CreateCircuitPoint({ 0, 12.0f, 403 }, 5);
+		CreateCircuitPoint({ 0, 10.0f, 406 }, 5);
+		CreateCircuitPoint({ 0, 9.0f, 409 }, 5);
+		CreateCircuitPoint({ 0, 9.0f, 414 }, 5);
+		CreateCircuitPoint({ 0, 9.2f, 416 }, 5);
+		CreateCircuitPoint({ 0, 9.6f, 418 }, 5);
+		CreateCircuitPoint({ 0, 10.5f, 420 }, 5);
+		CreateCircuitPoint({ 0, 11.7f, 422 }, 5);
+		CreateCircuitPoint({ 0, 13.7f, 424 }, 5);
+		CreateCircuitPoint({ 0, 16.7f, 426 }, 5);
 		JoinCircuitPoints();
 	}
 	// End
 	{
-		CreateCircuitPoint({ 0, 29.5f, 436 }, 5);
-		CreateCircuitPoint({ 0, 29.5f, 456 }, 5);
-		CreateCircuitPoint({ 0, 34.5f, 456 }, 5);
+		CreateCircuitPoint({ 0, 29.5f, 446 }, 5);
+		CreateCircuitPoint({ 0, 29.5f, 466 }, 5);
+		CreateCircuitPoint({ 0, 34.5f, 466 }, 5);
 	}
 	JoinCircuitPoints();
 
@@ -484,7 +484,7 @@ void CircuitsManager::Circtuit2()
 	CreateScoreDots({ 0, 20.9f, 106 }, 4);
 	CreateScoreDots({ 0, 40.9f, 156 }, 4);
 	CreateScoreDots({ 0, 53.9f, 255 }, 4);
-	CreateScoreDots({ 0, 32.0f, 444.5f }, 4);
+	CreateScoreDots({ 0, 32.0f, 454.5f }, 4);
 	// --------------------------------------
 
 	// Hummer -------------------------------
@@ -517,13 +517,11 @@ void CircuitsManager::Circtuit3()
 	CreateCircuitPoint({ 0, 93.5f, 158 }, 5);
 	CreateCircuitPoint({ 0, 93.5f, 168 }, 5);
 	JoinCircuitPoints();
-	CreateCircuitPoint({ 0, 63.5f, 225 }, 5);
-	CreateCircuitPoint({ 0, 13.5f, 288 }, 5);
-	CreateCircuitPoint({ 0, 12.2f, 291 }, 5);
-	CreateCircuitPoint({ 0, 11.7f, 294 }, 5);
-	CreateCircuitPoint({ 0, 11.7f, 294 }, 5);
-	CreateCircuitPoint({ 0, 11.7f, 314 }, 5);
-	CreateCircuitPoint({ 0, 14.7f, 314 }, 5);
+	CreateCircuitPoint({ 0, 63.5f, 285 }, 5);
+	CreateCircuitPoint({ 0, 13.5f, 408 }, 5);
+	CreateCircuitPoint({ 0, 11.7f, 414 }, 5);
+	CreateCircuitPoint({ 0, 11.7f, 444 }, 5);
+	CreateCircuitPoint({ 0, 14.7f, 444 }, 5);
 
 	// Check Points -------------------------
 
@@ -533,7 +531,7 @@ void CircuitsManager::Circtuit3()
 
 	// Score Creation -----------------------
 
-	CreateScoreDots({ 0, 14, 310 }, 4);
+	CreateScoreDots({ 0, 12, 430 }, 4);
 
 	// --------------------------------------
 

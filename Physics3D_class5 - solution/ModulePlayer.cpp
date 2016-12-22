@@ -118,13 +118,14 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	SetCameraDistance();
+	SetCameraDistance(dt);
 
 	if (App->circuits->started)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
-			acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * (5.0f*abs(vehicle->GetKmh())))); // 5.4
+			if((MAX_ACCELERATION - (abs(vehicle->GetKmh()) * ((5.0f)*abs(vehicle->GetKmh())))) > 0)
+				acceleration = (MAX_ACCELERATION - (abs(vehicle->GetKmh()) * ((5.0f)*abs(vehicle->GetKmh())))); // 5.4
 		}
 		else if (vehicle->GetKmh() > 0)
 		{
@@ -137,13 +138,13 @@ update_status ModulePlayer::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
 			if (torque.getX() > -4)
-				App->player->vehicle->body->setAngularVelocity(btVector3(torque.getX() - 0.15f, torque.getY(), torque.getZ()));
+				App->player->vehicle->body->setAngularVelocity(btVector3(torque.getX() - (12.55f * dt), torque.getY(), torque.getZ()));
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
 			if (torque.getX() < 4)
-				App->player->vehicle->body->setAngularVelocity(btVector3(torque.getX() + 0.15f, torque.getY(), torque.getZ()));
+				App->player->vehicle->body->setAngularVelocity(btVector3(torque.getX() + (12.55f * dt), torque.getY(), torque.getZ()));
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -160,12 +161,12 @@ update_status ModulePlayer::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModulePlayer::SetCameraDistance()
+void ModulePlayer::SetCameraDistance(float dt)
 {
 	float dist = App->camera->camera_distance;
-	float movement = 0.02;
+	float movement = 0.52f * dt;
 
-	if (starting_camera_distance + abs(vehicle->GetKmh() * 0.2) > dist + 5)
+	if (starting_camera_distance + abs(vehicle->GetKmh() * 0.2f) > dist + 5)
 	{
 		if(dist < 25)
 			App->camera->camera_distance += movement;

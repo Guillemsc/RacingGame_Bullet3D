@@ -49,7 +49,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	//Plane p(0, 10, 0, 0);
+	//cPlane p(0, 10, 0, 0);
 
 	//p.axis = true;
 

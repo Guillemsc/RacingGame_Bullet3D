@@ -20,7 +20,7 @@ public:
 
 	float abs(float number);
 
-	void SetCameraDistance();
+	void SetCameraDistance(float dt);
 	void ResetCarMotion();
 	void Crash();
 
